@@ -1,13 +1,14 @@
 /*
- * Copyright (c) 2013, Anatole Tresch.
+ * CREDIT SUISSE IS WILLING TO LICENSE THIS SPECIFICATION TO YOU ONLY UPON THE
+ * CONDITION THAT YOU ACCEPT ALL OF THE TERMS CONTAINED IN THIS AGREEMENT.
+ * PLEASE READ THE TERMS AND CONDITIONS OF THIS AGREEMENT CAREFULLY. BY
+ * DOWNLOADING THIS SPECIFICATION, YOU ACCEPT THE TERMS AND CONDITIONS OF THE
+ * AGREEMENT. IF YOU ARE NOT WILLING TO BE BOUND BY IT, SELECT THE "DECLINE"
+ * BUTTON AT THE BOTTOM OF THIS PAGE.
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by
- * applicable law or agreed to in writing, software distributed under the
- * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
- * OF ANY KIND, either express or implied. See the License for the specific
- * language governing permissions and limitations under the License.
+ * Specification: JSR-xxx Java Configuration API ("Specification")
+ * 
+ * Copyright (c) 2012-2013, Credit Suisse All rights reserved.
  */
 package javax.config;
 
@@ -33,7 +34,7 @@ public interface ConfigurationUnit {
 	public String getName();
 
 	/**
-	 * Get the sources read for this {@link ConfigurationUnit} instance.
+	 * Get the sources read for this {@link ConfigurationMap} instance.
 	 * 
 	 * @return the sources for the instance, never {@code null}.
 	 */
@@ -41,7 +42,7 @@ public interface ConfigurationUnit {
 
 	/**
 	 * Get a list of exceptions occurred during creation of a
-	 * {@link ConfigurationUnit}.
+	 * {@link ConfigurationMap}.
 	 * 
 	 * @return the ordered list of errors occurred.
 	 */
@@ -62,7 +63,7 @@ public interface ConfigurationUnit {
 	 *            the key, not {@code null}.
 	 * @return the according meta-info, or {@code null}.
 	 */
-	public Map<String, String> getPropertyMetaInfo(String key);
+	public Map<String, String> getMetaInfo(String key);
 
 	/**
 	 * Get the property value as {@link String}.
@@ -75,7 +76,7 @@ public interface ConfigurationUnit {
 	public String getProperty(String key);
 
 	/**
-	 * Get all entries contained within a given {@link ConfigurationUnit}.
+	 * Get all entries contained within a given {@link ConfigurationMap}.
 	 * 
 	 * @return the entries contained as a unmodifiable {@link Map}, never
 	 *         {@code null}.
@@ -84,7 +85,7 @@ public interface ConfigurationUnit {
 
 	/**
 	 * Get all {@link PropertyValueMetaInfo} contained within a given
-	 * {@link ConfigurationUnit}.
+	 * {@link ConfigurationMap}.
 	 * 
 	 * @return the {@link PropertyValueMetaInfo} entries contained as a
 	 *         unmodifiable {@link Map}, never {@code null}.
@@ -92,12 +93,12 @@ public interface ConfigurationUnit {
 	public Map<String, Map<String, String>> getMetaInfo();
 
 	/**
-	 * Allows to determine if the given {@link ConfigurationUnit} defines any
+	 * Allows to determine if the given {@link ConfigurationMap} defines any
 	 * properties in the given context( {@link Environment} ).
 	 * 
 	 * @param environment
 	 *            the environment where the config is evaluated.
-	 * @return true, if the {@link ConfigurationUnit} is defined.
+	 * @return true, if the {@link ConfigurationMap} is defined.
 	 */
 	public boolean isActive(Environment environment);
 
