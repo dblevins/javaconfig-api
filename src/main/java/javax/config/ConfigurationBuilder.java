@@ -12,18 +12,16 @@
  */
 package javax.config;
 
-import java.util.Map;
+public interface ConfigurationBuilder {
 
-/**
- * A builder for creating new configuration instances.
- * 
- * @author Anatole Tresch
- * 
- */
-//public interface ConfigurationBuilder {
-//
-//	
-//
-//	public Configuration build();
-//
-//}
+	public ConfigurationBuilder withName(String name);
+	
+	public ConfigurationBuilder withConfiguration(Configuration type);
+
+	public ConfigurationBuilder withConfiguration(String modelId);
+
+	public ConfigurationBuilder withQuery(ConfigurationQuery query);
+
+	public Configuration build();
+
+}

@@ -12,6 +12,8 @@
  */
 package javax.config;
 
+import java.util.Map;
+import java.util.Set;
 
 /**
  * A aggregate configuration identifies a a configuration set that is defined by
@@ -34,7 +36,14 @@ package javax.config;
  * 
  * @author Anatole Tresch
  */
-public interface Configuration extends ConfigurationUnit{
+public interface Configuration extends ConfigurationUnit {
+
+	/**
+	 * Get the model's name.
+	 * 
+	 * @return the model name, never {@code null}.
+	 */
+	public String getName();
 
 	/**
 	 * Get the property value as {@link String}.
@@ -252,9 +261,10 @@ public interface Configuration extends ConfigurationUnit{
 	 * Get the property value as type {@code Class<T>}.
 	 * <p>
 	 * If {@code Class<T>} is not one of
-	 * {@code Boolean, Short, Integer, Long, Float, Double, BigInteger, BigDecimal, String}
-	 * , an according {@link Converter} must be available to perform the
-	 * conversion from {@link String} to {@code Class<T>}.
+	 * {@code Boolean, Short, Integer, Long, Float, Double, BigInteger,
+	 BigDecimal, String} , an according {@link Converter} must be
+	 * available to perform the conversion from {@link String} to
+	 * {@code Class<T>}.
 	 * 
 	 * @param key
 	 *            the property's absolute, or relative path, e.g. @code
@@ -292,6 +302,48 @@ public interface Configuration extends ConfigurationUnit{
 	 */
 	public <T> T getAdaptedProperty(String key, PropertyAdapter<T> adapter,
 			T defaultValue);
+
+	/**
+	 * Return a set with all fully qualifies area names.
+	 * 
+	 * @return s set with all areas, never {@code null}.
+	 */
+	public Set<String> getAreas();
+
+	// /**
+	// * Return a set with all fully qualifies area names, containing only the
+	// * areas that match the predicate.
+	// *
+	// * @return s set with all areas, never {@code null .
+	//
+	// */
+	// public Set<String> getAreas(Predicate<String, Boolean> predicate);
+
+	/**
+	 * Allows to evaluate if an area exists.
+	 * 
+	 * @param key
+	 *            the configuration area (sub)path.
+	 * @return {@code true}, if such a node exists.
+	 */
+	public boolean containsArea(String key);
+
+	/**
+	 * Access all currently defined properties.
+	 * 
+	 * @return all properties, never {@code null}.
+	 */
+	public Map<String, String> getProperties();
+
+	// /**
+	// * Access all currently defined properties, which are accepted by the
+	// given
+	// * predicate.
+	// *
+	// * @return all properties, never {@code null}.
+	// */
+	// public Map<String, String> getProperties(
+	// Predicate<String, Boolean> predicate);
 
 	/**
 	 * Extension point for adjusting configuration.

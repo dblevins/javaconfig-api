@@ -81,7 +81,7 @@ public interface ConfigurationUnit {
 	 * @return the entries contained as a unmodifiable {@link Map}, never
 	 *         {@code null}.
 	 */
-	public Map<String, String> getEntries();
+	public Map<String, String> getProperties();
 
 	/**
 	 * Get all {@link PropertyValueMetaInfo} contained within a given

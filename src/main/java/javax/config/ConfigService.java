@@ -31,7 +31,7 @@ public interface ConfigService {
 	 * 
 	 * @return all available configuration ids, never{@code null}.
 	 */
-	Collection<String> getConfigurationModelIds();
+	Collection<String> getConfigurationIds();
 
 	/**
 	 * Access a {@link ConfigurationModel} by name, matching to the current
@@ -41,10 +41,10 @@ public interface ConfigService {
 	 * @param configId
 	 *            The identifier of the required {@link ConfigurationModel}, not
 	 *            {@code null}.
-	 * @return the current {@link ConfigurationModel} corresponding to the
+	 * @return the current {@link Configuration} corresponding to the
 	 *         {@code configId}.
 	 */
-	ConfigurationModel getConfigurationModel(String configModelId);
+	Configuration getConfiguration(String configId);
 
 	/**
 	 * Access a {@link ConfigurationModel} by name, matching the given target
@@ -55,11 +55,11 @@ public interface ConfigService {
 	 *            The identifier of the required {@link ConfigurationModel}, not
 	 *            {@code null}.
 	 * @param environment
-	 *            the target enbvironment
+	 *            the target environment
 	 * @return the current {@link ConfigurationModel} corresponding to the
 	 *         {@code configId}.
 	 */
-	ConfigurationModel getConfigurationModel(String configModelId,
+	Configuration getConfiguration(String configId,
 			Environment environment);
 
 	/**
@@ -70,7 +70,7 @@ public interface ConfigService {
 	 *            The model id to be looked up, not {@code null}.
 	 * @return true, if the given {@link ConfigurationModel} is defined.
 	 */
-	boolean isConfigurationModelDefined(String configModelId);
+	boolean isConfigurationDefined(String configId);
 
 	/**
 	 * Access the current active runtime {@link Environment}.
@@ -79,7 +79,7 @@ public interface ConfigService {
 	 *         {@code null}.
 	 */
 	Environment getCurrentEnvironment();
-	
+
 	Environment getSystemEnvironment();
 
 	/**

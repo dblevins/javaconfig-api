@@ -88,13 +88,13 @@ public final class JavaConfig {
 		private Environment environment = new DefaultEnvironment();
 
 		@Override
-		public ConfigurationModel getConfigurationModel(String configId) {
+		public Configuration getConfiguration(String configId) {
 			throw new UnsupportedOperationException(
 					"No java-config implementation found.");
 		}
 
 		@Override
-		public boolean isConfigurationModelDefined(String configId) {
+		public boolean isConfigurationDefined(String configId) {
 			throw new UnsupportedOperationException(
 					"No java-config implementation found.");
 		}
@@ -130,7 +130,7 @@ public final class JavaConfig {
 		}
 
 		@Override
-		public Collection<String> getConfigurationModelIds() {
+		public Collection<String> getConfigurationIds() {
 			throw new UnsupportedOperationException(
 					"No java-config implementation found.");
 		}
@@ -147,7 +147,7 @@ public final class JavaConfig {
 		}
 
 		@Override
-		public ConfigurationModel getConfigurationModel(String configModelId,
+		public Configuration getConfiguration(String configId,
 				Environment environment) {
 			throw new UnsupportedOperationException(
 					"No java-config implementation found.");

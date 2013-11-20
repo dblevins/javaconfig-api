@@ -10,19 +10,22 @@
  * 
  * Copyright (c) 2012-2013, Credit Suisse All rights reserved.
  */
-package javax.config;
+package javax.config.meta;
 
-/**
- * A query allows to evaluate an arbitrary value from a
- * {@link ConfigurationModel}.
- * 
- * @author Anatole Tresch
- * 
- * @param <T>
- *            the target result type queried.
- */
-// @FunctionalInterface
-public interface ConfigurationModelQuery<T> {
+import java.util.Set;
 
-	T queryFrom(ConfigurationModel config);
+public interface ConfigMetaModel {
+
+	public Set<String> getModelIds();
+
+	public boolean isModelDefined(String modelId);
+
+	public ModelDescriptor getModelDescriptor(String modelId);
+
+	public Set<String> getUnitIds();
+
+	public boolean isUnitefined(String modelId);
+
+	public UnitDescriptor getUnitDescriptor(String modelId);
+
 }

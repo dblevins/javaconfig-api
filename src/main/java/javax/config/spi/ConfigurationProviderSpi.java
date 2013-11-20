@@ -15,8 +15,8 @@ package javax.config.spi;
 import java.util.Collection;
 
 import javax.config.Configuration;
+import javax.config.ConfigurationUnit;
 import javax.config.Environment;
-
 
 /**
  * This SPI allows to add additional scopes to the system.
@@ -24,6 +24,19 @@ import javax.config.Environment;
  * @author Anatole Tresch
  */
 public interface ConfigurationProviderSpi {
+
+	/**
+	 * Called, when a given {@link ConfigurationModel} has to be evaluated.
+	 * 
+	 * @param modelId
+	 *            the id of the model to be read.
+	 * @param environment
+	 *            The target environment.
+	 * @return the corresponding {@link ConfigurationModel}, or {@code null}, if
+	 *         not available for the given environment.
+	 */
+	Configuration getConfiguration(
+			String modelId, Environment environment);
 
 	/**
 	 * Defines the {@link ConfigurationUnit} accessible by this SPI
