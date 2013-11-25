@@ -12,7 +12,6 @@
  */
 package javax.config;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -49,14 +48,6 @@ public interface ConfigurationUnit {
 	public List<Throwable> getErrors();
 
 	/**
-	 * Get the configuration's name (unique within a {@link ConfigurationModel}
-	 * and {@link Environment}).
-	 * 
-	 * @return the configuration's name
-	 */
-	public Collection<String> getSourceExpressions();
-
-	/**
 	 * Get the {@link PropertyValueMetaInfo} for the given key.
 	 * 
 	 * @param key
@@ -82,15 +73,6 @@ public interface ConfigurationUnit {
 	 *         {@code null}.
 	 */
 	public Map<String, String> getProperties();
-
-	/**
-	 * Get all {@link PropertyValueMetaInfo} contained within a given
-	 * {@link ConfigurationMap}.
-	 * 
-	 * @return the {@link PropertyValueMetaInfo} entries contained as a
-	 *         unmodifiable {@link Map}, never {@code null}.
-	 */
-	public Map<String, Map<String, String>> getMetaInfo();
 
 	/**
 	 * Allows to determine if the given {@link ConfigurationMap} defines any

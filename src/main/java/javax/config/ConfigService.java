@@ -14,8 +14,6 @@ package javax.config;
 
 import java.util.Collection;
 
-import javax.config.spi.EnvironmentContext;
-
 /**
  * Service for accessing configuration. A configuration service is always base
  * on the environment definition provided by one instance of

@@ -51,6 +51,18 @@ public interface Configuration extends ConfigurationUnit {
 	 * @param key
 	 *            the property's absolute, or relative path, e.g. @code
 	 *            a/b/c/d.myProperty}.
+	 * @return the property's value.
+	 * @throws IllegalArgumentException
+	 *             if no such property exists.
+	 */
+	public String getProperty(String key);
+	
+	/**
+	 * Get the property value as {@link String}.
+	 * 
+	 * @param key
+	 *            the property's absolute, or relative path, e.g. @code
+	 *            a/b/c/d.myProperty}.
 	 * @param defaultValue
 	 *            the default value, returned if no such property exists or the
 	 *            property's value is {@code null}.

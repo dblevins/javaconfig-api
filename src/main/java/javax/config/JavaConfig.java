@@ -21,8 +21,6 @@ import java.util.ServiceLoader;
 import java.util.TimeZone;
 import java.util.TreeMap;
 
-import javax.config.spi.EnvironmentContext;
-
 /**
  * Singleton accessor for Java configuration.
  * 
@@ -55,7 +53,7 @@ public final class JavaConfig {
 	 * 
 	 * @return the {@link ConfigService}, not {@code null}.
 	 */
-	public static ConfigService getConfigService(EnvironmentContext environment) {
+	public static ConfigService getConfigService(Environment environment) {
 		return configurationService;
 	}
 
