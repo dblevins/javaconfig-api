@@ -84,4 +84,9 @@ public interface ConfigurationUnit {
 	 */
 	public boolean isActive(Environment environment);
 
+	/**
+	 * Reloads the {@link ConfigurationUnit}.
+	 */
+	public void reload();
+
 }
