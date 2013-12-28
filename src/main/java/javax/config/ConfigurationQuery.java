@@ -16,6 +16,12 @@ package javax.config;
  * This interface allows to query something from a {@link Configuration}. This
  * can also be used as <i>adapter</i> for evaluating something different from a
  * property value.
+ * <h3>Implementation Specification</h3>
+ * Implementations of this interface should be
+ * <ul>
+ * <li>Thread safe.
+ * <li>immutable.
+ * </ul>
  * 
  * @author Anatole Tresch
  * 

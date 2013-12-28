@@ -12,6 +12,7 @@
  */
 package javax.config;
 
+
 public interface ConfigurationBuilder {
 
 	public ConfigurationBuilder withName(String name);

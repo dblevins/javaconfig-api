@@ -33,7 +33,16 @@ import java.util.Set;
  * configuration type. New aggregate scopes can be defined, or additional
  * {@link ConfigurationUnit} instances can be added to existing aggregates.
  * <br/>
- * 
+ * <h3>Implementation Specification</h3>
+ * Implementations of this interface must be
+ * <ul>
+ * <li>Thread safe.
+ * <li>Immutable
+ * </ul>
+ * It is highly recommended that implementations also are
+ * <ul>
+ * <li>serializable
+ * </ul>
  * @author Anatole Tresch
  */
 public interface Configuration extends ConfigurationUnit {

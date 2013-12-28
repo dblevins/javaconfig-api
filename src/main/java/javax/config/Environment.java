@@ -14,7 +14,13 @@ import java.util.Map;
  * Models the current runtime environment. Instances of this class are selected by
  * {@link EnvironmentSelector} to evaluate if configuration artifacts are to be included (selected)
  * into the current configuration aggregate.
- * 
+ * <h3>Implementation Specification</h3>
+ * Implementations of this interface must be
+ * <ul>
+ * <li>Thread safe.
+ * <li>Immutable
+ * <li>serializable
+ * </ul>
  * @author Anatole Tresch
  */
 public interface Environment {

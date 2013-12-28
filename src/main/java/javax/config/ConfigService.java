@@ -19,7 +19,11 @@ import java.util.Collection;
  * on the environment definition provided by one instance of
  * {@link EnvironmentContext}. It is possible to define multiple
  * {@link ConfigService} instances, if required.
- * 
+ * <h3>Implementation Specification</h3>
+ * Implementations of this interface must be
+ * <ul>
+ * <li>Thread safe.
+ * </ul>
  * @author Anatole Tresch
  */
 public interface ConfigService {
