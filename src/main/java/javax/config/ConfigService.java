@@ -112,7 +112,7 @@ public interface ConfigService {
 	public ConfigurationUpdater createConfiguration(String configId);
 
 	/**
-	 * Adds a listener for configuration changes, duplicates must be ignored.
+	 * Adds a listener for configuration changes, duplicates are ignored.
 	 * 
 	 * @param l
 	 *            the listener to be added.
