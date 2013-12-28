@@ -246,6 +246,11 @@ public final class JavaConfig {
 			return out.toString();
 		}
 
+		@Override
+		public Environment getParent() {
+			return null;
+		}
+
 	}
 
 }
