@@ -18,74 +18,76 @@ import java.util.Collection;
  * Service for accessing configuration. A configuration service is always base
  * on the environment definition provided by one instance of
  * {@link EnvironmentContext}. It is possible to define multiple
- * {@link ConfigService} instances, if required.
- * <h3>Implementation Specification</h3>
- * Implementations of this interface must be
+ * {@link ConfigService} instances, if required. <h3>Implementation
+ * Specification</h3> Implementations of this interface must be
  * <ul>
  * <li>Thread safe.
  * </ul>
+ * 
  * @author Anatole Tresch
  */
 public interface ConfigService {
 
 	/**
-	 * Access all defined {@link ConfigurationModel} ids.
+	 * Access all defined {@link Configuration} ids.
 	 * 
 	 * @return all available configuration ids, never{@code null}.
 	 */
-	Collection<String> getConfigurationIds();
+	Collection<String> getConfigurationNames();
+	
+	/**
+	 * Access the current {@link Configuration}, matching to the current
+	 * {@link Environment}.
+	 * 
+	 * @see EnvironmentContext#getCurrentEnvironment()
+	 * @return the current {@link Configuration} corresponding to the
+	 *         current {@code Environment}.
+	 */
+	Configuration getConfiguration();
 
 	/**
-	 * Access a {@link ConfigurationModel} by name, matching to the current
+	 * Access a {@link Configuration} by name, matching to the current
 	 * {@link Environment}.
 	 * 
 	 * @see #getCurrentEnvironment()
-	 * @param configId
-	 *            The identifier of the required {@link ConfigurationModel}, not
+	 * @param name
+	 *            The name of the required {@link Configuration}, not
 	 *            {@code null}.
 	 * @return the current {@link Configuration} corresponding to the
 	 *         {@code configId}.
+	 * @throws ConfigException
+	 *             if the required configuration is not defined or not
+	 *             available.
 	 */
-	Configuration getConfiguration(String configId);
+	Configuration getConfiguration(String name);
 
 	/**
-	 * Access a {@link ConfigurationModel} by name, matching the given target
+	 * Access a {@link Configuration} by name, matching the given target
 	 * {@link Environment}. This can be used e.g. for accessing deployment
 	 * configuration for an application to be deployed.
 	 * 
-	 * @param configId
-	 *            The identifier of the required {@link ConfigurationModel}, not
-	 *            {@code null}.
 	 * @param environment
 	 *            the target environment
-	 * @return the current {@link ConfigurationModel} corresponding to the
+	 * @return the current {@link Configuration} corresponding to the
 	 *         {@code configId}.
+	 * @throws ConfigException
+	 *             if the required configuration is not defined or not
+	 *             available.
 	 */
-	Configuration getConfiguration(String configId,
-			Environment environment);
+	Configuration getConfiguration(String name, Environment environment);
 
 	/**
-	 * Allows to check if a {@link ConfigurationModel} with the given id is
+	 * Allows to check if a {@link Configuration} with the given id is
 	 * defined.
 	 * 
 	 * @param configId
 	 *            The model id to be looked up, not {@code null}.
-	 * @return true, if the given {@link ConfigurationModel} is defined.
+	 * @return true, if the given {@link Configuration} is defined.
 	 */
 	boolean isConfigurationDefined(String configId);
 
 	/**
-	 * Access the current active runtime {@link Environment}.
-	 * 
-	 * @return the current active runtime {@link Environment}, never
-	 *         {@code null}.
-	 */
-	Environment getCurrentEnvironment();
-
-	Environment getSystemEnvironment();
-
-	/**
-	 * Create a {@link ConfigurationQuery} for querying arbitrary configuration.
+	 * Create a {@link ConfigurationQuery} for querying arbitrary {@link Configuration}.
 	 * 
 	 * @return a new {@link ConfigurationQuery} instance.
 	 */
@@ -93,7 +95,7 @@ public interface ConfigService {
 
 	/**
 	 * Create a new {@link ConfigurationUpdater} for updating or deletion of a
-	 * configuration.
+	 * {@link Configuration}.
 	 * 
 	 * @return a new {@link ConfigurationUpdater}.
 	 */
@@ -104,12 +106,12 @@ public interface ConfigService {
 	 * {@link Configuration} instance.
 	 * 
 	 * @param configId
-	 *            the new config identifier
+	 *            the new Configuration name
 	 * @return the new {@link ConfigurationUpdater}, never {@code null}.
 	 * @throws UnsupportedOperationException
 	 *             if no new Configuration can be added.
 	 */
-	public ConfigurationUpdater createConfiguration(String configId);
+	public ConfigurationUpdater createConfiguration(String name);
 
 	/**
 	 * Adds a listener for configuration changes, duplicates are ignored.

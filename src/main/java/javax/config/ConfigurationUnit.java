@@ -44,13 +44,6 @@ public interface ConfigurationUnit {
 	public Set<String> getSources();
 
 	/**
-	 * Get a list of exceptions occurred during creation of a {@link ConfigurationMap}.
-	 * 
-	 * @return the ordered list of errors occurred.
-	 */
-	public List<Throwable> getErrors();
-
-	/**
 	 * Get the {@link PropertyValueMetaInfo} for the given key.
 	 * 
 	 * @param key
