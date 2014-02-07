@@ -231,6 +231,19 @@ public final class Environment implements Serializable {
 			return this;
 		}
 
+		/**
+		 * Sets an attribute, using the value's type as attribute's type and the
+		 * value class as attribute key.
+		 * 
+		 * @param value
+		 *            the attribute.s value, not {@code null}.
+		 * @return this instance for chaining.
+		 */
+		public Builder setAttribute(Object value) {
+			setAttribute(value.getClass(), value.getClass(), value);
+			return this;
+		}
+
 		public Environment create() {
 			return new Environment(this);
 		}
