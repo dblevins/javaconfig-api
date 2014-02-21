@@ -13,16 +13,43 @@
 package javax.config;
 
 
-public interface ConfigurationBuilder {
+import java.util.Map;
+import java.util.function.Predicate;
 
-	public ConfigurationBuilder withName(String name);
-	
-	public ConfigurationBuilder withConfiguration(Configuration type);
+public interface ConfigurationBuilder<T extends ConfigurationBuilder<T>>{
 
-	public ConfigurationBuilder withConfiguration(String modelId);
+    T setKey(Object key);
 
-	public ConfigurationBuilder withQuery(ConfigurationQuery query);
+    T setFilter(Predicate<String> propertyNameFilter);
 
-	public Configuration build();
+    T setEnvironmentSelector(EnvironmentSelector environment);
+
+    T addConfiguration(Configuration config, boolean overrideExisting);
+
+    T updateConfiguration(Configuration config);
+
+    T setMetaInfo(String key, Map<String,String> metaInfo);
+
+    T setMetaInfo(String key, String metaInfoKey, String metaInfoValue);
+
+    T setProperty(String key, String value, Map<String,String> metaInfo);
+
+    T setProperty(String key, int value);
+
+    T setProperty(String key, byte value);
+
+    T setProperty(String key, short value);
+
+    T setProperty(String key, boolean value);
+
+    T setProperty(String key, char value);
+
+    T setProperty(String key, float value);
+
+    T setProperty(String key, double value);
+
+    T setProperty(String key, long value);
+
+    Configuration build();
 
 }

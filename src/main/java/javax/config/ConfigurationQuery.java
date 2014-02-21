@@ -28,7 +28,7 @@ package javax.config;
  * @param <T>
  *            The returned result type.
  */
-// @FunctionalInterface
+@FunctionalInterface
 public interface ConfigurationQuery<T> {
 
 	T queryFrom(Configuration config);

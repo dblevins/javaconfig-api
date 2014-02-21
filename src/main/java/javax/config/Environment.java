@@ -127,11 +127,11 @@ public final class Environment implements Serializable {
 	 * or extended by this {@link Environment}. Removal of entries visible on
 	 * the parent is rare, but is not forbidden.
 	 * 
-	 * @see ConfigService#getCurrentEnvironment()
-	 * @see ConfigService#getSystemEnvironment()
+	 * @see ConfigurationService#getCurrentEnvironment()
+	 * @see ConfigurationService#getSystemEnvironment()
 	 * @return the parent {@link Environment}, or {@code null}, if there is no
 	 *         parent, e.g. for the global system environment as returned by
-	 *         {@link ConfigService#getSystemEnvironment()} .
+	 *         {@link ConfigurationService#getSystemEnvironment()} .
 	 */
 	public Environment getParent() {
 		return parent;

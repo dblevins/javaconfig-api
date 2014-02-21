@@ -25,20 +25,18 @@ import javax.config.Environment;
 public interface ConfigurationProvider {
 
 	/**
-	 * Get the name of the configuration provided.
+	 * Get the qualifier of the configuration provided.
 	 * 
 	 * @return the config's name, not {@code null}.
 	 */
-	public String getConfigureationName();
+	public Object getKey();
 
 	/**
-	 * Provides a configuration based on the given {@link Environment}.
-	 * 
-	 * @param environment
-	 *            The {@link Environment}, not {@code null}
+	 * Provides a configuration instance.
+	 *
 	 * @return the {@link Configuration} instance
 	 */
-	Configuration getConfiguration(Environment environment);
+	Configuration getConfiguration();
 
 	/**
 	 * Checks if a {@link Configuration} is available for the given

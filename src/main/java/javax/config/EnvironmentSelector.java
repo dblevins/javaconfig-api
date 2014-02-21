@@ -20,7 +20,7 @@ package javax.config;
  * 
  * @author Anatole Tresch
  */
-// @FunctionalInterface
+@FunctionalInterface
 public interface EnvironmentSelector {
 
 	/**

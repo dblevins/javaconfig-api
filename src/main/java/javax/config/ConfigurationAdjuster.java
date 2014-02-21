@@ -8,6 +8,8 @@
  */
 package javax.config;
 
+import java.util.function.UnaryOperator;
+
 /**
  * <h3>Implementation Specification</h3> 
  * Implementations of this interface must be
@@ -20,9 +22,7 @@ package javax.config;
  * <li>immutable.
  * </ul>
  */
-// @FunctionalInterface
-public interface ConfigurationAdjuster {
-
-	public Configuration adjustInto(Configuration config);
+@FunctionalInterface
+public interface ConfigurationAdjuster extends UnaryOperator<Configuration>{
 
 }

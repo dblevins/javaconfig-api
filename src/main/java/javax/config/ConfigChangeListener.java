@@ -15,6 +15,7 @@ package javax.config;
  * 
  * @author Anatole Tresch
  */
+@FunctionalInterface
 public interface ConfigChangeListener {
 	
 	/**

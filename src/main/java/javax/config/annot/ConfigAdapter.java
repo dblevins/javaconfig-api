@@ -19,9 +19,16 @@ import java.lang.annotation.Target;
 
 import javax.config.PropertyAdapter;
 
+/**
+ * This annotation allows to configure a specific PropertyAdapter to be used for configuration value conversion.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = { ElementType.FIELD, ElementType.METHOD })
 public @interface ConfigAdapter {
-	// @NonBinding
-	Class<? extends PropertyAdapter<?>> value();
+
+    /**
+     * The class of the ConfigAdapter to be used for the given injection point.
+     * @return the ConfigAdapter implementation class, not null.
+     */
+    Class<? extends PropertyAdapter<?>> value();
 }

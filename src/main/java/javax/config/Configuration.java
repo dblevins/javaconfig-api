@@ -14,24 +14,12 @@ package javax.config;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 
 /**
- * A aggregate configuration identifies a a configuration set that is defined by
- * default. A aggregate scope is identified by a unique name. An aggregate scope
- * is only available when all containing scopes are available. Additionally the
- * ordering of scopes also models the override relatoinships between the config
- * entries, provided for the different scopes within the aggregate.
- * <p>
- * By default the following aggregate scopes are defined, in order of priority:
- * <ul>
- * <li>{@code DOMAIN} scope
- * <li>{@code APPLICATION} scope (ear)
- * <li>{@code WEB} web application scope (war)
- * </ul>
- * <p>
- * Aggregate Scopes model the levels of overrides required by the a
- * configuration type. New aggregate scopes can be defined, or additional
- * {@link ConfigurationUnit} instances can be added to existing aggregates.
+ * A configuration models a aggregated set of properties, identified by a unique key.
+ * In most cases a configuration is a combination of {@link PropertySet} instances, hereby
+ * implementing overrides and filtering.
  * <br/>
  * <h3>Implementation Specification</h3>
  * Implementations of this interface must be
@@ -39,32 +27,11 @@ import java.util.Set;
  * <li>Thread safe.
  * <li>Immutable
  * </ul>
- * It is highly recommended that implementations also are
- * <ul>
- * <li>serializable
- * </ul>
+ * It is not recommended that implementations also are serializable, since the utility functions allow to create
+ * serialiable instance out of an arbitrary implementation of this interface.
  * @author Anatole Tresch
  */
-public interface Configuration extends ConfigurationUnit {
-
-	/**
-	 * Get the model's name.
-	 * 
-	 * @return the model name, never {@code null}.
-	 */
-	public String getName();
-
-	/**
-	 * Get the property value as {@link String}.
-	 * 
-	 * @param key
-	 *            the property's absolute, or relative path, e.g. @code
-	 *            a/b/c/d.myProperty}.
-	 * @return the property's value.
-	 * @throws IllegalArgumentException
-	 *             if no such property exists.
-	 */
-	public String getProperty(String key);
+public interface Configuration extends PropertySet{
 	
 	/**
 	 * Get the property value as {@link String}.
@@ -283,18 +250,16 @@ public interface Configuration extends ConfigurationUnit {
 	 * <p>
 	 * If {@code Class<T>} is not one of
 	 * {@code Boolean, Short, Integer, Long, Float, Double, BigInteger,
-	 BigDecimal, String} , an according {@link Converter} must be
+	 BigDecimal, String} , an according {@link PropertyAdapter} must be
 	 * available to perform the conversion from {@link String} to
 	 * {@code Class<T>}.
 	 * 
 	 * @param key
 	 *            the property's absolute, or relative path, e.g. @code
 	 *            a/b/c/d.myProperty}.
-	 * @param type
-	 *            the required target type.
-	 * @param converter
-	 *            the {@link Converter} to perform the conversion from
-	 *            {@link String} to {@code Class<T>}, not {@code null}.
+	 * @param adapter
+     *            the PropertyAdapter to perform the conversion from
+     *            {@link String} to {@code Class<T>}, not {@code null}.
 	 * @return the property's value.
 	 * @throws IllegalArgumentException
 	 *             if the value could not be converted to the required target
@@ -308,14 +273,12 @@ public interface Configuration extends ConfigurationUnit {
 	 * @param key
 	 *            the property's absolute, or relative path, e.g. @code
 	 *            a/b/c/d.myProperty}.
-	 * @param type
-	 *            the required target type.
+	 * @param adapter
+	 *            the {@link PropertyAdapter} to perform the conversion from
+     *            {@link String} to {@code Class<T>}, not {@code null}.
 	 * @param defaultValue
 	 *            the default value, returned if no such property exists or the
 	 *            property's value is {@code null}.
-	 * @param converter
-	 *            the {@link Converter} to perform the conversion from
-	 *            {@link String} to {@code Class<T>}, not {@code null}.
 	 * @return the property's value.
 	 * @throws IllegalArgumentException
 	 *             if the value could not be converted to the required target
@@ -331,14 +294,13 @@ public interface Configuration extends ConfigurationUnit {
 	 */
 	public Set<String> getAreas();
 
-	// /**
-	// * Return a set with all fully qualifies area names, containing only the
-	// * areas that match the predicate.
-	// *
-	// * @return s set with all areas, never {@code null .
-	//
-	// */
-	// public Set<String> getAreas(Predicate<String, Boolean> predicate);
+	/**
+	 * Return a set with all fully qualifies area names, containing only the
+	 * areas that match the predicate.
+	 * @param predicate A predicate to deternine, which areas should be returned, not {@code null}.
+	 * @return s set with all areas, never {@code null}.
+	 */
+	 public Set<String> getAreas(Predicate<String> predicate);
 
 	/**
 	 * Allows to evaluate if an area exists.
@@ -349,22 +311,7 @@ public interface Configuration extends ConfigurationUnit {
 	 */
 	public boolean containsArea(String key);
 
-	/**
-	 * Access all currently defined properties.
-	 * 
-	 * @return all properties, never {@code null}.
-	 */
-	public Map<String, String> getProperties();
 
-	// /**
-	// * Access all currently defined properties, which are accepted by the
-	// given
-	// * predicate.
-	// *
-	// * @return all properties, never {@code null}.
-	// */
-	// public Map<String, String> getProperties(
-	// Predicate<String, Boolean> predicate);
 
 	/**
 	 * Extension point for adjusting configuration.

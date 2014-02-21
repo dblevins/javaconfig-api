@@ -14,13 +14,19 @@ package javax.config;
 
 /**
  * Adapter for evaluating something different from a property value.
- * @author Anatole Tresch
  *
  * @param <T> the target type.
+ * @author Anatole Tresch
  */
-//@FunctionalInterface
-public interface PropertyAdapter<T> {
-
-	public T adapt(String value);
+@FunctionalInterface
+public interface PropertyAdapter<T>{
+    /**
+     * Adapt the given property value, to the type T.
+     *
+     * @param value the property value, never {@code
+     *              null}
+     * @return the adapte value, not {@code null}
+     */
+    public T adapt(String value);
 
 }

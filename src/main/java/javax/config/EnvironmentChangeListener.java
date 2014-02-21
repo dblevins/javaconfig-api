@@ -15,6 +15,7 @@ package javax.config;
  * 
  * @author Anatole Tresch
  */
+@FunctionalInterface
 public interface EnvironmentChangeListener {
 	
 	/**
@@ -23,5 +24,5 @@ public interface EnvironmentChangeListener {
 	 * @param event
 	 *            the {@link EnvironmentChangeEvent}, never {@code null}.
 	 */
-	void configChanged(EnvironmentChangeEvent event);
+	void environmentChanged(EnvironmentChangeEvent event);
 }
