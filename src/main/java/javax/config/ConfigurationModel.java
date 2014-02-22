@@ -135,6 +135,11 @@ public final class ConfigurationModel{
                 '}';
     }
 
+    public ConfigurationModel mergeModel(ConfigurationModel model){
+        // TODO implement this merge functionality later
+        return this;
+    }
+
     /**
      * Builder to create a new meta model.
      */
