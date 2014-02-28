@@ -33,18 +33,18 @@ public interface ConfigurationServicesSpi{
 
     /**
      * Access a meta model.
-     * @param metaModelName the meta model's name.
+     * @param key the meta model's key.
      * @return the according meta model.
      * TODO define access names for default models, ...
      */
-    public ConfigurationModel getMetaModel(String metaModelName);
+    public ConfigurationModel getMetaModel(Object key);
 
     /**
      * Access all defined {@link javax.config.ConfigurationModel} keys.
      *
      * @return all available ConfigurationModel keys, never{@code null}.
      */
-    public Collection<String> getMetaModelNames();
+    public Collection<Object> getMetaModelNames();
 
     /**
      * Access a {@link javax.config.ConfigurationService} by name.

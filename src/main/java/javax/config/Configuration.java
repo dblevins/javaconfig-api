@@ -294,13 +294,28 @@ public interface Configuration extends PropertySet{
 	 */
 	public Set<String> getAreas();
 
+    /**
+     * Return a set with all fully qualified area names, containing the transitive closure also including all
+     * subarea names, regardless if properties are accessible or not.
+     * @return s set with all transitive areas, never {@code null}.
+     */
+    public Set<String> getTransitiveAreas();
+
 	/**
-	 * Return a set with all fully qualifies area names, containing only the
-	 * areas that match the predicate.
+	 * Return a set with all fully qualified area names, containing only the
+	 * areas that match the predicate and have properties attached
 	 * @param predicate A predicate to deternine, which areas should be returned, not {@code null}.
 	 * @return s set with all areas, never {@code null}.
 	 */
 	 public Set<String> getAreas(Predicate<String> predicate);
+
+    /**
+     * Return a set with all fully qualified area names, containing the transitive closure also including all
+     * subarea names, regardless if properties are accessible or not.
+     * @param predicate A predicate to deternine, which areas should be returned, not {@code null}.
+     * @return s set with all transitive areas, never {@code null}.
+     */
+    public Set<String> getTransitiveAreas(Predicate<String> predicate);
 
 	/**
 	 * Allows to evaluate if an area exists.

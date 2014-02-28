@@ -59,7 +59,7 @@ public final class ConfigurationServices{
      *
      * @return all available ConfigurationModel keys, never{@code null}.
      */
-    public static Collection<String> getMetaModelNames(){
+    public static Collection<Object> getMetaModelNames(){
         return servicesSpi.getMetaModelNames();
     }
 
@@ -92,12 +92,12 @@ public final class ConfigurationServices{
 
     private static final class DefaultConfigurationServicesSpi implements ConfigurationServicesSpi{
         @Override
-        public ConfigurationModel getMetaModel(String metaModelName){
-            throw new IllegalArgumentException("No such Configuration Meta Model: " + metaModelName);
+        public ConfigurationModel getMetaModel(Object key){
+            throw new IllegalArgumentException("No such Configuration Meta Model: " + key);
         }
 
         @Override
-        public Collection<String> getMetaModelNames(){
+        public Collection<Object> getMetaModelNames(){
             return Collections.emptySet();
         }
 
