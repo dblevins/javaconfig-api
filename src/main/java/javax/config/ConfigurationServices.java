@@ -13,15 +13,15 @@
 package javax.config;
 
 import javax.config.spi.Bootstrap;
-import javax.config.spi.ConfigurationServicesSpi;
+import javax.config.spi.ConfigurationServiceSpi;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Service for accessing ConfigurationService instances. A ConfigurationService provides access to the
- * different configurations loaded as defined by a meta model. Hereby several meta models can be active at the
+ * Service for accessing ConfigurationServiceSpi instances. A ConfigurationServiceSpi provides access to the
+ * different configurations loaded. Hereby several ConfigurationServiceSpi models can be active at the
  * same time.
  *
  * @author Anatole Tresch
@@ -31,7 +31,7 @@ public final class ConfigurationServices{
     /**
      * SPI delegate of this singleton class.
      */
-    private volatile static ConfigurationServicesSpi servicesSpi = loadConfigurationServicesSpi();
+    private volatile static ConfigurationServiceSpi servicesSpi = loadConfigurationServicesSpi();
 
     /**
      * Singleton constructor.
@@ -39,71 +39,145 @@ public final class ConfigurationServices{
     private ConfigurationServices(){
     }
 
-    private static ConfigurationServicesSpi loadConfigurationServicesSpi(){
+    private static ConfigurationServiceSpi loadConfigurationServicesSpi(){
         try{
-            return Bootstrap.getService(ConfigurationServicesSpi.class);
+            return Bootstrap.getService(ConfigurationServiceSpi.class);
         }
         catch(Exception e){
             Logger.getLogger(ConfigurationServices.class.getName())
                     .log(Level.WARNING, "Error loading ConfigurationServicesSpi", e);
         }
-        return new DefaultConfigurationServicesSpi();
-    }
-
-    public static ConfigurationModel getMetaModel(String metaModelName){
-        return servicesSpi.getMetaModel(metaModelName);
+        return new DefaultConfigurationServiceSpi();
     }
 
     /**
-     * Access all defined {@link javax.config.ConfigurationModel} keys.
+     * Access all defined {@link Configuration} keys.
      *
-     * @return all available ConfigurationModel keys, never{@code null}.
+     * @return all available configuration keys, never{@code null}.
      */
-    public static Collection<Object> getMetaModelNames(){
-        return servicesSpi.getMetaModelNames();
+    public static Collection<Object> getConfigurationKeys(){
+        return servicesSpi.getConfigurationKeys();
     }
 
     /**
-     * Access a {@link javax.config.ConfigurationService} by name.
+     * Access the current {@link Configuration}, matching to the current
+     * {@link Environment}.
      *
-     * @param name the meta model's name, not null
-     * @return the coresponding {@link javax.config.ConfigurationService} corresponding to the
-     * defined {@code ConfigurationModel}.
+     * @return the current {@link Configuration} corresponding to the
+     * current {@code Environment}.
+     * @see EnvironmentContext#getCurrentEnvironment()
      */
-    public static final ConfigurationService getService(String name){
-        ConfigurationService cfgService = servicesSpi.getService(name);
-        if(cfgService == null){
-            throw new IllegalArgumentException("No such conguration service: " + name);
-        }
-        return cfgService;
+    public static Configuration getConfiguration(){
+        return servicesSpi.getConfiguration(Configuration.class);
     }
 
     /**
-     * Allows to check if a {@link javax.config.Configuration} with the given id is
+     * Access a {@link Configuration} by name, matching to the current
+     * {@link Environment}.
+     *
+     * @param key The key of the required {@link Configuration}, not
+     *            {@code null}.
+     * @return the current {@link Configuration} corresponding to the
+     * {@code configId}.
+     * @throws ConfigException if the required configuration is not defined or not
+     *                         available.
+     * @see EnvironmentContext#getCurrentEnvironment()
+     */
+    public static Configuration getConfiguration(Object key){
+        return servicesSpi.getConfiguration(key);
+    }
+
+    /**
+     * Allows to check if a {@link Configuration} with the given id is
      * defined.
      *
-     * @param name The name of the service required {@link javax.config.ConfigurationService}, not
-     *             {@code null}.
-     * @return true, if the given {@link javax.config.ConfigurationService} is defined.
+     * @param key The key of the required {@link Configuration}, not
+     *            {@code null}.
+     * @return true, if the given {@link Configuration} is defined.
      */
-    public static boolean isServiceDefined(String name){
-        return servicesSpi.getService(name) != null;
+    public static boolean isConfigurationDefined(Object key){
+        return servicesSpi.isConfigurationDefined(key);
     }
 
-    private static final class DefaultConfigurationServicesSpi implements ConfigurationServicesSpi{
-        @Override
-        public ConfigurationModel getMetaModel(Object key){
-            throw new IllegalArgumentException("No such Configuration Meta Model: " + key);
-        }
+    /**
+     * Adds a listener for configuration changes, duplicates are ignored.
+     *
+     * @param l the listener to be added.
+     */
+    public static  void addConfigChangeListener(ConfigChangeListener l){
+        servicesSpi.addConfigChangeListener(l);
+    }
+
+    /**
+     * Removes a listener for configuration changes.
+     *
+     * @param l the listener to be removed.
+     */
+    public static void removeConfigChangeListener(ConfigChangeListener l){
+        servicesSpi.removeConfigChangeListener(l);
+    }
+
+    /**
+     * Resolved the annotated configuration resources on the given instance.
+     *
+     * @param instance to POJO instance to be configured.
+     * @throws IllegalArgumentException if configuration could not be resolved, or converted.
+     */
+    public static void configure(Object instance){
+        servicesSpi.configure(instance);
+    }
+
+    /**
+     * Resolved the annotated configuration resources on the given instance.
+     *
+     * @param instance      to POJO instance to be configured.
+     * @param configuration The Configuration to be used.
+     * @throws IllegalArgumentException if configuration could not be resolved, or converted.
+     */
+    public static void configure(Object instance, Configuration configuration){
+        servicesSpi.configure(instance, configuration);
+    }
+
+    private static final class DefaultConfigurationServiceSpi implements ConfigurationServiceSpi{
 
         @Override
-        public Collection<Object> getMetaModelNames(){
+        public Collection<Object> getConfigurationKeys(){
             return Collections.emptySet();
         }
 
         @Override
-        public ConfigurationService getService(String name){
-            return null;
+        public Configuration getConfiguration(){
+            throw new ConfigException("No default config (no ConfigService SPI registered).");
+        }
+
+        @Override
+        public Configuration getConfiguration(Object key){
+            throw new ConfigException("No such config (no ConfigService SPI registered): " + key);
+        }
+
+        @Override
+        public boolean isConfigurationDefined(Object key){
+            return false;
+        }
+
+        @Override
+        public void addConfigChangeListener(ConfigChangeListener l){
+            throw new UnsupportedOperationException("No ConfigService SPI registered");
+        }
+
+        @Override
+        public void removeConfigChangeListener(ConfigChangeListener l){
+            throw new UnsupportedOperationException("No ConfigService SPI registered");
+        }
+
+        @Override
+        public void configure(Object instance){
+            throw new UnsupportedOperationException("No ConfigService SPI registered");
+        }
+
+        @Override
+        public void configure(Object instance, Configuration configuration){
+            throw new UnsupportedOperationException("No ConfigService SPI registered");
         }
     }
 

@@ -20,35 +20,33 @@ public interface ConfigurationBuilder<T extends ConfigurationBuilder<T>>{
 
     T setKey(Object key);
 
-    T setFilter(Predicate<String> propertyNameFilter);
-
     T setEnvironmentSelector(EnvironmentSelector environment);
 
-    T addConfiguration(Configuration config, boolean overrideExisting);
+    T putAll(Configuration config, boolean overrideExisting);
 
-    T updateConfiguration(Configuration config);
+    T putAll(Configuration config);
 
     T setMetaInfo(String key, Map<String,String> metaInfo);
 
     T setMetaInfo(String key, String metaInfoKey, String metaInfoValue);
 
-    T setProperty(String key, String value, Map<String,String> metaInfo);
+    T put(String key, String value, Map<String,String> metaInfo);
 
-    T setProperty(String key, int value);
+    T put(String key, int value);
 
-    T setProperty(String key, byte value);
+    T put(String key, byte value);
 
-    T setProperty(String key, short value);
+    T put(String key, short value);
 
-    T setProperty(String key, boolean value);
+    T put(String key, boolean value);
 
-    T setProperty(String key, char value);
+    T put(String key, char value);
 
-    T setProperty(String key, float value);
+    T put(String key, float value);
 
-    T setProperty(String key, double value);
+    T put(String key, double value);
 
-    T setProperty(String key, long value);
+    T put(String key, long value);
 
     Configuration build();
 

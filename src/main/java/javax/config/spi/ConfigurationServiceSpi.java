@@ -10,15 +10,17 @@
  * 
  * Copyright (c) 2012-2013, Credit Suisse All rights reserved.
  */
-package javax.config;
+package javax.config.spi;
 
+import javax.config.ConfigChangeListener;
+import javax.config.Configuration;
 import java.util.Collection;
 
 /**
  * Service for accessing configuration. A configuration service is always base
  * on the environment definition provided by one instance of
- * {@link EnvironmentContext}. It is possible to define multiple
- * {@link ConfigurationService} instances, if required. <h3>Implementation
+ * {@link javax.config.EnvironmentContext}. It is possible to define multiple
+ * {@link ConfigurationServiceSpi} instances, if required. <h3>Implementation
  * Specification</h3> Implementations of this interface must be
  * <ul>
  * <li>Thread safe.
@@ -26,39 +28,36 @@ import java.util.Collection;
  *
  * @author Anatole Tresch
  */
-public interface ConfigurationService{
-
-
-    ConfigurationModel getMetaModel();
+public interface ConfigurationServiceSpi{
 
     /**
-     * Access all defined {@link Configuration} keys.
+     * Access all defined {@link javax.config.Configuration} keys.
      *
      * @return all available configuration keys, never{@code null}.
      */
     Collection<Object> getConfigurationKeys();
 
     /**
-     * Access the current {@link Configuration}, matching to the current
-     * {@link Environment}.
+     * Access the current {@link javax.config.Configuration}, matching to the current
+     * {@link javax.config.Environment}.
      *
-     * @return the current {@link Configuration} corresponding to the
+     * @return the current {@link javax.config.Configuration} corresponding to the
      * current {@code Environment}.
-     * @see EnvironmentContext#getCurrentEnvironment()
+     * @see javax.config.EnvironmentContext#getCurrentEnvironment()
      */
     Configuration getConfiguration();
 
     /**
      * Access a {@link Configuration} by name, matching to the current
-     * {@link Environment}.
+     * {@link javax.config.Environment}.
      *
      * @param key The key of the required {@link Configuration}, not
      *            {@code null}.
      * @return the current {@link Configuration} corresponding to the
      * {@code configId}.
-     * @throws ConfigException if the required configuration is not defined or not
+     * @throws javax.config.ConfigException if the required configuration is not defined or not
      *                         available.
-     * @see EnvironmentContext#getCurrentEnvironment()
+     * @see javax.config.EnvironmentContext#getCurrentEnvironment()
      */
     Configuration getConfiguration(Object key);
 
@@ -71,32 +70,6 @@ public interface ConfigurationService{
      * @return true, if the given {@link Configuration} is defined.
      */
     boolean isConfigurationDefined(Object key);
-
-    /**
-     * Create a {@link ConfigurationQuery} for querying arbitrary {@link Configuration}.
-     *
-     * @return a new {@link ConfigurationQuery} instance.
-     */
-    ConfigurationQuery queryConfiguration();
-
-    /**
-     * Create a new {@link ConfigurationUpdater} for updating or deletion of a
-     * {@link Configuration}.
-     *
-     * @return a new {@link ConfigurationUpdater}.
-     */
-    ConfigurationUpdater updateConfiguration(Configuration config);
-
-    /**
-     * Creates a {@link ConfigurationUpdater} for creating a new
-     * {@link Configuration} instance.
-     *
-     * @param key The key of the required {@link Configuration}, not
-     *            {@code null}.
-     * @return the new {@link ConfigurationUpdater}, never {@code null}.
-     * @throws UnsupportedOperationException if no new Configuration can be added.
-     */
-    ConfigurationUpdater createConfiguration(Object key);
 
     /**
      * Adds a listener for configuration changes, duplicates are ignored.

@@ -110,9 +110,7 @@ public final class Environment implements Serializable {
 
 	/**
 	 * Get an attribute.
-	 * 
-	 * @param key
-	 *            the attribute's key.
+	 *
 	 * @param type
 	 *            the attribute's type.
 	 * @return the attribute's value.
@@ -126,12 +124,9 @@ public final class Environment implements Serializable {
 	 * parent environment, by default are also visible, but may be overridden,
 	 * or extended by this {@link Environment}. Removal of entries visible on
 	 * the parent is rare, but is not forbidden.
-	 * 
-	 * @see ConfigurationService#getCurrentEnvironment()
-	 * @see ConfigurationService#getSystemEnvironment()
+	 *
 	 * @return the parent {@link Environment}, or {@code null}, if there is no
-	 *         parent, e.g. for the global system environment as returned by
-	 *         {@link ConfigurationService#getSystemEnvironment()} .
+	 *         parent, e.g. for the global system environment.
 	 */
 	public Environment getParent() {
 		return parent;

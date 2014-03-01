@@ -15,12 +15,11 @@
  */
 package javax.config.spi;
 
-import javax.config.Configuration;
 import javax.config.Environment;
-import javax.config.PropertySet;
+import javax.config.PropertyMap;
 
 /**
- * Provides a PropertySet. Hereby a set can be implemented as shared instance, or created from scratch on each
+ * Provides a PropertyMap. Hereby a set can be implemented as shared instance, or created from scratch on each
  * access. Nevertheless each property set can behave contextually, depending on the current {@link javax.config.Environment}.<br/>
  * <h3>Implementation Specification</h3> Implementations of this interface must
  * be
@@ -34,26 +33,26 @@ import javax.config.PropertySet;
 public interface PropertySetProvider{
 
 	/**
-	 * Get the qualifier of the PropertySet provided.
+	 * Get the qualifier of the PropertyMap provided.
 	 *
 	 * @return the config's name, not {@code null}.
 	 */
 	public Object getKey();
 
 	/**
-	 * Provides a PropertySet instance.
+	 * Provides a PropertyMap instance.
 	 *
-	 * @return the {@link javax.config.PropertySet} instance
+	 * @return the {@link javax.config.PropertyMap} instance
 	 */
-	PropertySet getPropertySet();
+	PropertyMap getPropertySet();
 
 	/**
-	 * Checks if a {@link javax.config.PropertySet} is available for the given
+	 * Checks if a {@link javax.config.PropertyMap} is available for the given
 	 * {@link javax.config.Environment}.
 	 *
 	 * @param environment
 	 *            The {@link javax.config.Environment}, not {@code null}
-	 * @return true, if the {@link javax.config.PropertySet} is available
+	 * @return true, if the {@link javax.config.PropertyMap} is available
 	 */
 	boolean isAvailable(Environment environment);
 
