@@ -11,7 +11,9 @@ package javax.config;
 import java.util.function.UnaryOperator;
 
 /**
- * <h3>Implementation Specification</h3> 
+ * Adjuster that creates a configuration from an existing configuration. Typical use cases are filtering, especially
+ * configuration views.
+ * <h3>Implementation Specification</h3>
  * Implementations of this interface must be
  * <ul>
  * <li>reproducible

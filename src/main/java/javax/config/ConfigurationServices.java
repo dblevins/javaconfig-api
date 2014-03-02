@@ -20,16 +20,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Service for accessing ConfigurationServiceSpi instances. A ConfigurationServiceSpi provides access to the
- * different configurations loaded. Hereby several ConfigurationServiceSpi models can be active at the
- * same time.
+ * Singleton accessor for accessing {@link javax.config.Configuration} instances. The
+ * configurations provided hereby are managed by the most significant instance of {@link javax.config.spi
+ * .ConfigurationServiceSpi} , registered into the JSR's {@link javax.config.spi.Bootstrap} service API.
  *
  * @author Anatole Tresch
  */
 public final class ConfigurationServices{
 
     /**
-     * SPI delegate of this singleton class.
+     * SPI delegate of this singleton accessor, never null.
      */
     private volatile static ConfigurationServiceSpi servicesSpi = loadConfigurationServicesSpi();
 
@@ -39,24 +39,32 @@ public final class ConfigurationServices{
     private ConfigurationServices(){
     }
 
+    /**
+     * Method used to load the SPI, if loading of {@link javax.config.spi
+     * .ConfigurationServiceSpi} from the Bootstrap failed, a default implementation is returned
+     * that will not provide any configurations (throwing IllegalStateException).
+     *
+     * @return the ConfigurationServiceSpi to be used by this singleton, never null.
+     */
     private static ConfigurationServiceSpi loadConfigurationServicesSpi(){
         try{
             return Bootstrap.getService(ConfigurationServiceSpi.class);
         }
         catch(Exception e){
             Logger.getLogger(ConfigurationServices.class.getName())
-                    .log(Level.WARNING, "Error loading ConfigurationServicesSpi", e);
+                    .log(Level.WARNING, "Error loading ConfigurationServicesSpi, using default. No configurations " +
+                            "will be accessible!", e);
         }
         return new DefaultConfigurationServiceSpi();
     }
 
     /**
-     * Access all defined {@link Configuration} keys.
+     * Access the keys of all registered {@link Configuration} instances.
      *
      * @return all available configuration keys, never{@code null}.
      */
-    public static Collection<Object> getConfigurationKeys(){
-        return servicesSpi.getConfigurationKeys();
+    public static Collection<ConfigId> getConfigurationIds(){
+        return servicesSpi.getConfigurationIds();
     }
 
     /**
@@ -68,48 +76,50 @@ public final class ConfigurationServices{
      * @see EnvironmentContext#getCurrentEnvironment()
      */
     public static Configuration getConfiguration(){
-        return servicesSpi.getConfiguration(Configuration.class);
+        return servicesSpi.getConfiguration(null);
     }
 
     /**
-     * Access a {@link Configuration} by name, matching to the current
-     * {@link Environment}.
+     * Access a {@link Configuration} using its key. It is recommended to use static constant values to identify
+     * configurations, e.g. enum values. Using of Strings is basically possible, but discouraged, because spelling
+     * errors are not detected by the compiler.
      *
-     * @param key The key of the required {@link Configuration}, not
+     * @param configId The key of the required {@link Configuration}, not
      *            {@code null}.
      * @return the current {@link Configuration} corresponding to the
-     * {@code configId}.
+     * {@code key}.
      * @throws ConfigException if the required configuration is not defined or not
      *                         available.
      * @see EnvironmentContext#getCurrentEnvironment()
      */
-    public static Configuration getConfiguration(Object key){
-        return servicesSpi.getConfiguration(key);
+    public static Configuration getConfiguration(ConfigId configId){
+        return servicesSpi.getConfiguration(configId);
     }
 
     /**
      * Allows to check if a {@link Configuration} with the given id is
      * defined.
      *
-     * @param key The key of the required {@link Configuration}, not
+     * @param configId The config Id of the required {@link Configuration}, not
      *            {@code null}.
      * @return true, if the given {@link Configuration} is defined.
      */
-    public static boolean isConfigurationDefined(Object key){
-        return servicesSpi.isConfigurationDefined(key);
+    public static boolean isConfigurationDefined(ConfigId configId){
+        return servicesSpi.isConfigurationDefined(configId);
     }
 
     /**
-     * Adds a listener for configuration changes, duplicates are ignored.
+     * Adds a global listener for configuration changes, duplicates are ignored. Listeners registered with this method
+     * will be informed on every configuration change done (matching the same deployment context).
      *
      * @param l the listener to be added.
      */
-    public static  void addConfigChangeListener(ConfigChangeListener l){
+    public static void addConfigChangeListener(ConfigChangeListener l){
         servicesSpi.addConfigChangeListener(l);
     }
 
     /**
-     * Removes a listener for configuration changes.
+     * Removes a global listener for configuration changes.
      *
      * @param l the listener to be removed.
      */
@@ -118,30 +128,36 @@ public final class ConfigurationServices{
     }
 
     /**
-     * Resolved the annotated configuration resources on the given instance.
+     * Resolves the annotated configuration resources on the given instance and injects according configuration
+     * properties.
      *
-     * @param instance to POJO instance to be configured.
-     * @throws IllegalArgumentException if configuration could not be resolved, or converted.
+     * @param instance the instance to be configured.
+     * @throws ConfigException if configuration could not be resolved or converted.
      */
     public static void configure(Object instance){
         servicesSpi.configure(instance);
     }
 
     /**
-     * Resolved the annotated configuration resources on the given instance.
+     * Resolves the annotated configuration resources on the given instance and injects according configuration
+     * properties.
      *
-     * @param instance      to POJO instance to be configured.
-     * @param configuration The Configuration to be used.
-     * @throws IllegalArgumentException if configuration could not be resolved, or converted.
+     * @param instance      to instance to be configured.
+     * @param configuration The Configuration to be used to resolve the annotated properties.
+     * @throws ConfigException if configuration could not be resolved or converted.
      */
     public static void configure(Object instance, Configuration configuration){
         servicesSpi.configure(instance, configuration);
     }
 
+    /**
+     * Internal default implementatio of the {@link javax.config.spi.ConfigurationServiceSpi} used,
+     * if no valid SPI instance could be loaded from the {@link javax.config.spi.Bootstrap} API.
+     */
     private static final class DefaultConfigurationServiceSpi implements ConfigurationServiceSpi{
 
         @Override
-        public Collection<Object> getConfigurationKeys(){
+        public Collection<ConfigId> getConfigurationIds(){
             return Collections.emptySet();
         }
 
@@ -151,12 +167,12 @@ public final class ConfigurationServices{
         }
 
         @Override
-        public Configuration getConfiguration(Object key){
-            throw new ConfigException("No such config (no ConfigService SPI registered): " + key);
+        public Configuration getConfiguration(ConfigId configId){
+            throw new ConfigException("No such config (no ConfigService SPI registered): " + configId);
         }
 
         @Override
-        public boolean isConfigurationDefined(Object key){
+        public boolean isConfigurationDefined(ConfigId configId){
             return false;
         }
 

@@ -14,7 +14,7 @@ package javax.config;
 
 /**
  * This interface allows to query something from a {@link Configuration}. This
- * can also be used as <i>adapter</i> for evaluating something different from a
+ * can be model <i>adapters</i> operating on a configuration or view, instead on a single
  * property value.
  * <h3>Implementation Specification</h3>
  * Implementations of this interface should be

@@ -8,6 +8,7 @@
  */
 package javax.config.spi;
 
+import javax.config.ConfigId;
 import javax.config.Configuration;
 import javax.config.Environment;
 
@@ -29,7 +30,7 @@ public interface ConfigurationProvider {
 	 * 
 	 * @return the config's name, not {@code null}.
 	 */
-	public Object getKey();
+	public ConfigId getConfigId();
 
 	/**
 	 * Provides a configuration instance.

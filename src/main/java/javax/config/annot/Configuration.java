@@ -13,6 +13,8 @@
 package javax.config.annot;
 
 
+import javax.config.ConfigId;
+
 /**
  * This annotation is used to define, which configuration should be used, to evaluate configured properties.
  * When applied on class level this determines the conmfiguration to be used for the whole class, whereas annotating

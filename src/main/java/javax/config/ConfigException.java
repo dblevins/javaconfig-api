@@ -12,17 +12,26 @@
 package javax.config;
 
 /**
- * Base exception for configfuration issues.
- * Created by Anatole on 21.02.14.
+ * Exception class (runtime exception) for configuration issues.
+ * @author Anatole Tresch
  */
 public class ConfigException extends RuntimeException{
 
     private static final long serialVersionUID = -5886094818057522680L;
 
+    /**
+     * Creates a new configuration exception.
+     * @param message the exception message, not null.
+     */
     public ConfigException(String message){
         super(message);
     }
 
+    /**
+     * Creates a new configuration exception.
+     * @param message the exception message, not null.
+     * @param t the throwable.
+     */
     public ConfigException(String message, Throwable t){
         super(message, t);
     }

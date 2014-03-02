@@ -13,6 +13,7 @@
 package javax.config.spi;
 
 import javax.config.ConfigChangeListener;
+import javax.config.ConfigId;
 import javax.config.Configuration;
 import java.util.Collection;
 
@@ -35,7 +36,7 @@ public interface ConfigurationServiceSpi{
      *
      * @return all available configuration keys, never{@code null}.
      */
-    Collection<Object> getConfigurationKeys();
+    Collection<ConfigId> getConfigurationIds();
 
     /**
      * Access the current {@link javax.config.Configuration}, matching to the current
@@ -51,7 +52,7 @@ public interface ConfigurationServiceSpi{
      * Access a {@link Configuration} by name, matching to the current
      * {@link javax.config.Environment}.
      *
-     * @param key The key of the required {@link Configuration}, not
+     * @param configId The config id of the required {@link Configuration}, not
      *            {@code null}.
      * @return the current {@link Configuration} corresponding to the
      * {@code configId}.
@@ -59,17 +60,17 @@ public interface ConfigurationServiceSpi{
      *                         available.
      * @see javax.config.EnvironmentContext#getCurrentEnvironment()
      */
-    Configuration getConfiguration(Object key);
+    Configuration getConfiguration(ConfigId configId);
 
     /**
      * Allows to check if a {@link Configuration} with the given id is
      * defined.
      *
-     * @param key The key of the required {@link Configuration}, not
+     * @param configId The config id of the required {@link Configuration}, not
      *            {@code null}.
      * @return true, if the given {@link Configuration} is defined.
      */
-    boolean isConfigurationDefined(Object key);
+    boolean isConfigurationDefined(ConfigId configId);
 
     /**
      * Adds a listener for configuration changes, duplicates are ignored.
