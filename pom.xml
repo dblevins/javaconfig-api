@@ -44,7 +44,7 @@
 							<Export-Package>javax.config.*</Export-Package>
                             <Export-Package>javax.config.annot.*</Export-Package>
                             <Export-Package>javax.config.meta.*</Export-Package>
-                            <Export-Package>org.javaconfig.config.propertysets.*</Export-Package>
+                            <Export-Package>org.javaconfig.propertymaps.*</Export-Package>
                             <Export-Package>javax.config.spi.*</Export-Package>
 							<Private-Package>!*</Private-Package>
 						</instructions>
