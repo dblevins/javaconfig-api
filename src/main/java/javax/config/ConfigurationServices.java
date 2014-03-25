@@ -63,7 +63,7 @@ public final class ConfigurationServices{
      *
      * @return all available configuration keys, never{@code null}.
      */
-    public static Collection<ConfigId> getConfigurationIds(){
+    public static Collection<String> getConfigurationIds(){
         return servicesSpi.getConfigurationIds();
     }
 
@@ -92,7 +92,7 @@ public final class ConfigurationServices{
      *                         available.
      * @see EnvironmentContext#getCurrentEnvironment()
      */
-    public static Configuration getConfiguration(ConfigId configId){
+    public static Configuration getConfiguration(String configId){
         return servicesSpi.getConfiguration(configId);
     }
 
@@ -104,7 +104,7 @@ public final class ConfigurationServices{
      *            {@code null}.
      * @return true, if the given {@link Configuration} is defined.
      */
-    public static boolean isConfigurationDefined(ConfigId configId){
+    public static boolean isConfigurationDefined(String configId){
         return servicesSpi.isConfigurationDefined(configId);
     }
 
@@ -157,7 +157,7 @@ public final class ConfigurationServices{
     private static final class DefaultConfigurationServiceSpi implements ConfigurationServiceSpi{
 
         @Override
-        public Collection<ConfigId> getConfigurationIds(){
+        public Collection<String> getConfigurationIds(){
             return Collections.emptySet();
         }
 
@@ -167,12 +167,12 @@ public final class ConfigurationServices{
         }
 
         @Override
-        public Configuration getConfiguration(ConfigId configId){
+        public Configuration getConfiguration(String configId){
             throw new ConfigException("No such config (no ConfigService SPI registered): " + configId);
         }
 
         @Override
-        public boolean isConfigurationDefined(ConfigId configId){
+        public boolean isConfigurationDefined(String configId){
             return false;
         }
 

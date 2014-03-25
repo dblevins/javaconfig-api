@@ -13,7 +13,6 @@
 package javax.config.spi;
 
 import javax.config.ConfigChangeListener;
-import javax.config.ConfigId;
 import javax.config.Configuration;
 import java.util.Collection;
 
@@ -36,7 +35,7 @@ public interface ConfigurationServiceSpi{
      *
      * @return all available configuration keys, never{@code null}.
      */
-    Collection<ConfigId> getConfigurationIds();
+    Collection<String> getConfigurationIds();
 
     /**
      * Access the current {@link javax.config.Configuration}, matching to the current
@@ -60,7 +59,7 @@ public interface ConfigurationServiceSpi{
      *                         available.
      * @see javax.config.EnvironmentContext#getCurrentEnvironment()
      */
-    Configuration getConfiguration(ConfigId configId);
+    Configuration getConfiguration(String configId);
 
     /**
      * Allows to check if a {@link Configuration} with the given id is
@@ -70,7 +69,7 @@ public interface ConfigurationServiceSpi{
      *            {@code null}.
      * @return true, if the given {@link Configuration} is defined.
      */
-    boolean isConfigurationDefined(ConfigId configId);
+    boolean isConfigurationDefined(String configId);
 
     /**
      * Adds a listener for configuration changes, duplicates are ignored.

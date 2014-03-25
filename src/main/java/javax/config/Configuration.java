@@ -37,7 +37,7 @@ public interface Configuration extends PropertyMap{
      * Access the identifying key of a configuration.
      * @return the configuration's key
      */
-    public ConfigId getConfigId();
+    public String getConfigId();
 
     /**
      * Get the property value as {@link Boolean}.
