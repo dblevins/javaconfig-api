@@ -20,7 +20,7 @@ import javax.config.spi.EnvironmentContextSingletonSpi;
 /**
  * Service for accessing {@link Environment}. Environments are used to
  * access/determine configurations.<br/>
- * <h3>Implementation Specification</h3> This class is
+ * <h3>Implementation PropertyMapSpec</h3> This class is
  * <ul>
  * <li>thread safe,
  * <li>and behaves contextual.

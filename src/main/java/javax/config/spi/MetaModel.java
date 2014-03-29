@@ -20,7 +20,7 @@ import java.util.Set;
 /**
  * This interface defines a meta configuration model that defines an arbitrary set of {@link javax.config
  * .PartialMetaConfiguration} instances.
- * <h3>Implementation Specification</h3>
+ * <h3>Implementation PropertyMapSpec</h3>
  * <p>
  * Implementations of this class must be
  * <ul>
@@ -30,14 +30,14 @@ import java.util.Set;
  * </ul>
  * </p>
  */
-public interface ConfigurationMetaModel{
+public interface MetaModel{
     /**
      * Get the ids of the PartialMetaConfiguration instances for the given configured type.
      *
      * @param configuredType the target type, not null.
      * @return the set of ids available, never null.
      */
-    public Set<String> getMetaConfigurationIds(Class<?> configuredType);
+    public Set<String> getSpecificationIds(Class<?> configuredType);
 
     /**
      * Access a partial meta configuration.
@@ -46,32 +46,33 @@ public interface ConfigurationMetaModel{
      * @param name           the item's name, not null and not empty
      * @return the according meta-configuration, or null.
      */
-    public PartialMetaConfiguration getMetaConfiguration(Class<?> configuredType, String name);
+    public <T> Specification<T> getSpecification(Class<T> configuredType, String name);
 
 
     /**
      * Model for a partial configuration.
      */
-    public interface PartialMetaConfiguration extends Map<String,String>{
+    public interface Specification<T>{
+
         /**
          * The target type to be configured.
          *
          * @return the target type to be configured, never null.
          */
-        Class<?> getConfiguredType();
+        Class<T> getConfiguredType();
 
         /**
-         * Get the config's name.
-         *
-         * @return the config's name, never null.
+         * Get the specification's name.
+         * @return the specification's name, not null.
          */
-        String getName();
+        public String getName();
 
-        public PartialMetaConfiguration getChild(String id);
+        /**
+         * Get all partial child configurations.
+         * @return all child configs, never null.
+         */
+        public Collection<Specification> getChildren();
 
-        public Collection<PartialMetaConfiguration> getChildren();
-
-        public Set<String> getChildIds();
     }
 
 }

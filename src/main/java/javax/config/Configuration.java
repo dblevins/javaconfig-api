@@ -20,7 +20,7 @@ import java.util.function.Predicate;
  * In most cases a configuration is a combination of {@link PropertyMap} instances, hereby
  * implementing overrides and filtering.
  * <br/>
- * <h3>Implementation Specification</h3>
+ * <h3>Implementation PropertyMapSpec</h3>
  * Implementations of this interface must be
  * <ul>
  * <li>Thread safe.

@@ -20,7 +20,7 @@ import java.util.Set;
  * configuration.
  * <p/>
  * <h3>Implementation
- * Specification</h3>
+ * PropertyMapSpec</h3>
  * <p></p>Implementations of this interface must be
  * <ul>
  * <li>Thread safe.
@@ -41,7 +41,7 @@ public interface PropertyMap extends Map<String,String>{
      *
      * @return the sources for the instance, never {@code null}.
      */
-    public Set<String> getSources();
+    Set<String> getSources();
 
     /**
      * Get the meta information for the given key.
@@ -49,12 +49,18 @@ public interface PropertyMap extends Map<String,String>{
      * @param key the key, not {@code null}.
      * @return the according meta-info, or {@code null}.
      */
-    public Map<String,String> getMetaInfo(String key);
+    Map<String,String> getMetaInfo(String key);
+
+    /**
+     * Get the property map's general meta-info.
+     * @return the property map's general meta-info, never null.
+     */
+    Map<String,String> getMetaInfo();
 
     /**
      * Reloads the {@link PropertyMap}.
      */
-    public void reload();
+    void reload();
 
     /**
      * This method allows to check, if an instance is mutable. If an instance is not mutable most of the so called
@@ -72,6 +78,6 @@ public interface PropertyMap extends Map<String,String>{
      * </ul>
      * @return true, if this instance is mutable.
      */
-    public boolean isMutable();
+    boolean isMutable();
 
 }

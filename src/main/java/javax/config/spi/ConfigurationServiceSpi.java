@@ -21,7 +21,7 @@ import java.util.Collection;
  * on the environment definition provided by one instance of
  * {@link javax.config.EnvironmentContext}. It is possible to define multiple
  * {@link ConfigurationServiceSpi} instances, if required. <h3>Implementation
- * Specification</h3> Implementations of this interface must be
+ * PropertyMapSpec</h3> Implementations of this interface must be
  * <ul>
  * <li>Thread safe.
  * </ul>

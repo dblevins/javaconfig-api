@@ -13,7 +13,7 @@ import javax.config.Environment;
 
 /**
  * Provides a configuration based on the given {@link Environment}.<br/>
- * <h3>Implementation Specification</h3> Implementations of this interface must
+ * <h3>Implementation PropertyMapSpec</h3> Implementations of this interface must
  * be
  * <ul>
  * <li>Thread safe.

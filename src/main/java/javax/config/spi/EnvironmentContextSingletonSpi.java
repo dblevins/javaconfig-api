@@ -20,7 +20,7 @@ import javax.config.EnvironmentChangeListener;
 /**
  * Service SPI for accessing {@link Environment}. Environments are used to
  * access/determine configurations.<br/>
- * <h3>Implementation Specification</h3>
+ * <h3>Implementation PropertyMapSpec</h3>
  * <p>Implementations of this class
  * <ul>
  * <li>must be thread safe,

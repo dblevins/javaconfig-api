@@ -3,7 +3,7 @@
 	PLEASE READ THE TERMS AND CONDITIONS OF THIS AGREEMENT CAREFULLY. BY DOWNLOADING 
 	THIS SPECIFICATION, YOU ACCEPT THE TERMS AND CONDITIONS OF THE AGREEMENT. 
 	IF YOU ARE NOT WILLING TO BE BOUND BY IT, SELECT THE "DECLINE" BUTTON AT 
-	THE BOTTOM OF THIS PAGE. Specification: JSR-xxx Java Configuration API ("Specification") 
+	THE BOTTOM OF THIS PAGE. PropertyMapSpec: JSR-xxx Java Configuration API ("PropertyMapSpec")
 	Copyright (c) 2013, Credit Suisse All rights reserved. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">

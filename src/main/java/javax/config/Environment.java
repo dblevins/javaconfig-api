@@ -18,7 +18,7 @@ import java.util.Set;
 /**
  * Models the current runtime environment. Instances of this class are used to
  * evaluate the correct configuration artifacts.<br/>
- * <h3>Implementation Specification</h3>
+ * <h3>Implementation PropertyMapSpec</h3>
  * <p>
  * Implementations of this interface must be
  * <ul>
