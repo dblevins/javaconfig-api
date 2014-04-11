@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public final class Bootstrap {
 	/** The ServiceProvider used. */
-	private static volatile ServiceProvider serviceProviderDelegate;
+	private static volatile ServiceProvider serviceProviderDelegate = loadDefaultServiceProvider();
 	/** The shared lock instance user. */
 	private static final Object LOCK = new Object();
 

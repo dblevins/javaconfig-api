@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * Event distributed when a {@link Configuration} has been changed, removed or added.
+ * Event distributed when a {@link PropertyMap} or {@link Configuration} has been changed, removed or added.
  *
  * @author Anatole Tresch
  */
@@ -24,7 +24,7 @@ public final class ConfigChangeEvent{
     /**
      * The affected {@link Configuration}-
      */
-    private final Configuration configuration;
+    private final PropertyMap propertyMap;
     /**
      * Additional event meta data.
      */
@@ -40,9 +40,9 @@ public final class ConfigChangeEvent{
      * @param builder the builder with the value to be set.
      */
     private ConfigChangeEvent(Builder builder){
-        Objects.requireNonNull(builder.configuration);
+        Objects.requireNonNull(builder.propertyMap);
         Objects.requireNonNull(builder.changeUpdateType);
-        this.configuration = builder.configuration;
+        this.propertyMap = builder.propertyMap;
         this.changeUpdateType = builder.changeUpdateType;
         this.metaData = builder.metaData;
         this.delta.putAll(builder.delta);
@@ -62,8 +62,8 @@ public final class ConfigChangeEvent{
      *
      * @return the configuration, never {@code null}.
      */
-    public final Configuration getConfiguration(){
-        return configuration;
+    public final PropertyMap getPropertyMap(){
+        return propertyMap;
     }
 
     /**
@@ -81,7 +81,8 @@ public final class ConfigChangeEvent{
      */
     @Override
     public String toString(){
-        return "ConfigChangeEvent [configuration=" + configuration + ", changeUpdateType=" + changeUpdateType + ", metaData=" +
+        return "ConfigChangeEvent [propertyMap=" + propertyMap + ", changeUpdateType=" + changeUpdateType +
+                ", metaData=" +
                 metaData + ", delta=" + delta + "]";
     }
 
@@ -111,14 +112,16 @@ public final class ConfigChangeEvent{
          * serial version.
          */
         private static final long serialVersionUID = -1602542417894307122L;
-        /** Cache for change detail instances. */
+        /**
+         * Cache for change detail instances.
+         */
         private static final Map<String,ChangeDetail> CACHE = new LinkedHashMap<String,ChangeDetail>(100, 0.9f, true){
             private static final long serialVersionUID = -1602542426994307092L;
             private static final int MAX_SIZE = 500;
 
             @Override
             protected boolean removeEldestEntry(Map.Entry<String,ChangeDetail> eldest){
-                if(size()>MAX_SIZE){
+                if(size() > MAX_SIZE){
                     return true;
                 }
                 return false;
@@ -195,13 +198,13 @@ public final class ConfigChangeEvent{
 
         /**
          * Get the update type of this entry.
+         *
          * @return the update type, never null.
          */
         public UpdateType getUpdateType(){
-            if(previousValue==null){
+            if(previousValue == null){
                 return UpdateType.ADDED;
-            }
-            else if(value==null){
+            }else if(value == null){
                 return UpdateType.REMOVED;
             }
             return UpdateType.UPDATED;
@@ -226,23 +229,30 @@ public final class ConfigChangeEvent{
          */
         @Override
         public boolean equals(Object obj){
-            if(this == obj)
+            if(this == obj){
                 return true;
-            if(obj == null)
+            }
+            if(obj == null){
                 return false;
-            if(getClass() != obj.getClass())
+            }
+            if(getClass() != obj.getClass()){
                 return false;
+            }
             ChangeDetail other = (ChangeDetail) obj;
             if(previousValue == null){
-                if(other.previousValue != null)
+                if(other.previousValue != null){
                     return false;
-            }else if(!previousValue.equals(other.previousValue))
+                }
+            }else if(!previousValue.equals(other.previousValue)){
                 return false;
+            }
             if(value == null){
-                if(other.value != null)
+                if(other.value != null){
                     return false;
-            }else if(!value.equals(other.value))
+                }
+            }else if(!value.equals(other.value)){
                 return false;
+            }
             return true;
         }
 
@@ -260,12 +270,12 @@ public final class ConfigChangeEvent{
     public static final class Builder{
         private final Map<String,ChangeDetail> delta = new HashMap<>();
         private UpdateType changeUpdateType;
-        private Configuration configuration;
+        private PropertyMap propertyMap;
         private Map<String,String> metaData = new HashMap<>();
 
-        public Builder(Configuration configuration, UpdateType changeUpdateType){
-            Objects.requireNonNull(configuration);
-            this.configuration = configuration;
+        public Builder(PropertyMap propertyMap, UpdateType changeUpdateType){
+            Objects.requireNonNull(propertyMap);
+            this.propertyMap = propertyMap;
         }
 
         public Builder addChange(String key, ChangeDetail detail){
@@ -295,7 +305,7 @@ public final class ConfigChangeEvent{
          */
         @Override
         public String toString(){
-            return "Builder [configuration=" + configuration + ", updateType=" + changeUpdateType + ", " +
+            return "Builder [propertyMap=" + propertyMap + ", updateType=" + changeUpdateType + ", " +
                     "metaData=" + metaData +
                     ", delta=" + delta + "]";
         }

@@ -53,6 +53,7 @@ public interface PropertyMap extends Map<String,String>{
 
     /**
      * Get the property map's general meta-info.
+     *
      * @return the property map's general meta-info, never null.
      */
     Map<String,String> getMetaInfo();
@@ -66,18 +67,42 @@ public interface PropertyMap extends Map<String,String>{
      * This method allows to check, if an instance is mutable. If an instance is not mutable most of the so called
      * <i>optional</i> method of {@link java.util.Map} will throw an {@link java.lang.UnsupportedOperationException}:
      * <ul>
-     *     <li>{@link #put(Object, Object)}</li>
-     *     <li>{@link #putAll(java.util.Map)}</li>
-     *     <li>{@link #clear()}</li>
-     *     <li>{@link #putIfAbsent(Object, Object)}</li>
-     *     <li>{@link #remove(Object)}</li>
-     *     <li>{@link #remove(Object, Object)}</li>
-     *     <li>{@link #replace(Object, Object)}</li>
-     *     <li>{@link #replace(Object, Object, Object)}</li>
-     *     <li>{@link #replaceAll(java.util.function.BiFunction)}</li>
+     * <li>{@link #put(Object, Object)}</li>
+     * <li>{@link #putAll(java.util.Map)}</li>
+     * <li>{@link #clear()}</li>
+     * <li>{@link #putIfAbsent(Object, Object)}</li>
+     * <li>{@link #remove(Object)}</li>
+     * <li>{@link #remove(Object, Object)}</li>
+     * <li>{@link #replace(Object, Object)}</li>
+     * <li>{@link #replace(Object, Object, Object)}</li>
+     * <li>{@link #replaceAll(java.util.function.BiFunction)}</li>
      * </ul>
+     * <p>Note that if an instance is not mutable, it may still change its state on reload or update,
+     * but it does not support programmatically controlled, arbitrary changes.</p>
+     *
      * @return true, if this instance is mutable.
      */
     boolean isMutable();
+
+    /**
+     * Adds a listener for configuration changes, duplicates are ignored.
+     *
+     * @param l the listener to be added.
+     */
+    public void addConfigChangeListener(ConfigChangeListener l);
+
+    /**
+     * Adds a listener for configuration changes, duplicates are ignored.
+     *
+     * @param l the listener to be added.
+     */
+    public void addWeakConfigChangeListener(ConfigChangeListener l);
+
+    /**
+     * Removes a listener for configuration changes from this configuration.
+     *
+     * @param l the listener to be removed. If the given instance is not mutable, the call will be ignored.
+     */
+    public void removeConfigChangeListener(ConfigChangeListener l);
 
 }

@@ -109,25 +109,6 @@ public final class ConfigurationServices{
     }
 
     /**
-     * Adds a global listener for configuration changes, duplicates are ignored. Listeners registered with this method
-     * will be informed on every configuration change done (matching the same deployment context).
-     *
-     * @param l the listener to be added.
-     */
-    public static void addConfigChangeListener(ConfigChangeListener l){
-        servicesSpi.addConfigChangeListener(l);
-    }
-
-    /**
-     * Removes a global listener for configuration changes.
-     *
-     * @param l the listener to be removed.
-     */
-    public static void removeConfigChangeListener(ConfigChangeListener l){
-        servicesSpi.removeConfigChangeListener(l);
-    }
-
-    /**
      * Resolves the annotated configuration resources on the given instance and injects according configuration
      * properties.
      *
@@ -174,16 +155,6 @@ public final class ConfigurationServices{
         @Override
         public boolean isConfigurationDefined(String configId){
             return false;
-        }
-
-        @Override
-        public void addConfigChangeListener(ConfigChangeListener l){
-            throw new UnsupportedOperationException("No ConfigService SPI registered");
-        }
-
-        @Override
-        public void removeConfigChangeListener(ConfigChangeListener l){
-            throw new UnsupportedOperationException("No ConfigService SPI registered");
         }
 
         @Override

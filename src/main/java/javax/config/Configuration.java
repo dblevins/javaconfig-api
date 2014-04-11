@@ -320,4 +320,5 @@ public interface Configuration extends PropertyMap{
      */
     public <T> T query(ConfigurationQuery<T> query);
 
+
 }

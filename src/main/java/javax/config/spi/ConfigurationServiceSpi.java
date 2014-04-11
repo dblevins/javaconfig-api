@@ -72,20 +72,6 @@ public interface ConfigurationServiceSpi{
     boolean isConfigurationDefined(String configId);
 
     /**
-     * Adds a listener for configuration changes, duplicates are ignored.
-     *
-     * @param l the listener to be added.
-     */
-    void addConfigChangeListener(ConfigChangeListener l);
-
-    /**
-     * Removes a listener for configuration changes.
-     *
-     * @param l the listener to be removed.
-     */
-    void removeConfigChangeListener(ConfigChangeListener l);
-
-    /**
      * Resolved the annotated configuration resources on the given instance.
      *
      * @param instance to POJO instance to be configured.
