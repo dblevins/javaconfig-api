@@ -12,7 +12,6 @@
  */
 package javax.config;
 
-import javax.config.spi.Bootstrap;
 
 /**
  * Service for accessing {@link Environment}. Environments are used to

@@ -76,18 +76,4 @@ public interface PropertyMap extends Map<String,String>{
      */
     boolean isMutable();
 
-    /**
-     * Adds a listener for configuration changes, duplicates are ignored.
-     *
-     * @param l the listener to be added.
-     */
-    public void addConfigChangeListener(ConfigChangeListener l);
-
-    /**
-     * Removes a listener for configuration changes from this configuration.
-     *
-     * @param l the listener to be removed. If the given instance is not mutable, the call will be ignored.
-     */
-    public void removeConfigChangeListener(ConfigChangeListener l);
-
 }
