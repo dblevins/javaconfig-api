@@ -37,13 +37,6 @@ import java.util.Set;
 public interface PropertyMap extends Map<String,String>{
 
     /**
-     * Get the sources read for this {@link PropertyMap} instance.
-     *
-     * @return the sources for the instance, never {@code null}.
-     */
-    Set<String> getSources();
-
-    /**
      * Get the meta information for the given key.
      *
      * @param key the key, not {@code null}.
@@ -90,13 +83,6 @@ public interface PropertyMap extends Map<String,String>{
      * @param l the listener to be added.
      */
     public void addConfigChangeListener(ConfigChangeListener l);
-
-    /**
-     * Adds a listener for configuration changes, duplicates are ignored.
-     *
-     * @param l the listener to be added.
-     */
-    public void addWeakConfigChangeListener(ConfigChangeListener l);
 
     /**
      * Removes a listener for configuration changes from this configuration.
