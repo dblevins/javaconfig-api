@@ -29,40 +29,7 @@ import java.util.Set;
  * 
  * @author Anatole Tresch
  */
-public final class Environment implements Serializable {
-	/** serialVersionUID. */
-	private static final long serialVersionUID = -7410447407000577031L;
-
-	/** The environment's type. */
-	private EnvironmentType environmentType;
-	/** The environment's name. */
-	private String name;
-	/** The parent environment. */
-	private Environment parent;
-	/** The attributes. */
-	private Map<Class<?>, Map<Object, Object>> attributes = new HashMap<Class<?>, Map<Object, Object>>();
-
-	/**
-	 * Creates a new {@link Environment}.
-	 * 
-	 * @param builder
-	 *            the {@link Builder} instance.
-	 */
-	public Environment(Builder builder) {
-		this.environmentType = builder.environmentType;
-		this.name = builder.name;
-		this.parent = builder.parent;
-		this.attributes = builder.attributes;
-	}
-
-	/**
-	 * Get the environment's type.
-	 * 
-	 * @return the environment's type, not {@code null}
-	 */
-	public EnvironmentType getType() {
-		return environmentType;
-	}
+public interface Environment {
 
 	/**
 	 * Get the name of the environment. The environment's name must be unique in
@@ -70,9 +37,13 @@ public final class Environment implements Serializable {
 	 * 
 	 * @return the environment's name, not {@code null}
 	 */
-	public String getName() {
-		return getName();
-	}
+	public String getName();
+
+    /**
+     * Get the environment's stage.
+     * @return the current stage, never null.
+     */
+    public Stage getStage();
 
 	/**
 	 * Get the overall (read-only) properties for this {@link Environment}. The
@@ -83,13 +54,7 @@ public final class Environment implements Serializable {
 	 * @return the overall (read-only) properties for this {@link Environment},
 	 *         never {@code null}.
 	 */
-	public Set<Object> getAttributeKeys(Class<?> targetType) {
-		Map<Object, Object> values = attributes.get(targetType);
-		if (values == null) {
-			return Collections.emptySet();
-		}
-		return values.keySet();
-	}
+	public Set<String> getAttributeKeys(Class<?> targetType);
 
 	/**
 	 * Get an attribute.
@@ -100,13 +65,7 @@ public final class Environment implements Serializable {
 	 *            the attribute's type.
 	 * @return the attribute's value.
 	 */
-	public <T> T getAttribute(Object key, Class<T> type) {
-		Map<Object, Object> values = attributes.get(type);
-		if (values == null) {
-			return null;
-		}
-		return type.cast(values.get(key));
-	}
+	public <T> T getAttribute(String key, Class<T> type);
 
 	/**
 	 * Get an attribute.
@@ -115,9 +74,7 @@ public final class Environment implements Serializable {
 	 *            the attribute's type.
 	 * @return the attribute's value.
 	 */
-	public <T> T getAttribute(Class<T> type) {
-		return getAttribute(type, type);
-	}
+	public <T> T getAttribute(Class<T> type);
 
 	/**
 	 * Get the parent {@link Environment} of this environment. The values of the
@@ -128,133 +85,6 @@ public final class Environment implements Serializable {
 	 * @return the parent {@link Environment}, or {@code null}, if there is no
 	 *         parent, e.g. for the global system environment.
 	 */
-	public Environment getParent() {
-		return parent;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Environment [environmentType=" + environmentType + ", name="
-				+ name + ", parent=" + parent + "]";
-	}
-
-	/**
-	 * The builder class to create an environment.
-	 * 
-	 * @author Anatole Tresch
-	 */
-	public static final class Builder {
-		/** The environment's type. */
-		private EnvironmentType environmentType;
-		/** The environment's name. */
-		private String name;
-		/** The environment's parent. */
-		private Environment parent;
-		/** The attributes. */
-		private Map<Class<?>, Map<Object, Object>> attributes = new HashMap<Class<?>, Map<Object, Object>>();
-
-		/**
-		 * Creates a new builder.
-		 * 
-		 * @param environmentType
-		 *            the environment's type, not {@code null}
-		 * @param name
-		 *            the environment's name, not {@code null}.
-		 */
-		public Builder(EnvironmentType environmentType, String name) {
-			Objects.requireNonNull(environmentType, "EnvironmentType required.");
-			Objects.requireNonNull(name, "Environment name required.");
-			this.environmentType = environmentType;
-			this.name = name;
-		}
-
-		/**
-		 * Set the environment's parent.
-		 * 
-		 * @param environment
-		 *            The environment, not {@code null}.
-		 * @return this instance for chaining.
-		 */
-		public Builder setParent(Environment environment) {
-			Objects.requireNonNull(environment);
-			this.parent = environment;
-			return this;
-		}
-
-		/**
-		 * Sets an attribute.
-		 * 
-		 * @param key
-		 *            the attribute's key, not {@code null}.
-		 * @param type
-		 *            the attribute's type, not {@code null}.
-		 * @param value
-		 *            the attribute.s value, not {@code null}.
-		 * @return this instance for chaining.
-		 */
-		public <T> Builder setAttribute(Object key, Class<T> type, Object value) {
-			Map<Object, Object> values = attributes.get(type);
-			if (values == null) {
-				values = new HashMap<Object, Object>();
-				attributes.put(type, values);
-			}
-			values.put(key, value);
-			return this;
-		}
-
-		/**
-		 * Sets an attribute, using the value's type as attribute's type.
-		 * 
-		 * @param key
-		 *            the attribute's key, not {@code null}.
-		 * @param value
-		 *            the attribute.s value, not {@code null}.
-		 * @return this instance for chaining.
-		 */
-		public <T> Builder setAttribute(Object key, Object value) {
-			Map<Object, Object> values = attributes.get(value.getClass());
-			if (values == null) {
-				values = new HashMap<Object, Object>();
-				attributes.put(value.getClass(), values);
-			}
-			values.put(key, value);
-			return this;
-		}
-
-		/**
-		 * Sets an attribute, using the value's type as attribute's type and the
-		 * value class as attribute key.
-		 * 
-		 * @param value
-		 *            the attribute.s value, not {@code null}.
-		 * @return this instance for chaining.
-		 */
-		public Builder setAttribute(Object value) {
-			setAttribute(value.getClass(), value.getClass(), value);
-			return this;
-		}
-
-		public Environment create() {
-			return new Environment(this);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#toString()
-		 */
-		@Override
-		public String toString() {
-			return "Environment.Builder [environmentType=" + environmentType
-					+ ", name=" + name + ", parent=" + parent.getName()
-					+ ", attributes=" + attributes + "]";
-		}
-
-	}
+	public Environment getParent();
 
 }

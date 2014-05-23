@@ -9,7 +9,6 @@
 package javax.config;
 
 import java.util.Map;
-import java.util.Set;
 
 /**
  * A non map of configuration properties. The contained

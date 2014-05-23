@@ -13,7 +13,6 @@
 package javax.config.annot;
 
 
-import javax.config.ConfigId;
 
 /**
  * This annotation is used to define, which configuration should be used, to evaluate configured properties.
