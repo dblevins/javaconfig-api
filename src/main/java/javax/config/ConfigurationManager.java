@@ -15,9 +15,7 @@ package javax.config;
 import java.util.Collection;
 
 /**
- * Accessor for accessing {@link javax.config.Configuration} instances. The
- * configurations provided hereby are managed by the most significant instance of {@link javax.config.spi
- * .ConfigurationServiceSpi} , registered into the JSR's {@link javax.config.spi.Bootstrap} service API.
+ * Manager for {@link javax.config.Configuration} instances.
  *
  * @author Anatole Tresch
  */
@@ -25,55 +23,42 @@ public interface ConfigurationManager{
 
     /**
      * Access the current {@link Configuration}, matching to the current
-     * {@link Environment}.
+     * {@link ConfigurationContext}.
      *
      * @return the current {@link Configuration} corresponding to the
      * current {@code Environment}.
-     * @see EnvironmentManager#getCurrentEnvironment()
+     * @see ContextManager#getCurrentContext()
      */
     public Configuration getConfiguration();
 
     /**
-     * Access the current {@link Configuration}, matching to the current
-     * {@link Environment}.
-     * @param environment The target environment.
+     * Access the root {@link Configuration}, matching to the current
+     * {@link ConfigurationContext}.
+     *
      * @return the current {@link Configuration} corresponding to the
      * current {@code Environment}.
-     * @see EnvironmentManager#getCurrentEnvironment()
+     * @see ContextManager#getCurrentContext()
      */
-    public Configuration getConfiguration(Environment environment);
+    public Configuration getRootConfiguration();
 
-//    /**
-//     * Access the keys of all registered {@link Configuration} instances.
-//     *
-//     * @return all available configuration keys, never{@code null}.
-//     */
-//    public Collection<String> getConfigurationIds();
-//
-//    /**
-//     * Access a {@link Configuration} using its key. It is recommended to use static constant values to identify
-//     * configurations, e.g. enum values. Using of Strings is basically possible, but discouraged, because spelling
-//     * errors are not detected by the compiler.
-//     *
-//     * @param configId The key of the required {@link Configuration}, not
-//     *            {@code null}.
-//     * @return the current {@link Configuration} corresponding to the
-//     * {@code key}.
-//     * @throws ConfigException if the required configuration is not defined or not
-//     *                         available.
-//     * @see EnvironmentManager#getCurrentEnvironment()
-//     */
-//    public Configuration getConfiguration(String configId);
-//
-//    /**
-//     * Allows to check if a {@link Configuration} with the given id is
-//     * defined.
-//     *
-//     * @param configId The config Id of the required {@link Configuration}, not
-//     *            {@code null}.
-//     * @return true, if the given {@link Configuration} is defined.
-//     */
-//    public boolean isConfigurationDefined(String configId);
+    /**
+     * Gets a list with all configuration names defined.
+     * @return all nameds, never null.
+     */
+    public Collection<String> getConfigurationNames();
 
+    /**
+     * Access a configuration by name.
+     * @param name the configuration's name, not null, not empty.
+     * @return the corresponding Configuration instance, never null.
+     * @throws javax.config.ConfigException if no such configuration is defined.
+     */
+    public Configuration getNamedConfiguration(String name);
 
+    /**
+     * Allows to check if a configuration with a given name is defined.
+     * @param name the configuration's name, not null, not empty.
+     * @return true, if such a configuration is defined.
+     */
+    public boolean isNamedConfigurationDefined(String name);
 }

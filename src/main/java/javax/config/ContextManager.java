@@ -14,7 +14,7 @@ package javax.config;
 
 
 /**
- * Service for accessing {@link Environment}. Environments are used to
+ * Service for accessing {@link ConfigurationContext}. Environments are used to
  * access/determine configurations.<br/>
  * <h3>Implementation PropertyMapSpec</h3> This class is
  * <ul>
@@ -24,18 +24,17 @@ package javax.config;
  * 
  * @author Anatole Tresch
  */
-public interface EnvironmentManager{
+public interface ContextManager{
 
 	/**
-	 * Access the current runtime {@link Environment}.
+	 * Access the current runtime {@link ConfigurationContext}.
 	 * 
-	 * @return the current runtime {@link Environment}, never {@code null}.
+	 * @return the current runtime {@link ConfigurationContext}, never {@code null}.
 	 */
-	public Environment getCurrentEnvironment();
-
+	public ConfigurationContext getCurrentContext();
 
 	/**
-	 * Access the initial {@link Environment} corresponding to this Java VM. The
+	 * Access the initial {@link ConfigurationContext} corresponding to this Java VM. The
 	 * initial environment is the root environment of all environments on this
 	 * VM, hereby containing at least:<br/>
 	 * <ul>
@@ -44,8 +43,8 @@ public interface EnvironmentManager{
 	 * {@code java.home, java.version etc}
 	 * </ul>
 	 * 
-	 * @return the initial runtime {@link Environment}, never {@code null}.
+	 * @return the initial runtime {@link ConfigurationContext}, never {@code null}.
 	 */
-	public Environment getRootEnvironment();
+	public ConfigurationContext getRootContext();
 
 }

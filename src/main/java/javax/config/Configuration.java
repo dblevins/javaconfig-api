@@ -14,6 +14,7 @@ package javax.config;
 
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.prefs.AbstractPreferences;
 
 /**
  * A configuration models a aggregated set of properties, identified by a unique key.
@@ -38,6 +39,7 @@ public interface Configuration extends PropertyMap{
      * @return the configuration's key
      */
     public String getConfigId();
+
 
     /**
      * Get the property value as {@link Boolean}.
@@ -319,24 +321,5 @@ public interface Configuration extends PropertyMap{
      * @return the result
      */
     public <T> T query(ConfigurationQuery<T> query);
-
-    /**
-     * Resolves the annotated configuration resources on the given instance and injects according configuration
-     * properties.
-     *
-     * @param instance the instance to be configured.
-     * @throws ConfigException if configuration could not be resolved or converted.
-     */
-    public void configure(Object instance);
-
-    /**
-     * Resolves the annotated configuration resources on the given instance and injects according configuration
-     * properties.
-     *
-     * @param instance      to instance to be configured.
-     * @param configuration The Configuration to be used to resolve the annotated properties.
-     * @throws ConfigException if configuration could not be resolved or converted.
-     */
-    public void configure(Object instance, Configuration configuration);
 
 }

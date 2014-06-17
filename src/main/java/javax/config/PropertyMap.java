@@ -41,14 +41,14 @@ public interface PropertyMap extends Map<String,String>{
      * @param key the key, not {@code null}.
      * @return the according meta-info, or {@code null}.
      */
-    Map<String,String> getMetaInfo(String key);
+    MetaInfo<PropertyEntry<PropertyMap>> getMetaInfo(String key);
 
     /**
      * Get the property map's general meta-info.
      *
      * @return the property map's general meta-info, never null.
      */
-    Map<String,String> getMetaInfo();
+    MetaInfo<PropertyMap> getMetaInfo();
 
     /**
      * Reloads the {@link PropertyMap}.
@@ -76,4 +76,18 @@ public interface PropertyMap extends Map<String,String>{
      */
     boolean isMutable();
 
+    /**
+     * Adds a ConfigChangeListener to this configuration. Implementations should use WeakReferences to refer to the
+     * listeners.
+     *
+     * @param l the listener to be added, not null.
+     */
+    public void addConfigChangeListener(ConfigChangeListener l);
+
+    /**
+     * Removes a ConfigChangeListener to this configuration.
+     *
+     * @param l the listener to be removed, not null.
+     */
+    public void removeConfigChangeListener(ConfigChangeListener l);
 }

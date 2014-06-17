@@ -275,7 +275,9 @@ public final class ConfigChangeEvent{
 
         public Builder(PropertyMap propertyMap, UpdateType changeUpdateType){
             Objects.requireNonNull(propertyMap);
+            Objects.requireNonNull(changeUpdateType);
             this.propertyMap = propertyMap;
+            this.changeUpdateType = changeUpdateType;
         }
 
         public Builder addChange(String key, ChangeDetail detail){
