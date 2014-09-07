@@ -14,15 +14,15 @@
 package javax.config.queries;
 
 import javax.config.Configuration;
-import javax.config.ConfigurationQuery;
+import java.util.function.Function;
 
 /**
  * Created by Anatole on 18.06.2014.
  */
-public class WebConfigQuery implements ConfigurationQuery<WebConfigQuery.WebConfig>{
+public class WebConfigQuery implements Function<Configuration, WebConfigQuery.WebConfig>{
 
     @Override
-    public WebConfig queryFrom(Configuration config){
+    public WebConfig apply(Configuration config){
         return null;
     }
 

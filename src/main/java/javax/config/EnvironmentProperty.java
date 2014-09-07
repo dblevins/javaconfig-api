@@ -10,26 +10,21 @@
  * 
  * Copyright (c) 2012-2013, Credit Suisse All rights reserved.
  */
-package javax.config.annot;
+package javax.config;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * Allows to provide a value passed as a system property.
- */
+
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = { ElementType.TYPE, ElementType.FIELD, ElementType.METHOD })
-public @interface SystemProperty {
-    /** Defines if the system property is a single flag, or has a value.
-     * @return true, if the argument has a value. */
-    boolean hasValue() default true;
+public @interface EnvironmentProperty {
 
     /**
-     * Get a list of possible system properties. The first value in the list is returned as result.
-     * @return the argument names. If missing the field or method name being injected is used by default.
+     * Get a list of possible environment properties. The first value in the list is returned as result.
+     * @return the environment names. If missing the field or method name being injected is used by default.
      */
     String[] value() default {};
 }

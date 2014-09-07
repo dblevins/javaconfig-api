@@ -13,6 +13,8 @@
 package javax.config;
 
 
+import javax.inject.Provider;
+
 /**
  * Service for accessing {@link ConfigurationContext}. Environments are used to
  * access/determine configurations.<br/>
@@ -24,27 +26,6 @@ package javax.config;
  * 
  * @author Anatole Tresch
  */
-public interface ContextManager{
-
-	/**
-	 * Access the current runtime {@link ConfigurationContext}.
-	 * 
-	 * @return the current runtime {@link ConfigurationContext}, never {@code null}.
-	 */
-	public ConfigurationContext getCurrentContext();
-
-	/**
-	 * Access the initial {@link ConfigurationContext} corresponding to this Java VM. The
-	 * initial environment is the root environment of all environments on this
-	 * VM, hereby containing at least:<br/>
-	 * <ul>
-	 * <li>All environment properties as returned by {@link System#getenv()}.
-	 * <li>All predefined System properties, such as
-	 * {@code java.home, java.version etc}
-	 * </ul>
-	 * 
-	 * @return the initial runtime {@link ConfigurationContext}, never {@code null}.
-	 */
-	public ConfigurationContext getRootContext();
+public interface ContextManager extends Provider<ConfigurationContext>{
 
 }

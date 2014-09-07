@@ -14,15 +14,15 @@
 package javax.config.queries;
 
 import javax.config.Configuration;
-import javax.config.ConfigurationQuery;
+import java.util.function.Function;
 
 /**
  * Created by Anatole on 18.06.2014.
  */
-public class DatasourceConfigQuery implements ConfigurationQuery<DatasourceConfigQuery.DatasourceConfig>{
+public class DatasourceConfigQuery implements Function<Configuration, DatasourceConfigQuery.DatasourceConfig>{
 
     @Override
-    public DatasourceConfig queryFrom(Configuration config){
+    public DatasourceConfig apply(Configuration config){
         return null;
     }
 

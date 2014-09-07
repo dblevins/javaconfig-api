@@ -14,17 +14,17 @@
 package javax.config.queries;
 
 import javax.config.Configuration;
-import javax.config.ConfigurationQuery;
 import java.io.InputStream;
 import java.util.Set;
+import java.util.function.Function;
 
 /**
  * Created by Anatole on 18.06.2014.
  */
-public class JPAConfigQuery implements ConfigurationQuery<JPAConfigQuery.JPAConfig>{
+public class JPAConfigQuery implements Function<Configuration, JPAConfigQuery.JPAConfig>{
 
     @Override
-    public JPAConfig queryFrom(Configuration config){
+    public JPAConfig apply(Configuration config){
         return null;
     }
 

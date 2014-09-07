@@ -25,14 +25,7 @@ import java.util.Objects;
  * 
  * @author Anatole Tresch
  */
-public final class ConfigurationContext extends AbstractContext{
-
-    private static final String KEY_NAME = "name";
-    private static final long serialVersionUID = 904363460955115875L;
-
-    private ConfigurationContext(Builder builder){
-        super(builder);
-    }
+public interface ConfigurationContext extends Map<String,String>, StageSupplier{
 
 	/**
 	 * Get the name of the environment. The environment's name must be unique in
@@ -40,60 +33,13 @@ public final class ConfigurationContext extends AbstractContext{
 	 * 
 	 * @return the environment's name, not {@code null}
 	 */
-	public String getName(){
-        return getText(KEY_NAME);
-    }
+	String getName();
 
     /**
-     * Get the environment's stage.
-     * @return the current stage, never null.
+     * Get the parent context.
+     * @return the parent context, or null.
      */
-    public Stage getStage(){
-        return getAttribute(Stage.class);
-    }
+    ConfigurationContext getParentContext();
 
-    public static final class Builder extends AbstractBuilder<Builder>{
-
-        public Builder(String name){
-            Objects.requireNonNull(name);
-            if(name.isEmpty()){
-                throw new IllegalArgumentException("Name is empty.");
-            }
-            super.setText(KEY_NAME, name);
-            setStage(Stage.Development);
-        }
-
-        public Builder(ConfigurationContext context){
-            Objects.requireNonNull(context);
-            setAll(context);
-        }
-
-        public Builder setStage(Stage stage){
-            setObject(stage);
-            return this;
-        }
-
-        public Builder setContextWithOverride(ConfigurationContext context){
-            super.setAll(context);
-            return this;
-        }
-
-        public Builder setContextIgnoreDuplicates(ConfigurationContext context){
-            for(Map.Entry<Class<?>,Map<Object,Object>> en: context.attributes.entrySet()){
-                Map<Object,Object> values = this.attributes.get(en.getKey());
-                if(values!=null){
-                    for(Map.Entry<Object,Object> valEn: en.getValue().entrySet()){
-                        values.putIfAbsent(en.getKey(), en.getValue());
-                    }
-                }
-            }
-            return this;
-        }
-
-        @Override
-        public ConfigurationContext build(){
-            return new ConfigurationContext(this);
-        }
-    }
 
 }

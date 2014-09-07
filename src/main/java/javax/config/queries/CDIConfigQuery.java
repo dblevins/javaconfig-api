@@ -14,15 +14,15 @@
 package javax.config.queries;
 
 import javax.config.Configuration;
-import javax.config.ConfigurationQuery;
+import java.util.function.Function;
 
 /**
  * Created by Anatole on 18.06.2014.
  */
-public class CDIConfigQuery implements ConfigurationQuery<CDIConfigQuery.CDIConfig>{
+public class CDIConfigQuery implements Function<Configuration, CDIConfigQuery.CDIConfig>{
 
     @Override
-    public CDIConfig queryFrom(Configuration config){
+    public CDIConfig apply(Configuration config){
         return null;
     }
 

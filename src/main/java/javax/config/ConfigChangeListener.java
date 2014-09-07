@@ -9,6 +9,8 @@
 package javax.config;
 
 
+import java.util.function.Consumer;
+
 /**
  * Interface implemented by code interested in configuration changes, especially for code running in
  * a standalone/non CDI context. When CDI is available, {@link javax.config.ConfigChangeEvent} are distributed by
@@ -17,13 +19,6 @@ package javax.config;
  * @author Anatole Tresch
  */
 @FunctionalInterface
-public interface ConfigChangeListener {
-	
-	/**
-	 * Method called on change.
-	 * 
-	 * @param event
-	 *            the {@link javax.config.ConfigChangeEvent}, never {@code null}.
-	 */
-	void configChanged(ConfigChangeEvent event);
+public interface ConfigChangeListener extends Consumer<ConfigChangeEvent>{
+
 }

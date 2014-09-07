@@ -14,15 +14,15 @@
 package javax.config.queries;
 
 import javax.config.Configuration;
-import javax.config.ConfigurationQuery;
+import java.util.function.Function;
 
 /**
  * Created by Anatole on 18.06.2014.
  */
-public class QueueConfigQuery implements ConfigurationQuery<QueueConfigQuery.QueueConfig>{
+public class QueueConfigQuery implements Function<Configuration, QueueConfigQuery.QueueConfig>{
 
     @Override
-    public QueueConfig queryFrom(Configuration config){
+    public QueueConfig apply(Configuration config){
         return null;
     }
 

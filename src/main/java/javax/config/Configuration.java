@@ -13,12 +13,13 @@
 package javax.config;
 
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.prefs.AbstractPreferences;
+import java.util.function.UnaryOperator;
 
 /**
  * A configuration models a aggregated set of properties, identified by a unique key.
- * In most cases a configuration is a combination of {@link PropertyMap} instances, hereby
+ * In most cases a configuration is a combination of {@link ConfigMap} instances, hereby
  * implementing overrides and filtering.
  * <br/>
  * <h3>Implementation PropertyMapSpec</h3>
@@ -32,14 +33,10 @@ import java.util.prefs.AbstractPreferences;
  *
  * @author Anatole Tresch
  */
-public interface Configuration extends PropertyMap{
+public interface Configuration extends ConfigMap{
 
-    /**
-     * Access the identifying key of a configuration.
-     * @return the configuration's key
-     */
-    public String getConfigId();
 
+    public String getName();
 
     /**
      * Get the property value as {@link Boolean}.
@@ -207,7 +204,7 @@ public interface Configuration extends PropertyMap{
      * <p>
      * If {@code Class<T>} is not one of
      * {@code Boolean, Short, Integer, Long, Float, Double, BigInteger,
-     * BigDecimal, String} , an according {@link PropertyAdapter} must be
+     * BigDecimal, String} , an according adapter must be
      * available to perform the conversion from {@link String} to
      * {@code Class<T>}.
      *
@@ -219,14 +216,14 @@ public interface Configuration extends PropertyMap{
      * @throws IllegalArgumentException if the value could not be converted to the required target
      *                                  type, or no such property exists.
      */
-    public <T> T getAdapted(String key, PropertyAdapter<T> adapter);
+    public <T> T getAdapted(String key, Function<String, T> adapter);
 
     /**
      * Get the property value as type {@code Class<T>}.
      *
      * @param key          the property's absolute, or relative path, e.g. @code
      *                     a/b/c/d.myProperty}.
-     * @param adapter      the {@link PropertyAdapter} to perform the conversion from
+     * @param adapter      the adapter to perform the conversion from
      *                     {@link String} to {@code Class<T>}, not {@code null}.
      * @param defaultValue the default value, returned if no such property exists or the
      *                     property's value is {@code null}.
@@ -234,7 +231,7 @@ public interface Configuration extends PropertyMap{
      * @throws IllegalArgumentException if the value could not be converted to the required target
      *                                  type.
      */
-    public <T> T getAdaptedOrDefault(String key, PropertyAdapter<T> adapter, T defaultValue);
+    public <T> T getAdaptedOrDefault(String key, Function<String, T> adapter, T defaultValue);
 
     /**
      * Get the property value as type T. This will implicitly require a corresponding {@link javax.config
@@ -312,7 +309,7 @@ public interface Configuration extends PropertyMap{
      *                 combining configurations.
      * @return the new adjusted configuration, never {@code null}.
      */
-    public Configuration with(ConfigurationAdjuster adjuster);
+    public Configuration with(UnaryOperator<Configuration> adjuster);
 
     /**
      * Query some value from a configuration.
@@ -320,6 +317,6 @@ public interface Configuration extends PropertyMap{
      * @param query the query, never {@code null}.
      * @return the result
      */
-    public <T> T query(ConfigurationQuery<T> query);
+    public <T> T query(Function<Configuration, T> query);
 
 }

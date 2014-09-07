@@ -14,15 +14,15 @@
 package javax.config.queries;
 
 import javax.config.Configuration;
-import javax.config.ConfigurationQuery;
+import java.util.function.Function;
 
 /**
  * Created by Anatole on 18.06.2014.
  */
-public class SecurityConfigQuery implements ConfigurationQuery<SecurityConfigQuery.SecurityConfig>{
+public class SecurityConfigQuery implements Function<Configuration, SecurityConfigQuery.SecurityConfig>{
 
     @Override
-    public SecurityConfig queryFrom(Configuration config){
+    public SecurityConfig apply(Configuration config){
         return null;
     }
 

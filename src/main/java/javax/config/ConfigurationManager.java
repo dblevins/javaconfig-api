@@ -12,6 +12,7 @@
  */
 package javax.config;
 
+import java.lang.annotation.Annotation;
 import java.util.Collection;
 
 /**
@@ -22,30 +23,24 @@ import java.util.Collection;
 public interface ConfigurationManager{
 
     /**
-     * Access the current {@link Configuration}, matching to the current
-     * {@link ConfigurationContext}.
-     *
-     * @return the current {@link Configuration} corresponding to the
-     * current {@code Environment}.
-     * @see ContextManager#getCurrentContext()
-     */
-    public Configuration getConfiguration();
-
-    /**
-     * Access the root {@link Configuration}, matching to the current
-     * {@link ConfigurationContext}.
-     *
-     * @return the current {@link Configuration} corresponding to the
-     * current {@code Environment}.
-     * @see ContextManager#getCurrentContext()
-     */
-    public Configuration getRootConfiguration();
-
-    /**
      * Gets a list with all configuration names defined.
      * @return all nameds, never null.
      */
-    public Collection<String> getConfigurationNames();
+    Collection<String> getConfigurationNames();
+
+    /**
+     * Allows to check if a configuration with a given name is defined.
+     * @param name the configuration's name, not null, not empty.
+     * @return true, if such a configuration is defined.
+     */
+    boolean isConfigurationDefined(String name);
+
+    /**
+     * Allows to check if a configuration with a given name is defined.
+     * @param qualifiers the configuration's qualifiers, not null.
+     * @return true, if such a configuration is defined.
+     */
+    boolean isConfigurationDefined(Annotation... qualifiers);
 
     /**
      * Access a configuration by name.
@@ -53,12 +48,13 @@ public interface ConfigurationManager{
      * @return the corresponding Configuration instance, never null.
      * @throws javax.config.ConfigException if no such configuration is defined.
      */
-    public Configuration getNamedConfiguration(String name);
+    Configuration getConfiguration(String name);
 
     /**
-     * Allows to check if a configuration with a given name is defined.
-     * @param name the configuration's name, not null, not empty.
-     * @return true, if such a configuration is defined.
+     * Access a configuration.
+     * @param qualifiers the configuration's qualifiers, not null.
+     * @return the corresponding Configuration instance, never null.
+     * @throws javax.config.ConfigException if no such configuration is defined.
      */
-    public boolean isNamedConfigurationDefined(String name);
+    Configuration getConfiguration(Annotation... qualifiers);
 }

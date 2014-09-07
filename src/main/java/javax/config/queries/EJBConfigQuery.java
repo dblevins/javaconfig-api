@@ -14,15 +14,15 @@
 package javax.config.queries;
 
 import javax.config.Configuration;
-import javax.config.ConfigurationQuery;
+import java.util.function.Function;
 
 /**
  * Created by Anatole on 18.06.2014.
  */
-public class EJBConfigQuery implements ConfigurationQuery<EJBConfigQuery.EJBConfig>{
+public class EJBConfigQuery implements Function<Configuration, EJBConfigQuery.EJBConfig>{
 
     @Override
-    public EJBConfig queryFrom(Configuration config){
+    public EJBConfig apply(Configuration config){
         return null;
     }
 

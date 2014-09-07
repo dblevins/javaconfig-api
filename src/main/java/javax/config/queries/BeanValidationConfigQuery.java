@@ -14,17 +14,18 @@
 package javax.config.queries;
 
 import javax.config.Configuration;
-import javax.config.ConfigurationQuery;
 import java.io.InputStream;
 import java.util.Set;
+import java.util.function.Function;
 
 /**
  * Created by Anatole on 18.06.2014.
  */
-public class BeanValidationConfigQuery implements ConfigurationQuery<BeanValidationConfigQuery.BeanValidationConfig>{
+public class BeanValidationConfigQuery implements
+        Function<Configuration, BeanValidationConfigQuery.BeanValidationConfig>{
 
     @Override
-    public BeanValidationConfig queryFrom(Configuration config){
+    public BeanValidationConfig apply(Configuration config){
         return null;
     }
 
