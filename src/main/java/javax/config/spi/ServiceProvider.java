@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * This class models the component that is managing the lifecycle of the
- * monetary services used by the Money and Currency API.
+ * services used by the Configuration API.
  * 
  * @author Anatole Tresch
  * @author Werner Keil
