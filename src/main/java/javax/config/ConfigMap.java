@@ -8,7 +8,6 @@
  */
 package javax.config;
 
-import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -37,24 +36,28 @@ import java.util.Map;
 public interface ConfigMap extends Map<String,String>{
 
     /**
-     * Get the meta information for the given key.
-     *
-     * @param key the key, not {@code null}.
-     * @return the according meta-info, or {@code null}.
+     * Get the meta-info of a configuration.
+     * @return the configuration's/config map's metaInfo, or null.
      */
-    Map<String,String> getMetaInfo(String key);
+    default String getMetaInfo(){
+        return get("_metainfo");
+    }
 
     /**
-     * Get the property map's general meta-info keys.
-     *
-     * @return the property map's general meta-info, never null.
+     * Get the meta-info for a configuration key.
+     * @param key The map key, not null.
+     * @return the configuration's  metaInfo for the given key, or null.
      */
-    Collection<String> getMetaInfoKeys();
+    default String getMetaInfo(String key){
+        return get(key + "._metainfo");
+    }
 
     /**
      * Reloads the {@link ConfigMap}.
      */
-    void reload();
+    default void reload(){
+        // by default do nothing
+    }
 
     /**
      * This method allows to check, if an instance is mutable. If an instance is not mutable most of the so called

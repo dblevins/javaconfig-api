@@ -1,46 +1,48 @@
-/*
- * CREDIT SUISSE IS WILLING TO LICENSE THIS SPECIFICATION TO YOU ONLY UPON THE
- * CONDITION THAT YOU ACCEPT ALL OF THE TERMS CONTAINED IN THIS AGREEMENT.
- * PLEASE READ THE TERMS AND CONDITIONS OF THIS AGREEMENT CAREFULLY. BY
- * DOWNLOADING THIS SPECIFICATION, YOU ACCEPT THE TERMS AND CONDITIONS OF THE
- * AGREEMENT. IF YOU ARE NOT WILLING TO BE BOUND BY IT, SELECT THE "DECLINE"
- * BUTTON AT THE BOTTOM OF THIS PAGE.
- *
- * Specification: JSR-xxx Java Configuration API ("Specification")
- *
- * Copyright (c) 2012-2013, Credit Suisse All rights reserved.
- */
 package javax.config;
 
+import javax.config.spi.Bootstrap;
+import javax.config.spi.ConfigurationManagerSingletonSpi;
 import java.lang.annotation.Annotation;
 import java.util.Collection;
+import java.util.Optional;
 
 /**
- * Manager for {@link javax.config.Configuration} instances.
- *
- * @author Anatole Tresch
+ * Singleton accessor for accessing {@link javax.config.Configuration} instances.
  */
-public interface ConfigurationManager{
+public final class ConfigurationManager{
+    /** The backing SPI instance. */
+    private static final ConfigurationManagerSingletonSpi configProvider = loadConfigServiceSingletonSpi();
 
     /**
-     * Gets a list with all configuration names defined.
-     * @return all nameds, never null.
+     * Private singleton constructor.
      */
-    Collection<String> getConfigurationNames();
+    private ConfigurationManager(){}
+
+    /**
+     * Method to initially load the singleton SPI.
+     * @return the SPI, never null.
+     */
+    private static ConfigurationManagerSingletonSpi loadConfigServiceSingletonSpi(){
+        return Bootstrap.getService(ConfigurationManagerSingletonSpi.class);
+    }
 
     /**
      * Allows to check if a configuration with a given name is defined.
      * @param name the configuration's name, not null, not empty.
      * @return true, if such a configuration is defined.
      */
-    boolean isConfigurationDefined(String name);
+    public static boolean isConfigurationDefined(String name){
+        return Optional.of(configProvider).get().isConfigurationDefined(name);
+    }
 
     /**
      * Allows to check if a configuration with a given name is defined.
      * @param qualifiers the configuration's qualifiers, not null.
      * @return true, if such a configuration is defined.
      */
-    boolean isConfigurationDefined(Annotation... qualifiers);
+    public static boolean isConfigurationDefined(Annotation... qualifiers){
+        return Optional.of(configProvider).get().isConfigurationDefined(qualifiers);
+    }
 
     /**
      * Access a configuration by name.
@@ -48,7 +50,9 @@ public interface ConfigurationManager{
      * @return the corresponding Configuration instance, never null.
      * @throws javax.config.ConfigException if no such configuration is defined.
      */
-    Configuration getConfiguration(String name);
+    public static Configuration getConfiguration(String name){
+        return Optional.of(configProvider).get().getConfiguration(name);
+    }
 
     /**
      * Access a configuration.
@@ -56,5 +60,16 @@ public interface ConfigurationManager{
      * @return the corresponding Configuration instance, never null.
      * @throws javax.config.ConfigException if no such configuration is defined.
      */
-    Configuration getConfiguration(Annotation... qualifiers);
+    public static Configuration getConfiguration(Annotation... qualifiers){
+        return Optional.of(configProvider).get().getConfiguration(qualifiers);
+    }
+
+    /**
+     * Evaluate the current expression based on the current configuration valid.
+     * @param expression the expression, not null.
+     * @return the evaluated config expression.
+     */
+    public static String evaluateValue(String expression){
+        return Optional.of(configProvider).get().evaluateValue(expression);
+    }
 }

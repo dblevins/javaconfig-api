@@ -12,10 +12,10 @@
  */
 package javax.config;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
 
 /**
  * A configuration models a aggregated set of properties, identified by a unique key.
@@ -35,9 +35,6 @@ import java.util.function.UnaryOperator;
  */
 public interface Configuration extends ConfigMap{
 
-
-    public String getName();
-
     /**
      * Get the property value as {@link Boolean}.
      *
@@ -46,7 +43,9 @@ public interface Configuration extends ConfigMap{
      * @return the property's value.
      * @throws IllegalArgumentException if no such property exists.
      */
-    public Boolean getBoolean(String key);
+    default Boolean getBoolean(String key){
+        return get(key, Boolean.class);
+    }
 
     /**
      * Get the property value as {@link Boolean}.
@@ -59,7 +58,9 @@ public interface Configuration extends ConfigMap{
      * @throws IllegalArgumentException if the value could not be converted to the required target
      *                                  type.
      */
-    public Boolean getBooleanOrDefault(String key, Boolean defaultValue);
+    default Boolean getBooleanOrDefault(String key, Boolean defaultValue){
+        return getOrDefault(key, Boolean.class, defaultValue);
+    }
 
     /**
      * Get the property value as {@link Byte}.
@@ -69,7 +70,9 @@ public interface Configuration extends ConfigMap{
      * @return the property's value.
      * @throws IllegalArgumentException if no such property exists.
      */
-    public Byte getByte(String key);
+    default Byte getByte(String key){
+        return get(key, Byte.class);
+    }
 
     /**
      * Get the property value as {@link Byte}.
@@ -82,7 +85,9 @@ public interface Configuration extends ConfigMap{
      * @throws IllegalArgumentException if the value could not be converted to the required target
      *                                  type.
      */
-    public Byte getByteOrDefault(String key, Byte defaultValue);
+    default Byte getByteOrDefault(String key, Byte defaultValue){
+        return getOrDefault(key, Byte.class, defaultValue);
+    }
 
     /**
      * Get the property value as {@link Short}.
@@ -92,7 +97,9 @@ public interface Configuration extends ConfigMap{
      * @return the property's value.
      * @throws IllegalArgumentException if no such property exists.
      */
-    public Short getShort(String key);
+    default Short getShort(String key){
+        return get(key, Short.class);
+    }
 
     /**
      * Get the property value as {@link Short}.
@@ -105,7 +112,9 @@ public interface Configuration extends ConfigMap{
      * @throws IllegalArgumentException if the value could not be converted to the required target
      *                                  type.
      */
-    public Short getShortOrDefault(String key, Short defaultValue);
+    default Short getShortOrDefault(String key, Short defaultValue){
+        return getOrDefault(key, Short.class, defaultValue);
+    }
 
     /**
      * Get the property value as {@link Integer}.
@@ -115,7 +124,9 @@ public interface Configuration extends ConfigMap{
      * @return the property's value.
      * @throws IllegalArgumentException if no such property exists.
      */
-    public Integer getInteger(String key);
+    default Integer getInteger(String key){
+        return get(key, Integer.class);
+    }
 
     /**
      * Get the property value as {@link Integer}.
@@ -128,7 +139,9 @@ public interface Configuration extends ConfigMap{
      * @throws IllegalArgumentException if the value could not be converted to the required target
      *                                  type.
      */
-    public Integer getIntegerOrDefault(String key, Integer defaultValue);
+    default Integer getIntegerOrDefault(String key, Integer defaultValue){
+        return getOrDefault(key, Integer.class, defaultValue);
+    }
 
     /**
      * Get the property value as {@link Long}.
@@ -138,7 +151,9 @@ public interface Configuration extends ConfigMap{
      * @return the property's value.
      * @throws IllegalArgumentException if no such property exists.
      */
-    public Long getLong(String key);
+    default Long getLong(String key){
+        return get(key, Long.class);
+    }
 
     /**
      * Get the property value as {@link Long}.
@@ -151,7 +166,9 @@ public interface Configuration extends ConfigMap{
      * @throws IllegalArgumentException if the value could not be converted to the required target
      *                                  type.
      */
-    public Long getLongOrDefault(String key, Long defaultValue);
+    default Long getLongOrDefault(String key, Long defaultValue){
+        return getOrDefault(key, Long.class, defaultValue);
+    }
 
     /**
      * Get the property value as {@link Float}.
@@ -161,7 +178,9 @@ public interface Configuration extends ConfigMap{
      * @return the property's value.
      * @throws IllegalArgumentException if no such property exists.
      */
-    public Float getFloat(String key);
+    default Float getFloat(String key){
+        return get(key, Float.class);
+    }
 
     /**
      * Get the property value as {@link Float}.
@@ -174,7 +193,9 @@ public interface Configuration extends ConfigMap{
      * @throws IllegalArgumentException if the value could not be converted to the required target
      *                                  type.
      */
-    public Float getFloatOrDefault(String key, Float defaultValue);
+    default Float getFloatOrDefault(String key, Float defaultValue){
+        return getOrDefault(key, Float.class, defaultValue);
+    }
 
     /**
      * Get the property value as {@link Double}.
@@ -184,7 +205,9 @@ public interface Configuration extends ConfigMap{
      * @return the property's value.
      * @throws IllegalArgumentException if no such property exists.
      */
-    public Double getDouble(String key);
+    default Double getDouble(String key){
+        return get(key, Double.class);
+    }
 
     /**
      * Get the property value as {@link Double}.
@@ -197,7 +220,9 @@ public interface Configuration extends ConfigMap{
      * @throws IllegalArgumentException if the value could not be converted to the required target
      *                                  type.
      */
-    public Double getDoubleOrDefault(String key, Double defaultValue);
+    default Double getDoubleOrDefault(String key, Double defaultValue){
+        return getOrDefault(key, Double.class, defaultValue);
+    }
 
     /**
      * Get the property value as type {@code Class<T>}.
@@ -216,7 +241,9 @@ public interface Configuration extends ConfigMap{
      * @throws IllegalArgumentException if the value could not be converted to the required target
      *                                  type, or no such property exists.
      */
-    public <T> T getAdapted(String key, Function<String, T> adapter);
+    default <T> T getAdapted(String key, PropertyAdapter<T> adapter){
+        return adapter.apply(get(key));
+    }
 
     /**
      * Get the property value as type {@code Class<T>}.
@@ -231,7 +258,13 @@ public interface Configuration extends ConfigMap{
      * @throws IllegalArgumentException if the value could not be converted to the required target
      *                                  type.
      */
-    public <T> T getAdaptedOrDefault(String key, Function<String, T> adapter, T defaultValue);
+    default <T> T getAdaptedOrDefault(String key, PropertyAdapter<T> adapter, T defaultValue){
+        String value = getOrDefault(key, null);
+        if(value==null){
+            return defaultValue;
+        }
+        return adapter.apply(value);
+    }
 
     /**
      * Get the property value as type T. This will implicitly require a corresponding {@link javax.config
@@ -246,7 +279,7 @@ public interface Configuration extends ConfigMap{
      * @throws IllegalArgumentException if the value could not be converted to the required target
      *                                  type.
      */
-    public <T> T getOrDefault(String key, Class<T> type, T defaultValue);
+    <T> T getOrDefault(String key, Class<T> type, T defaultValue);
 
     /**
      * Get the property value as type T. This will implicitly require a corresponding {@link javax.config
@@ -259,14 +292,14 @@ public interface Configuration extends ConfigMap{
      * @throws IllegalArgumentException if the value could not be converted to the required target
      *                                  type.
      */
-    public <T> T get(String key, Class<T> type);
+    <T> T get(String key, Class<T> type);
 
     /**
      * Return a set with all fully qualifies area names.
      *
      * @return s set with all areas, never {@code null}.
      */
-    public Set<String> getAreas();
+    Set<String> getAreas();
 
     /**
      * Return a set with all fully qualified area names, containing the transitive closure also including all
@@ -274,7 +307,7 @@ public interface Configuration extends ConfigMap{
      *
      * @return s set with all transitive areas, never {@code null}.
      */
-    public Set<String> getTransitiveAreas();
+    Set<String> getTransitiveAreas();
 
     /**
      * Return a set with all fully qualified area names, containing only the
@@ -283,7 +316,11 @@ public interface Configuration extends ConfigMap{
      * @param predicate A predicate to deternine, which areas should be returned, not {@code null}.
      * @return s set with all areas, never {@code null}.
      */
-    public Set<String> getAreas(Predicate<String> predicate);
+    default Set<String> getAreas(final Predicate<String> predicate){
+        Set<String> result = new HashSet<>();
+        getAreas().stream().filter(predicate).forEach((s) ->result.add(s));
+        return result;
+    }
 
     /**
      * Return a set with all fully qualified area names, containing the transitive closure also including all
@@ -292,7 +329,11 @@ public interface Configuration extends ConfigMap{
      * @param predicate A predicate to deternine, which areas should be returned, not {@code null}.
      * @return s set with all transitive areas, never {@code null}.
      */
-    public Set<String> getTransitiveAreas(Predicate<String> predicate);
+    default Set<String> getTransitiveAreas(Predicate<String> predicate){
+        Set<String> result = new HashSet<>();
+        getTransitiveAreas().stream().filter(predicate).forEach((s) ->result.add(s));
+        return result;
+    }
 
     /**
      * Allows to evaluate if an area exists.
@@ -300,16 +341,20 @@ public interface Configuration extends ConfigMap{
      * @param key the configuration area (sub)path.
      * @return {@code true}, if such a node exists.
      */
-    public boolean containsArea(String key);
+    default boolean containsArea(String key){
+        return getAreas().contains(key);
+    }
 
     /**
      * Extension point for adjusting configuration.
      *
-     * @param adjuster A configuration ajuster, e.g. a filter, or an adjuster
+     * @param operator A configuration operator, e.g. a filter, or an adjuster
      *                 combining configurations.
      * @return the new adjusted configuration, never {@code null}.
      */
-    public Configuration with(UnaryOperator<Configuration> adjuster);
+    default Configuration with(ConfigOperator operator){
+        return operator.apply(this);
+    }
 
     /**
      * Query some value from a configuration.
@@ -317,6 +362,20 @@ public interface Configuration extends ConfigMap{
      * @param query the query, never {@code null}.
      * @return the result
      */
-    public <T> T query(Function<Configuration, T> query);
+    default <T> T query(ConfigQuery<T> query){
+        return query.apply(this);
+    }
+
+    /**
+     * Add a ConfigChangeListener to this configuration instance.
+     * @param l the listener, not null.
+     */
+    void addConfigChangeListener(ConfigChangeListener l);
+
+    /**
+     * Removes a ConfigChangeListener to this configuration instance.
+     * @param l the listener, not null.
+     */
+    void removeConfigChangeListener(ConfigChangeListener l);
 
 }

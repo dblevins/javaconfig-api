@@ -18,10 +18,9 @@ package javax.config;
  * @author Anatole Tresch
  */
 public enum Stage {
-	Development,
-	UnitTest,
-	SystemTest,
-	IntegrationTest,
-	Staging,
-	Production,
+	DEVELOPMENT,
+	TEST,
+	INTEGRATION,
+	STAGING,
+	PRODUCTION,
 }

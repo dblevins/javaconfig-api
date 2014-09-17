@@ -10,13 +10,15 @@
  * 
  * Copyright (c) 2012-2013, Credit Suisse All rights reserved.
  */
-package javax.config;
+package javax.config.spi;
 
 
+import javax.config.Environment;
 import javax.inject.Provider;
+import java.util.function.Supplier;
 
 /**
- * Service for accessing {@link ConfigurationContext}. Environments are used to
+ * Service for accessing {@link javax.config.Environment}. Environments are used to
  * access/determine configurations.<br/>
  * <h3>Implementation PropertyMapSpec</h3> This class is
  * <ul>
@@ -26,6 +28,13 @@ import javax.inject.Provider;
  * 
  * @author Anatole Tresch
  */
-public interface ContextManager extends Provider<ConfigurationContext>{
+public interface EnvironmentManagerSingletonSpi extends Supplier<Environment>{
 
+    /**
+     * Get the initial root environment, that typically contains any startup and initial parameters of an VM instance,
+     * machine.
+     *
+     * @return the initial environment, never null.
+     */
+    Environment getRootEnvironment();
 }

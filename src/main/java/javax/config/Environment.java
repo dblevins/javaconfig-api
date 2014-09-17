@@ -9,7 +9,6 @@
 package javax.config;
 
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Models the current runtime environment. Instances of this class are used to
@@ -25,7 +24,7 @@ import java.util.Objects;
  * 
  * @author Anatole Tresch
  */
-public interface ConfigurationContext extends Map<String,String>, StageSupplier{
+public interface Environment extends Map<String,String>, StageSupplier{
 
 	/**
 	 * Get the name of the environment. The environment's name must be unique in
@@ -39,7 +38,7 @@ public interface ConfigurationContext extends Map<String,String>, StageSupplier{
      * Get the parent context.
      * @return the parent context, or null.
      */
-    ConfigurationContext getParentContext();
+    Environment getParentContext();
 
 
 }

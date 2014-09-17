@@ -16,8 +16,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.function.Function;
-import java.util.function.UnaryOperator;
 
 /**
  * Annotation to enable injection of a configured property.
@@ -39,16 +37,18 @@ public @interface Configured{
      */
     String defaultValue() default "";
 
-//    /**
-//     * Define a custom adapter that should be used to adapt the configuration entry injected. This overrides any
-//     * general adapters registered. If no adapter is defined (default) and no corresponding adapter is
-//     * registered, it is handled as a deployment error.
-//     */
-//    Class<? extends Function<String, Object>> adapter() default Function.class;
-//
-//    /**
-//     * Define a custom filter/converter that should be applied, e.g. a decryption algorithm for encrypted passwords.
-//     * By default the configured value is used without any operating.
-//     */
-//    Class<? extends UnaryOperator<String>> filter() default UnaryOperator.class;
+    /**
+     * Define a custom adapter that should be used to adapt the configuration entry injected. This overrides any
+     * general internal registered. If no adapter is defined (default) and no corresponding adapter is
+     * registered, it is handled as a deployment error.
+     */
+    Class<? extends PropertyAdapter> adapter() default PropertyAdapter.class;
+
+    /**
+     * Define a custom filter/converter that should be applied, e.g. a decryption algorithm for encrypted passwords.
+     * By default the configured value is used without any operating.
+     */
+    Class<? extends PropertyFilter> filter() default PropertyFilter.class;
+
+    boolean triggerChanges() default true;
 }
