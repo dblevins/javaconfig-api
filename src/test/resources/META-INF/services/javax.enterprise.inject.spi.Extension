@@ -1,1 +1,1 @@
-org.javaconfig.internal.ConfigurationInjector
+org.javaconfig.internal.cdi.ConfigurationInjector
