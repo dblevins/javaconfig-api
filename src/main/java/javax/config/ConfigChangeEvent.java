@@ -11,7 +11,7 @@ package javax.config;
 import java.util.*;
 
 /**
- * Event distributed when a {@link ConfigMap} or {@link Configuration} has been changed, removed or added.
+ * Event distributed when a {@link PropertyProvider} or {@link Configuration} has been changed, removed or added.
  *
  * @author Anatole Tresch
  */
@@ -29,7 +29,7 @@ public interface ConfigChangeEvent{
      *
      * @return the configuration, never {@code null}.
      */
-    ConfigMap getPropertyMap();
+    PropertyProvider getPropertyMap();
 
     /**
      * Access the optional meta data.

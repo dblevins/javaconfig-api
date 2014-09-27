@@ -38,7 +38,7 @@ public interface Environment extends Map<String,String>, StageSupplier{
      * Get the parent context.
      * @return the parent context, or null.
      */
-    Environment getParentContext();
+    Environment getParentEnvironment();
 
 
 }

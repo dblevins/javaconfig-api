@@ -14,12 +14,11 @@ package javax.config;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
  * A configuration models a aggregated set of properties, identified by a unique key.
- * In most cases a configuration is a combination of {@link ConfigMap} instances, hereby
+ * In most cases a configuration is a combination of {@link PropertyProvider} instances, hereby
  * implementing overrides and filtering.
  * <br/>
  * <h3>Implementation PropertyMapSpec</h3>
@@ -33,7 +32,7 @@ import java.util.function.Predicate;
  *
  * @author Anatole Tresch
  */
-public interface Configuration extends ConfigMap{
+public interface Configuration extends PropertyProvider{
 
     /**
      * Get the property value as {@link Boolean}.

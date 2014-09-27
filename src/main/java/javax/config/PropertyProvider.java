@@ -33,7 +33,7 @@ import java.util.Map;
  *
  * @author Anatole Tresch
  */
-public interface ConfigMap extends Map<String,String>{
+public interface PropertyProvider extends Map<String,String>{
 
     /**
      * Get the meta-info of a configuration.
@@ -53,7 +53,7 @@ public interface ConfigMap extends Map<String,String>{
     }
 
     /**
-     * Reloads the {@link ConfigMap}.
+     * Reloads the {@link PropertyProvider}.
      */
     default void reload(){
         // by default do nothing
