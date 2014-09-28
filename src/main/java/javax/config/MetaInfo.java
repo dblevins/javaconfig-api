@@ -14,6 +14,10 @@ public final class MetaInfo{
         this.metaInfo.putAll(builder.map);
     }
 
+    public static MetaInfo of(String info){
+        return MetaInfoBuilder.of(info).build();
+    }
+
     public String get(String key){
         return this.metaInfo.get(key);
 

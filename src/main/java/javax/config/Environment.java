@@ -24,15 +24,7 @@ import java.util.Map;
  * 
  * @author Anatole Tresch
  */
-public interface Environment extends Map<String,String>, StageSupplier{
-
-	/**
-	 * Get the name of the environment. The environment's name must be unique in
-	 * combination with the EnvironmentType.
-	 * 
-	 * @return the environment's name, not {@code null}
-	 */
-	String getName();
+public interface Environment extends PropertyProvider, StageSupplier{
 
     /**
      * Get the parent context.

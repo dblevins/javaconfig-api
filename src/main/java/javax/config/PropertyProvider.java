@@ -15,13 +15,10 @@ import java.util.Set;
 /**
  * A non map of configuration properties. The contained
  * properties may be read from single or several sources.<br/>
- * Property maps are the building blocks out of which complex
- * configuration is setup. Hereby you can define the configuration
- * using a corresponding meta model or also programmatically using a <i>buildable</i>
- * configuration.
+ * Property providers are the building blocks out of which complex
+ * configuration is setup.
  * <p/>
- * <h3>Implementation
- * PropertyMapSpec</h3>
+ * <h3>Implementation Requirements</h3>
  * <p></p>Implementations of this interface must be
  * <ul>
  * <li>Thread safe.

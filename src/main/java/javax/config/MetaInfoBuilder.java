@@ -45,6 +45,10 @@ public final class MetaInfoBuilder{
         return new MetaInfoBuilder(metaInfo);
     }
 
+    public static MetaInfoBuilder of(String info){
+        return new MetaInfoBuilder(null).setInfo(info);
+    }
+
     public static MetaInfoBuilder of(){
         return new MetaInfoBuilder(null);
     }
