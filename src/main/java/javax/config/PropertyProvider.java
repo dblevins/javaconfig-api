@@ -8,7 +8,9 @@
  */
 package javax.config;
 
+import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A non map of configuration properties. The contained
@@ -33,14 +35,103 @@ import java.util.Map;
  *
  * @author Anatole Tresch
  */
-public interface PropertyProvider extends Map<String,String>{
+public interface PropertyProvider { // extends Map<String,String>{
+
+    /**
+     * Get the current number of properties available.
+     * @return the number of available properties.
+     */
+    int size();
+
+    /**
+     * Checks, if the given value is present.
+     * @param value the value, not null.
+     * @return true, if the given value is present.
+     */
+    boolean containsValue(String value);
+
+    /**
+     * Access a property.
+     * @param key the property's key, not null.
+     * @return the property's value.
+     */
+    String get(String key);
+
+    /**
+     * Checks if a property is defined.
+     * @param key the property's key, not null.
+     * @return true, if the property is existing.
+     */
+    boolean containsKey(String key);
+
+    /**
+     * Access the current properties as Map.
+     * @return the a corresponding map, never null.
+     */
+    Map<String, String> toMap();
 
     /**
      * Get the meta-info of a configuration.
      * @return the configuration's/config map's metaInfo, or null.
      */
-    default String getMetaInfo(){
-        return get("_metainfo");
+    MetaInfo getMetaInfo();
+
+    /**
+     * Allows to check if this provider is mutable, meaning #toMutableProvider
+     * must return a non null result.
+     * @return true if this provider is mutable.
+     * @see #toMutableProvider()
+     */
+    default boolean isMutable(){
+        return false;
+    }
+
+    /**
+     * Access a mutable instance of this PropertyProvider.
+     * @return a mutable instance of this PropertyProvider, never null.
+     * @throws java.lang.IllegalStateException if this provider instance is not mutable.
+     * @see #isMutable()
+     */
+    default MutablePropertyProvider toMutableProvider(){
+        throw new IllegalStateException("PropertyProvider is not mutable.");
+    }
+
+    /**
+     * Check if no properties are currently available.
+     * @return true, if no properties are currently accessible.
+     */
+    default boolean isEmpty(){
+        return size()==0;
+    }
+
+
+    /**
+     * Access a property.
+     * @param key the property's key, not null.
+     * @return the property's value.
+     */
+    default String getOrDefault(String key, String defaultValue){
+        String value = get(key);
+        if(value==null){
+            return defaultValue;
+        }
+        return value;
+    }
+
+    /**
+     * Access the set of property keys, defined by this provider.
+     * @return the key set, never null.
+     */
+    default Set<String> keySet(){
+        return toMap().keySet();
+    }
+
+    /**
+     * Access the set of property values, defined by this provider.
+     * @return the value set, never null.
+     */
+    default Collection<String> values(){
+        return toMap().values();
     }
 
     /**
@@ -58,26 +149,5 @@ public interface PropertyProvider extends Map<String,String>{
     default void reload(){
         // by default do nothing
     }
-
-    /**
-     * This method allows to check, if an instance is mutable. If an instance is not mutable most of the so called
-     * <i>optional</i> method of {@link java.util.Map} will throw an {@link java.lang.UnsupportedOperationException}:
-     * <ul>
-     * <li>{@link #put(Object, Object)}</li>
-     * <li>{@link #putAll(java.util.Map)}</li>
-     * <li>{@link #clear()}</li>
-     * <li>{@link #putIfAbsent(Object, Object)}</li>
-     * <li>{@link #remove(Object)}</li>
-     * <li>{@link #remove(Object, Object)}</li>
-     * <li>{@link #replace(Object, Object)}</li>
-     * <li>{@link #replace(Object, Object, Object)}</li>
-     * <li>{@link #replaceAll(java.util.function.BiFunction)}</li>
-     * </ul>
-     * <p>Note that if an instance is not mutable, it may still change its state on reload or update,
-     * but it does not support programmatically controlled, arbitrary changes.</p>
-     *
-     * @return true, if this instance is mutable.
-     */
-    boolean isMutable();
 
 }

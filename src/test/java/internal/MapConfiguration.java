@@ -4,17 +4,18 @@ import javax.config.*;
 import java.util.*;
 
 /**
- * Created by Anatole on 09.09.2014.
+ * Configuration based on a simple Map.
  */
-public class MapConfiguration implements Configuration{
+class MapConfiguration implements Configuration, PropertyProvider{
 
     private Map<String,String> data = new HashMap<>();
+    private MetaInfo metaInfo;
 
-    public MapConfiguration(String name, Map<String,String> data){
-        Objects.requireNonNull(name);
+    public MapConfiguration(MetaInfo metaInfo, Map<String,String> data){
+        Objects.requireNonNull(metaInfo);
         Objects.requireNonNull(data);
+        this.metaInfo = metaInfo;
         this.data.putAll(data);
-        this.data.put("_metainfo", "[name='"+name+"']");
         this.data = Collections.unmodifiableMap(this.data);
     }
 
@@ -57,11 +58,6 @@ public class MapConfiguration implements Configuration{
     }
 
     @Override
-    public boolean isMutable(){
-        return false;
-    }
-
-    @Override
     public int size(){
         return data.size();
     }
@@ -72,38 +68,28 @@ public class MapConfiguration implements Configuration{
     }
 
     @Override
-    public boolean containsKey(Object key){
+    public boolean containsKey(String key){
         return data.containsKey(key);
     }
 
     @Override
-    public boolean containsValue(Object value){
+    public Map<String,String> toMap(){
+        return Collections.unmodifiableMap(data);
+    }
+
+    @Override
+    public MetaInfo getMetaInfo(){
+        return this.metaInfo;
+    }
+
+    @Override
+    public boolean containsValue(String value){
         return data.containsValue(value);
     }
 
     @Override
-    public String get(Object key){
+    public String get(String key){
         return data.get(key);
-    }
-
-    @Override
-    public String put(String key, String value){
-        throw new IllegalStateException("Config is not mutable.");
-    }
-
-    @Override
-    public String remove(Object key){
-        throw new IllegalStateException("Config is not mutable.");
-    }
-
-    @Override
-    public void putAll(Map<? extends String,? extends String> m){
-        throw new IllegalStateException("Config is not mutable.");
-    }
-
-    @Override
-    public void clear(){
-        throw new IllegalStateException("Config is not mutable.");
     }
 
     @Override
@@ -116,8 +102,4 @@ public class MapConfiguration implements Configuration{
         return data.values();
     }
 
-    @Override
-    public Set<Entry<String,String>> entrySet(){
-        return data.entrySet();
-    }
 }

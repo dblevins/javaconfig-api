@@ -2,6 +2,7 @@ package internal;
 
 import javax.config.ConfigException;
 import javax.config.Configuration;
+import javax.config.MetaInfoBuilder;
 import javax.config.spi.ConfigurationManagerSingletonSpi;
 import java.lang.annotation.Annotation;
 import java.util.*;
@@ -30,7 +31,7 @@ public class TestConfigServiceSingletonSpi implements ConfigurationManagerSingle
         config.put("BD", "123456789123456789123456789123456789.123456789123456789123456789123456789");
         config.put("testProperty", "value of testProperty");
         config.put("runtimeVersion", "${java.version}");
-        configs.put("test", new MapConfiguration("test", config));
+        configs.put("test", new MapConfiguration(MetaInfoBuilder.of().setName("test").build(), config));
     }
 
     @Override

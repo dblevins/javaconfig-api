@@ -37,7 +37,7 @@
 							<Export-Package>javax.config.*</Export-Package>
                             <Export-Package>javax.config.annot.*</Export-Package>
                             <Export-Package>javax.config.meta.*</Export-Package>
-                            <Export-Package>org.javaconfig.configmaps.*</Export-Package>
+                            <Export-Package>org.javaconfig.properties.*</Export-Package>
                             <Export-Package>javax.config.spi.*</Export-Package>
 							<Private-Package>!*</Private-Package>
 						</instructions>
