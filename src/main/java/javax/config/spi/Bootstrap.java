@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.ServiceLoader;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -49,7 +50,7 @@ public final class Bootstrap{
             }
         }
         catch(Exception e){
-            Logger.getLogger(Bootstrap.class.getName()).info("No ServiceProvider loaded, using default.");
+            Logger.getLogger(Bootstrap.class.getName()).log(Level.INFO, "No ServiceProvider loaded, using default.");
         }
         return new DefaultServiceProvider();
     }
@@ -62,10 +63,10 @@ public final class Bootstrap{
     public static void init(ServiceProvider serviceProvider){
         Objects.requireNonNull(serviceProvider);
         synchronized(LOCK){
-            if (Objects.isNull(Bootstrap.serviceProviderDelegate)) {
+            if (Bootstrap.serviceProviderDelegate==null) {
                 Bootstrap.serviceProviderDelegate = serviceProvider;
                 Logger.getLogger(Bootstrap.class.getName())
-                        .info("Money Bootstrap: new ServiceProvider set: " + serviceProvider.getClass().getName());
+                        .log(Level.INFO, "Money Bootstrap: new ServiceProvider set: " + serviceProvider.getClass().getName());
             } else {
                 throw new IllegalStateException("Services are already initialized.");
             }
@@ -78,9 +79,9 @@ public final class Bootstrap{
      * @return the {@link ServiceProvider} used.
      */
     static ServiceProvider getServiceProvider(){
-        if (Objects.isNull(serviceProviderDelegate)) {
+        if (serviceProviderDelegate==null) {
             synchronized(LOCK){
-                if (Objects.isNull(serviceProviderDelegate)) {
+                if (serviceProviderDelegate==null) {
                     serviceProviderDelegate = loadDefaultServiceProvider();
                 }
             }
