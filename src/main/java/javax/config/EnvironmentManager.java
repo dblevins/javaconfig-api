@@ -2,14 +2,14 @@ package javax.config;
 
 import javax.config.spi.Bootstrap;
 import javax.config.spi.EnvironmentManagerSingletonSpi;
-import java.util.Optional;
+
 
 /**
  * Created by Anatole on 09.09.2014.
  */
 public final class EnvironmentManager{
 
-    private static final EnvironmentManagerSingletonSpi contextProvider = loadContextProviderSpi();
+    private static final EnvironmentManagerSingletonSpi environmentManagerSingletonSpi = loadContextProviderSpi();
 
     /**
      * Private singleton constructor.
@@ -31,7 +31,10 @@ public final class EnvironmentManager{
      * @return the current Environment, never null.
      */
     public static Environment getEnvironment(){
-        return Optional.of(contextProvider).get().get();
+        if(environmentManagerSingletonSpi==null){
+            throw new IllegalStateException("No SPI loaded.");
+        }
+        return environmentManagerSingletonSpi.getEnvironment();
     }
 
     /**
@@ -39,7 +42,10 @@ public final class EnvironmentManager{
      * @return the current root Environment, never null.
      */
     public static Environment getRootEnvironment(){
-        return Optional.of(contextProvider).get().getRootEnvironment();
+        if(environmentManagerSingletonSpi==null){
+            throw new IllegalStateException("No SPI loaded.");
+        }
+        return environmentManagerSingletonSpi.getRootEnvironment();
     }
 
 }

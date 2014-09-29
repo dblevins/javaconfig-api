@@ -14,8 +14,6 @@ package javax.config.spi;
 
 
 import javax.config.Environment;
-import javax.inject.Provider;
-import java.util.function.Supplier;
 
 /**
  * Service for accessing {@link javax.config.Environment}. Environments are used to
@@ -28,7 +26,14 @@ import java.util.function.Supplier;
  * 
  * @author Anatole Tresch
  */
-public interface EnvironmentManagerSingletonSpi extends Supplier<Environment>{
+public interface EnvironmentManagerSingletonSpi{
+
+    /**
+     * Get the current environment.
+     *
+     * @return the current environment, never null.
+     */
+    Environment getEnvironment();
 
     /**
      * Get the initial root environment, that typically contains any startup and initial parameters of an VM instance,

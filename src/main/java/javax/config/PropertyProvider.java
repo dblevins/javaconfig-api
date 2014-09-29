@@ -32,20 +32,13 @@ import java.util.Set;
  *
  * @author Anatole Tresch
  */
-public interface PropertyProvider { // extends Map<String,String>{
+public interface PropertyProvider {
 
     /**
      * Get the current number of properties available.
      * @return the number of available properties.
      */
     int size();
-
-    /**
-     * Checks, if the given value is present.
-     * @param value the value, not null.
-     * @return true, if the given value is present.
-     */
-    boolean containsValue(String value);
 
     /**
      * Access a property.
@@ -124,26 +117,9 @@ public interface PropertyProvider { // extends Map<String,String>{
     }
 
     /**
-     * Access the set of property values, defined by this provider.
-     * @return the value set, never null.
-     */
-    default Collection<String> values(){
-        return toMap().values();
-    }
-
-    /**
-     * Get the meta-info for a configuration key.
-     * @param key The map key, not null.
-     * @return the configuration's  metaInfo for the given key, or null.
-     */
-    default String getMetaInfo(String key){
-        return get(key + "._metainfo");
-    }
-
-    /**
      * Reloads the {@link PropertyProvider}.
      */
-    default void reload(){
+    default void load(){
         // by default do nothing
     }
 

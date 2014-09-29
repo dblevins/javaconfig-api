@@ -56,9 +56,9 @@ public class TestConfigServiceSingletonSpi implements ConfigurationManagerSingle
     }
 
     @Override
-    public String evaluateValue(String expression){
+    public String evaluateValue(Configuration config, String expression){
         // TODO improve this ugly implementation...
-        for(Map.Entry<Object,Object> en: System.getProperties().entrySet()){
+        for(Map.Entry<String, String> en: config.toMap().entrySet()){
             expression = expression.replaceAll("\\$\\{"+en.getKey()+"\\}", en.getValue().toString());
         }
         return expression;

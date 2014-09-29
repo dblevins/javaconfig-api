@@ -67,8 +67,9 @@ public interface ConfigurationManagerSingletonSpi{
 
     /**
      * Evaluate the current expression based on the current configuration valid.
+     * @param config     The configuration to be used for evluating, not null.
      * @param expression the expression, not null.
      * @return the evaluated config expression.
      */
-    String evaluateValue(String expression);
+    String evaluateValue(Configuration config, String expression);
 }
