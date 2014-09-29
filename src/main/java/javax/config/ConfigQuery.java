@@ -8,14 +8,20 @@
  */
 package javax.config;
 
-import java.util.function.Function;
 
 /**
  * Interface for an query that converts a Configuration into another object. One typical
  * use cases would creating a complex configuration parameter type from a Configuration instance or
  * constraint views on configuration.
  */
-@FunctionalInterface
-public interface ConfigQuery<T> extends Function<Configuration, T>{
+//@FunctionalInterface
+public interface ConfigQuery<T>{
+
+    /**
+     * Queries the given configuration.
+     * @param config the configuration to be wuiried, not null.
+     * @return the result T.
+     */
+    T query(Configuration config);
 
 }

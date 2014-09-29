@@ -8,7 +8,7 @@ import javax.config.spi.EnvironmentManagerSingletonSpi;
  */
 public class TestEnvironmentManagerSingleton implements EnvironmentManagerSingletonSpi{
     @Override
-    public Environment get(){
+    public Environment getEnvironment(){
         return null;
     }
 

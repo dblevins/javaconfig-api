@@ -8,13 +8,20 @@
  */
 package javax.config;
 
-import java.util.function.UnaryOperator;
 
 /**
  * Interface for an filter/operator that converts a configured String into another String. One typical
  * use case would the the decryption of an encrypted configuration value.
  */
-@FunctionalInterface
-public interface ConfigOperator extends UnaryOperator<Configuration>{
+//@FunctionalInterface
+public interface ConfigOperator{
+
+    /**
+     * Method that creates a Configuration from another Configuration. This can be used for implementing
+     * views, security constraints or for overriding/inheriting of configuration.
+     * @param config The target configuration to be operated, never nnull.
+     * @return the operated configuration, never null.
+     */
+    Configuration operate(Configuration config);
 
 }

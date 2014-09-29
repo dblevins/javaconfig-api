@@ -8,12 +8,17 @@
  */
 package javax.config;
 
-import java.util.function.Function;
 
 /**
  * Interface for an adapter that converts a configured String into something else.
  */
-@FunctionalInterface
-public interface PropertyAdapter<T> extends Function<String, T>{
+public interface PropertyAdapter<T>{
+
+    /**
+     * Adapt the given configuration value to the required target type.
+     * @param value
+     * @return
+     */
+    T adapt(String value);
 
 }

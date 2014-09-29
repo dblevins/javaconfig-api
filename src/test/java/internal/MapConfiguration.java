@@ -25,14 +25,14 @@ class MapConfiguration implements Configuration, PropertyProvider{
         if(value==null){
             return defaultValue;
         }
-        return PropertyAdapters.getAdapter(type).apply(get(key));
+        return PropertyAdapters.getAdapter(type).adapt(get(key));
     }
 
     @Override
     public <T> T get(String key, Class<T> type){
         String value = get(key);
         if(value!=null){
-            return PropertyAdapters.getAdapter(type).apply(get(key));
+            return PropertyAdapters.getAdapter(type).adapt(get(key));
         }
         throw new ConfigException("No such config value: " + key + " in " +  getMetaInfo());
     }
@@ -83,11 +83,6 @@ class MapConfiguration implements Configuration, PropertyProvider{
     }
 
     @Override
-    public boolean containsValue(String value){
-        return data.containsValue(value);
-    }
-
-    @Override
     public String get(String key){
         return data.get(key);
     }
@@ -97,9 +92,5 @@ class MapConfiguration implements Configuration, PropertyProvider{
         return data.keySet();
     }
 
-    @Override
-    public Collection<String> values(){
-        return data.values();
-    }
 
 }

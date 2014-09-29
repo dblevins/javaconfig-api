@@ -12,11 +12,8 @@
  */
 package javax.config.spi;
 
-import org.jboss.weld.literal.NamedLiteral;
-
 import javax.config.Configuration;
 import java.lang.annotation.Annotation;
-import java.util.Collection;
 
 /**
  * Manager for {@link javax.config.Configuration} instances.
@@ -36,9 +33,7 @@ public interface ConfigurationManagerSingletonSpi{
      * @param name the configuration's name, not null, not empty.
      * @return true, if such a configuration is defined.
      */
-    default boolean isConfigurationDefined(String name){
-        return isConfigurationDefined(new NamedLiteral(name));
-    }
+    boolean isConfigurationDefined(String name);
 
     /**
      * Allows to check if a configuration with a given name is defined.
@@ -53,9 +48,7 @@ public interface ConfigurationManagerSingletonSpi{
      * @return the corresponding Configuration instance, never null.
      * @throws javax.config.ConfigException if no such configuration is defined.
      */
-    default Configuration getConfiguration(String name){
-        return getConfiguration(new NamedLiteral(name));
-    }
+    Configuration getConfiguration(String name);
 
     /**
      * Access a configuration.

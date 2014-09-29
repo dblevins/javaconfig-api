@@ -241,7 +241,7 @@ public interface Configuration extends PropertyProvider{
      *                                  type, or no such property exists.
      */
     default <T> T getAdapted(String key, PropertyAdapter<T> adapter){
-        return adapter.apply(get(key));
+        return adapter.adapt(get(key));
     }
 
     /**
@@ -262,7 +262,7 @@ public interface Configuration extends PropertyProvider{
         if(value==null){
             return defaultValue;
         }
-        return adapter.apply(value);
+        return adapter.adapt(value);
     }
 
     /**
@@ -317,7 +317,7 @@ public interface Configuration extends PropertyProvider{
      */
     default Set<String> getAreas(final Predicate<String> predicate){
         Set<String> result = new HashSet<>();
-        getAreas().stream().filter(predicate).forEach((s) ->result.add(s));
+        getAreas().stream().filter(predicate).forEach((s) -> result.add(s));
         return result;
     }
 
@@ -330,7 +330,7 @@ public interface Configuration extends PropertyProvider{
      */
     default Set<String> getTransitiveAreas(Predicate<String> predicate){
         Set<String> result = new HashSet<>();
-        getTransitiveAreas().stream().filter(predicate).forEach((s) ->result.add(s));
+        getTransitiveAreas().stream().filter(predicate).forEach((s) -> result.add(s));
         return result;
     }
 
@@ -352,7 +352,7 @@ public interface Configuration extends PropertyProvider{
      * @return the new adjusted configuration, never {@code null}.
      */
     default Configuration with(ConfigOperator operator){
-        return operator.apply(this);
+        return operator.operate(this);
     }
 
     /**
@@ -362,7 +362,7 @@ public interface Configuration extends PropertyProvider{
      * @return the result
      */
     default <T> T query(ConfigQuery<T> query){
-        return query.apply(this);
+        return query.query(this);
     }
 
     /**
