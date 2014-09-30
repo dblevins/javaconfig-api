@@ -44,7 +44,7 @@ public final class MetaInfo{
     }
 
     static String escape(String val){
-        return val.replaceAll("=", "\\\\=").replaceAll("[", "\\\\[").replaceAll("]", "\\\\]").replaceAll(",", "\\\\,");
+        return val.replaceAll("=", "\\\\=").replaceAll("\\[", "\\\\[").replaceAll("]", "\\\\]").replaceAll("\\,", "\\\\,");
     }
 
 }
