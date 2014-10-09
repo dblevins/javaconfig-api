@@ -1,18 +1,25 @@
 Java Configuration API
 ======================
 
-Java API of the Java Config Library, licensed under the JSR spec license:
+[![Build Status](https://api.travis-ci.org/java-config/javaconfig-api.png?branch=master)](https://travis-ci.org/java-config/javaconfig-api)
+[![Coverage Status](https://coveralls.io/repos/java-config/javaconfig-api/badge.png)](https://coveralls.io/r/java-config/javaconfig-api)
+
+[![Built with Maven](http://maven.apache.org/images/logos/maven-feather.png)](http://maven.org/)
 
 ----------------------------------------------------------------------------
-CREDIT SUISSE IS WILLING TO LICENSE THIS SPECIFICATION TO YOU ONLY UPON THE
-CONDITION THAT YOU ACCEPT ALL OF THE TERMS CONTAINED IN THIS AGREEMENT.
-PLEASE READ THE TERMS AND CONDITIONS OF THIS AGREEMENT CAREFULLY. BY
-DOWNLOADING THIS SPECIFICATION, YOU ACCEPT THE TERMS AND CONDITIONS OF THE
-AGREEMENT. IF YOU ARE NOT WILLING TO BE BOUND BY IT, SELECT THE "DECLINE"
-BUTTON AT THE BOTTOM OF THIS PAGE.
-  
-Specification: JSR Java Configuration API ("Specification")
 
-Copyright (c) 2013, Credit Suisse All rights reserved.
+Copyright 2014 Credit Suisse and other (see authors).
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+   http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
 
 ----------------------------------------------------------------------------
+
