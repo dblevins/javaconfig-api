@@ -29,9 +29,9 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = { ElementType.FIELD, ElementType.METHOD, ElementType.TYPE })
-public @interface ConfigUpdatePolicy {
+public @interface ConfigLoadPolicy {
 
-    Class<? extends ConfigChangeListener> value() default ConfigChangeListener.class;
+    Class<? extends ConfigChangeListener> listener() default ConfigChangeListener.class;
 
     LoadPolicy value() default LoadPolicy.MANAGED;
 

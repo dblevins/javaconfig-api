@@ -15,8 +15,8 @@
  */
 package org.javaconfig.spi;
 
-import org.javaconfig.Configured;
 import org.javaconfig.PropertyAdapter;
+import org.javaconfig.annot.ConfigAdapter;
 
 /**
  * SPI that is used by the {@link org.javaconfig.PropertyAdapters} singleton as delegation instance.
@@ -49,7 +49,7 @@ public interface PropertyAdaptersSingletonSpi{
      * @return the corresponding adapter, never null.
      * @throws org.javaconfig.ConfigException if the target type is not supported.
      */
-    <T> PropertyAdapter<T> getAdapter(Class<T> targetType, Configured annotation);
+    <T> PropertyAdapter<T> getAdapter(Class<T> targetType, ConfigAdapter annotation);
 
     /**
      * Checks if the given target type is supported, i.e. a adapter is registered and accessible.

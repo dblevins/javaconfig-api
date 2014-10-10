@@ -15,6 +15,7 @@
  */
 package org.javaconfig.internal;
 
+import org.javaconfig.ConfigChangeListener;
 import org.javaconfig.ConfigException;
 import org.javaconfig.Configuration;
 import org.javaconfig.MetaInfoBuilder;
@@ -67,7 +68,19 @@ public class TestConfigServiceSingletonSpi implements ConfigurationManagerSingle
 
     @Override
     public Configuration getConfiguration(Annotation... qualifiers){
-        throw new ConfigException("No such config: " + Arrays.toString(qualifiers));
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    public void configure(Object instance) {
+        // TODO
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    public <T> T getConfiguration(Class<T> type) {
+        // TODO
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
@@ -77,5 +90,17 @@ public class TestConfigServiceSingletonSpi implements ConfigurationManagerSingle
             expression = expression.replaceAll("\\$\\{"+en.getKey()+"\\}", en.getValue().toString());
         }
         return expression;
+    }
+
+    @Override
+    public void addConfigChangeListener(ConfigChangeListener listener) {
+        // TODO
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    public void removeConfigChangeListener(ConfigChangeListener listener) {
+        // TODO
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

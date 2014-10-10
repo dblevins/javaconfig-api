@@ -15,6 +15,7 @@
  */
 package org.javaconfig;
 
+import org.javaconfig.annot.ConfigAdapter;
 import org.javaconfig.spi.Bootstrap;
 import org.javaconfig.spi.PropertyAdaptersSingletonSpi;
 import java.util.Optional;
@@ -75,14 +76,14 @@ public final class PropertyAdapters{
     /**
      * Get an adapter converting to the given target type.
      * @param targetType the target type class
-     * @param annotation the {@link Configured} annotation, or null. If the annotation is not null and
+     * @param annotation the {@link org.javaconfig.annot.ConfigAdapter} annotation, or null. If the annotation is not null and
      *                   defines an overriding adapter, this instance is created and returned.
      * @param <T> the target type
      * @return the corresponding adapter, never null.
      * @throws ConfigException if the target type is not supported, or the overriding adapter cannot be
      * instantiated.
      */
-    public static  <T> PropertyAdapter<T> getAdapter(Class<T> targetType, Configured annotation){
+    public static  <T> PropertyAdapter<T> getAdapter(Class<T> targetType, ConfigAdapter annotation){
         return Optional.of(propertyAdaptersSingletonSpi).get().getAdapter(targetType, annotation);
     }
 

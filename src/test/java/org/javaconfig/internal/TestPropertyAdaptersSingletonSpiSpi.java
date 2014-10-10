@@ -17,8 +17,8 @@ package org.javaconfig.internal;
 
 import org.javaconfig.ConfigException;
 import org.javaconfig.PropertyAdapter;
+import org.javaconfig.annot.ConfigAdapter;
 import org.javaconfig.spi.PropertyAdaptersSingletonSpi;
-import org.javaconfig.Configured;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -73,9 +73,9 @@ public final class TestPropertyAdaptersSingletonSpiSpi implements PropertyAdapte
     }
 
     @Override
-    public <T> PropertyAdapter<T> getAdapter(Class<T> targetType, Configured annotation){
+    public <T> PropertyAdapter<T> getAdapter(Class<T> targetType, ConfigAdapter annotation){
         if(annotation!=null){
-            Class adapterType = annotation.adapter();
+            Class adapterType = annotation.value();
             if(!adapterType.equals(PropertyAdapter.class)){
                 try{
                     return (PropertyAdapter<T>)adapterType.newInstance();
