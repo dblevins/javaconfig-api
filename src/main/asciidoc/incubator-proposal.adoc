@@ -1,0 +1,319 @@
+JSR 354 Money and Currency -- Specification
+===========================================
+:name: Configurator
+:title: Proposal {name}
+:revnumber: 0.1-SNAPSHOT
+:revremark: Apache {name}
+:revdate: October 2014
+:longversion: {revnumber} ({revremark}) {revdate}
+:authorinitials: ATR
+:author: Anatole Tresch, Credit Suisse
+:email: <atsticks@gmail.com>
+:source-highlighter: coderay
+:website: http://javaconfig.org/
+:iconsdir: {imagesdir}/icons
+:toc:
+:toc-placement: manual
+:icons:
+:encoding: UTF-8
+:numbered:
+
+'''
+
+<<<
+
+-> add image : : https://raw.githubusercontent.com/JavaConfig/config-api/master/src/main/asciidoc/images/javaconfig.jpg[]
+
+toc::[]
+
+== Abstract
+{name} is a enterprise ready highly flexible configuration solution based on an modular, extensible and
+injectable key, value based configuration design.
+
+
+== Proposal
+{name} is a enterprise ready configuration solution based on an modular, extensible and
+injectable key, value based configuration design. The basic building block hereby are
+key/value *property providers* implementing a small and easily implementable subset of a
++Map<String,String>+. This simplicity comes with a long list of decent advantages
+such as
+
+* capability of easily being combined with each other using different combination
+policies into new composite providers, e.g.
+** _add-ignore:_ Add all entries to an existing provider, but ignore all entries already
+   existing in the base provider.
+** _add-override_ Add all entries to an existing provider, but override all entries already
+   existing in the base provider with the values from the added provider.
+** _add_distinct:_ Add all entries to an existing provider, but require that all keys are
+   distinct, throwing a +ConfigExcepion+ if they are not.
+** _intersection:_ create a provider with key/values identical in both participating providers.
+** _union:_ Adding key/values from multiple providers, resolving conflicts by some policy
+   (renaming, prefixing, ...).
+** _filtering:_ Interpreting a second providers as a multi-valued filter matrix, filtering the
+   based provider.
+** ...
+* capability of easily serialize data and therefore also support configuration management and
+  remote configuration distribution solution.
+* no intersection with existing standard, especially CDI in the Java EE context.
+* Simplicity in use and implementation
+* Unified representation of all kind of possible configuration data (low level, higher level
+  functions are provided by the +Configuration+ abstraction.
+* Ease of reuse of existing Java platform provided default properties formats (properties,
+  xml-properties).
+
+Properties can be read from files, classpath resources, or any accessible URI in any format.
+Extensions can be provided by according SPIs easily.
+
+Additionally configuration providers can be implemented as _environment aware_, which allows
+to dynamically returns different configuration trees, based on the current runtime environment.
+Hereby the environment is as well based on a simple key/value model, which additionally supports
+child/parent relations between environments.
+
+Finally with +Configuration+ the user API for configuration data is providing higher level
+features, such as type safe access, by default supporting all common data types from the Java
+platform, including a representation for configured collection data. Well defined extensions
+allow to adapt any target type required, as well as easily support more advanced features such
+as templates, secured views, multi-valued validation schemes, en-/decryption or other.
+
+By default configuration (and property providers) are designed and implemented as indirectly
+mutable types, providing thread-safe, unsynchronized and therefore fast access to configuration.
+Mutabilty is ensured (if supported), by creation of mutable _builder_ using a final +commit()+.
+The API allows to listen to changes on a global as well as on a local, configuration based level.
+It is also planned to support remote configuration change propagation scenarios.
+
+== Background
+There is a global initiative running now for about a year lead by Anatole Tresch (Credit Suisse)
+with the target of standardizing configuration in Java EE and SE. Due to several reasons it
+seems currently most sensible to start an OSS project on the topic to join forces that actively
+want to contribute to the project. It is highly probably that standardization will be restarted
+at a later point.
+FOr further information you may look at his blog at javaeeconfig.blogspot.com .
+
+
+== Rationale
+Configuration is one of the most cross-cutting concerns, which still lacks of any standard, especially
+beside Java EE. Nevertheless Java EE is currently (EE7) in most areas strictly only configurable during
+build time of the deployed artifacts. Especially dynamic provisioning of resources or runtime configuration
+is not supported and in many cases impossible to add without tweaking the underlying application server.
+On the other hand running two separate configuration solutions for Java EE and Java SE as well make no or
+little sense. So it would be important we have a configuration model at hand, that is flexible enough, so
+
+* it can be used in Java SE and EE
+* it can support contextual behaviour (like in Java EE and multi-tenancy/SaaS scenarios)
+* it provides a uniform API, regardless, if its used in SE or EE scenarios
+* it supports existing APIs, e.g. +System.getProperties, java.util.preferences+ in SE and +CDI, JNDI+ in Java EE
+* it supports service location pattern like access as well as _injection_ of configured values.
+* it is simple in use and easily extensible.
+* it support integration with existing configuration solutions currently in use, both OSS as well as customized
+  in-house proprietary solutions
+
+Unfortunately
+
+== Initial Goals
+There is an existing running code base implementing a huge part of the features mentioned already at
+https://github.com/java-config , which will be moved into the incubator.
+
+== Current Status
+There is an existing running code base implementing a huge part of the features mentioned already at
+https://github.com/java-config and licensed under Apache v2.0, which will be contributed into the incubator.
+The separation between API and implementation hereby should stay enforced, since
+
+* it reflects the structure also required for later JSRs
+* it enables to provide different implementations, especially also a Java ME compatible solution.
+
+== Meritocracy
+Apache is a meritocracy.
+
+Once a developer has submitted enough good patches then it should be natural that they are elected to committer. It should be natural that active committers are elected to the project management committee (PMC).
+
+This process of renewal is vital to the long term health of Apache projects. This is the right place to demonstrate that this process is understood by the proposers.
+
+
+  We plan to do everything possible to encourage an environment that
+  supports a meritocracy. One of the lessons that the XMLBeans
+  committers have learned is that meritocracies don't just evolve
+  from good intentions; they require actively asking the community
+  for help, listing/specifying the work that needs to be done, and
+  keeping track of and encouraging members of the community who make
+  any contributions...
+
+== Community
+The project initiative already is significantly supported by JUGs such as SouJava, LJC, iJUG, Berlin Brandenburg JUG,
+JUG Zurich, as well as companies such as Credit Suisse, RedHat, Six Group amd Walmart. It is expected that support will
+raise very quickly so the library will evolve quickly and be widely used as well.
+
+== Core Developers
+The core team will be a set of well known experts from the Java SE and EE area:
+
+* _Anatole Tresch_ (Lead) is currently employed at Credit Suisse. He leads JSR 354 (Money & Currency) and also was planned as cospec lead
+  for Java EE configuration JSR together with Oracle. He also is a member of the CDI 2.0 expert group and is actively
+  driving the configuration topic during its talks at the conferences he joins each year.
+* _Werner Keil_ aka "Java Godfather" is individual JCP EC member contributing to several JSR's in the SE and EE area.
+  He is spec lead of the Units and Measurements JSR. Werner is already a membe of Apache.
+* _Ottavio_ is a member of SouJava and OpenJDK committer. He contibutes regularly to several JSRs and was awarded in 2014
+  as most valuable JCP member.
+* _Jon Pullen_ is a known expert, especially for JPA and Batch and also former EC member og the regarding JSRs.
+* _Six Group_ ...
+* _Walmart_ ...
+* _LJC (London Java Community)_ is one of the driving user groups ans also a known member in the JCP EC.
+* _SouJava_ is the Java User Group of Brazil, one of the biggest most engaged JUG as well.
+* _JUG Berlin Brandenburg_ is one of the bigger JUGs in Germany and also would contribute to any JSR as well. So the will
+  as well contribute to this project.
+* _JUG Zurich_ organizes regular (monthly) hackergardens and will contribute to this project as well.
+
+== Alignment
+Credit Suisse, which lead the initiative through Anatole Tresch during the last year, has a strong commitment to Open Source
+Software. As a consequence also their first JSR (354, Money & Currency) was released under Apache v2. The same is the case
+for all other core contributors and supporters.
+
+== Known Risks
+Main Risk could be that main committers could cease the project before it is possible to build up a public community.
+Nevertheless the wide support of JUGs and companies involved already as well as the engagement of main drivers of the
+initiatives during the last year makes this not a very probable scenario.
+
+== Orphaned products
+See main risks. Basically the engagement of all stakeholders (Credit Suisse, JUGs, other companies) should ensure
+this initiative will evolve hopefully rather quickly to a key component in the Java eco-system, both in SE, as well as ME
+and EE. Additionally all stakeholders involved (companies, as well as individuals/JUGs) have direct benefits of the
+functionality provided.
+
+
+== Inexperience with Open Source
+Starting point will be the experimental repository at https://github.com/java-config . Additionally the talks given by
+Anatole (e.g. at Javaone 2014) and the blogs under http://javaeeconfig.blogspot.com help to give a good starting point
+on many of the concepts implemented/contributed. Nevertheless the idea is that the ideas are further evolved, basically
+similar to a JSR, to ensure all relevant views and aspects will be included.
+
+Many of the committers have experience working on open source projects or JSRs. Some of them have experience as
+committers on other Apache projects.
+
+
+== Homogenous Developers
+The current list of committers includes developers from several
+different companies plus many independent volunteers. The committers
+are geographically distributed across the U.S., Brazil, Europe, and Asia.
+They are experienced with working in a distributed environment.
+
+
+== Reliance on Salaried Developers
+Some of the developers are paid partially by their employer to contribute to
+this project, but given the anticipation from the Java community for
+a powerful Configuration implementation and the committers' sense of
+ownership for the code, the project would continue without issue if no
+salaried developers contributed to the project. Anatole, as the main
+committer and driver of the initiative currently, is paid only partially
+and basically drives the initiative as part of his community engagement
+in general.
+
+
+== Relationships with Other Apache Products
+The project's core API will be independent of any other projects, since in the future it may
+be part of a specification initiative (JSR). Additionally implementations may also have further
+constraints (e.g. a ME implementation must consider memory consumption and a reduced set of
+APIs available in the platform).
+Extension module may depend on further elements. Where useful, adapter module can be adapted,
+so other existing configuration frameworks and solution can be hooked in, such as
+* Apache Commons Configuration
+* Spring Property Sources
+* JFig
+* Configuration Builder
+* and more
+
+Similarly integration modules should enable the solution to be integrated as well as configuration sources
+into the other frameworks, e.g.
+* Spring Property Source
+* System Properties
+* ...
+
+Integration into Java EE has to be coordinated with Apache Deltaspike Configuration, to avoid having two
+configuration standards (we are already in contact with some of the key committers there).
+
+== A Excessive Fascination with the Apache Brand
+While we expect the Apache brand may help attract more contributors,
+our interests is in establishing a powerful and widely used standard
+for configuration. At a later stage, if successful, standardizing it
+within a JSR also may be an option.
+Especially we are interested in joining the ASF in order to increase
+our contacts and visibility. Furthermore, we have been enthusiastic users
+of Apache and feel honored at getting the opportunity to join.
+
+
+== Documentation
+References to further reading material.
+
+  [1] Java (EE) Configuration Blog:
+    http://javaeeconfig.blogspot.com
+
+  [2] Java Configuration Experimental Repo:
+    https://github.com/java-config
+
+  [3] The Javaone Presentation Slideset:
+    https://slideshare.net/
+
+LInks to other existing solutions:
+
+  [4] Apache Commons Configuration:
+
+  [5] Apache Deltaspike Configuration:
+
+  [6] Spring Configuration:
+
+  [7] Java Configuration Builder
+
+  [8] JFig
+
+  [9] Owner
+
+== Initial Source
+Initial source will be from https://github.com/java-config . Most of the functionalities are already fully functional,
+documentation must be improved.
+
+It is already licensed under Apache v2.
+
+
+== External Dependencies
+The API part of the current initial source is completely standalone (it does not have any firther dependencies than the JDK).
+The SE 8 based part does mainly depend on sl4j for logging and javax.inject v.1.2. It uses Weld SE for testing.
+
+
+== Cryptography
+The framework will not bring along additional cryptographic algorithms.
+
+== Required Resources
+The project's build currently is based on Maven, it might be moved to gradle.
+
+== Mailing lists
+We initially would like to start with the minimum required lists:
+
+* +private@{name}.incubator.apache.org+ will be used for confidential PPMC discussions.
+* +dev@{name}.incubator.apache.org+ is used for public discussions and support.
+* Commits for {name} will be emailed to +commits@{name}.incubator.apache.org+.
+
+
+== Git Repository
++https://git-wip-us.apache.org/repos/asf/incubator-{name}.git+
+
+== Issue Tracking
+JIRA {name} ({name})
+
+== Other Resources
+None.
+
+== Initial Committers
+* Anatole Tresch (atsticks at gmail dot com)*
+* Joe Pullen (joe.pulle at gmail dot com)
+* Werner Keil (werner.keil at gmail dot com)
+
+*Lead
+
+== Affiliations
+* Anatole Tresch - Credit Suisse
+
+== Sponsors
+Champion: David Blevins
+
+== Nominated Mentors
+tbd
+
+== Sponsoring Entity
+tbd

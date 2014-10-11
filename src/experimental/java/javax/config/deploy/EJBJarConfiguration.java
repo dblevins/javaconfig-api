@@ -1,7 +1,6 @@
 package javax.config.deploy;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by atsticks on 29.08.14.

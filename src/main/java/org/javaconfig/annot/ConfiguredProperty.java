@@ -15,24 +15,21 @@
  */
 package org.javaconfig.annot;
 
-import org.javaconfig.PropertyAdapter;
-import org.javaconfig.PropertyFilter;
-
 import java.lang.annotation.*;
 
 /**
  * Annotation to enable injection of a configured property.
  */
-@Repeatable(ConfKeys.class)
+@Repeatable(ConfiguredProperties.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = { ElementType.FIELD, ElementType.METHOD })
-public @interface ConfKey {
+public @interface ConfiguredProperty {
 
     /**
      * Get the property names to be used. Hereby the first non null value evaluated is injected as property value.
      *
      * @return the property names, not null. If missing the field or method name being injected is used by default.
      */
-    String[] value() default {};
+    String value() default "";
 
 }

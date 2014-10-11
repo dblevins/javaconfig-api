@@ -25,12 +25,12 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = { ElementType.FIELD, ElementType.METHOD })
-public @interface ConfKeys {
+public @interface ConfiguredProperties {
 
     /**
      * Get the different configuration keys to be looked up, in order of precedence. The first non null value
      * found will be used.
      */
-    ConfKey[] value() default {};
+    ConfiguredProperty[] value() default {};
 
 }

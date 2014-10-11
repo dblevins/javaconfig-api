@@ -16,7 +16,7 @@
 package annottext;
 
 import org.javaconfig.Configuration;
-import org.javaconfig.annot.ConfKey;
+import org.javaconfig.annot.ConfiguredProperty;
 import org.javaconfig.annot.ConfigLoadPolicy;
 import org.javaconfig.annot.DefaultValue;
 import org.javaconfig.annot.LoadPolicy;
@@ -29,21 +29,21 @@ import org.javaconfig.annot.LoadPolicy;
 @ConfigLoadPolicy(LoadPolicy.INITIAL)
 public interface AnnotatedFullConfig extends Configuration{
 
-    @ConfKey("foo.bar.myprop")
-    @ConfKey("mp")
-    @ConfKey("common.test.myProperty")
+    @ConfiguredProperty("foo.bar.myprop")
+    @ConfiguredProperty("mp")
+    @ConfiguredProperty("common.test.myProperty")
     @DefaultValue("myValue_$[env.stage]")
     // @ConfigLoadPolicy(listener = MyListener.class)
     String myParameter();
 
-    @ConfKey("simple_value")
+    @ConfiguredProperty("simple_value")
     @ConfigLoadPolicy(LoadPolicy.LAZY)
     String simpleValue();
 
-    @ConfKey
+    @ConfiguredProperty
     String simplestValue();
 
-    @ConfKey("env.host.name")
+    @ConfiguredProperty("env.host.name")
     String hostName();
 
 }

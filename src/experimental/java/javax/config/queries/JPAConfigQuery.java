@@ -13,7 +13,7 @@
  */
 package javax.config.queries;
 
-import javax.config.Configuration;
+import org.javaconfig.Configuration;
 import java.io.InputStream;
 import java.util.Set;
 import java.util.function.Function;

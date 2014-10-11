@@ -25,12 +25,12 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = { ElementType.TYPE })
-public @interface ConfigView {
+public @interface DefaultAreas {
 
     /**
      * Allows to declare an operator that should be applied before injecting values into the bean.
      * @return the operator class to be used.
      */
-    Class<? extends org.javaconfig.ConfigOperator> value();
+    String[] value();
 
 }

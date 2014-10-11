@@ -8,7 +8,7 @@
 // */
 //package javax.config.ext;
 //
-//import javax.config.Stage;
+//import org.javaconfig.Stage;
 //import java.util.Map;
 //import java.util.Objects;
 //
