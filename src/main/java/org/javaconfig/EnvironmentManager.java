@@ -20,7 +20,7 @@ import org.javaconfig.spi.EnvironmentManagerSingletonSpi;
 
 
 /**
- * Created by Anatole on 09.09.2014.
+ * Singleton accessor class for the current environment.
  */
 public final class EnvironmentManager{
 

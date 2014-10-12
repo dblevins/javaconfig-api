@@ -20,7 +20,7 @@ package org.javaconfig;
  * Interface for an filter/operator that converts a configured String into another String. One typical
  * use case would the the decryption of an encrypted configuration value.
  */
-//@FunctionalInterface
+@FunctionalInterface
 public interface ConfigOperator{
 
     /**

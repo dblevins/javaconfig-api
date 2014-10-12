@@ -16,7 +16,7 @@
 package org.javaconfig;
 
 /**
- * Created by Anatole on 06.09.2014.
+ * Small functional interface for components that provide a stage.
  */
 @FunctionalInterface
 public interface StageSupplier{

@@ -16,7 +16,7 @@
 package org.javaconfig;
 
 /**
- * Class describing the detailed change of an entry.
+ * Class describing the detailed change of an configuration property.
  */
 public interface ConfigChange{
 

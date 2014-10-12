@@ -17,6 +17,7 @@ package org.javaconfig;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.function.Predicate;
 
 /**
@@ -42,9 +43,17 @@ public interface Configuration extends PropertyProvider{
 
 
     /**
+     * Field that allows configurations to be versioned, meaning that each change on a configuration requires this value
+     * to be incremented by one. This can be easily used to implement versioning (and optimistic locking)
+     * in distributed (remote) usage scenarios.
+     * @return the version number of the current instance.
+     */
+    long getVersion();
+
+    /**
      * Get the property value as {@link Boolean}.
      *
-     * @param key the property's absolute, or relative path, e.g. @code
+     * @param key the property's absolute, or relative path, e.g. {@code
      *            a/b/c/d.myProperty}.
      * @return the property's value.
      * @throws IllegalArgumentException if no such property exists.
@@ -273,8 +282,8 @@ public interface Configuration extends PropertyProvider{
     }
 
     /**
-     * Get the property value as type T. This will implicitly require a corresponding {@link javax.config
-     * .PropertyAdapter} to be available that is capable of providing type T from the given String value.
+     * Get the property value as type T. This will implicitly require a corresponding {@link org.javaconfig.PropertyAdapter}
+     * to be available that is capable of providing type T from the given String value.
      *
      * @param key          the property's absolute, or relative path, e.g. @code
      *                     a/b/c/d.myProperty}.
@@ -288,8 +297,9 @@ public interface Configuration extends PropertyProvider{
     <T> T getOrDefault(String key, Class<T> type, T defaultValue);
 
     /**
-     * Get the property value as type T. This will implicitly require a corresponding {@link javax.config
-     * .PropertyAdapter} to be available that is capable of providing type T from the given String value.
+     * Get the property value as type T. This will implicitly require a corresponding {@link
+     * org.javaconfig.PropertyAdapter} to be available that is capable of providing type T
+     * from the given String value.
      *
      * @param key          the property's absolute, or relative path, e.g. @code
      *                     a/b/c/d.myProperty}.
@@ -313,7 +323,22 @@ public interface Configuration extends PropertyProvider{
      *
      * @return s set with all transitive areas, never {@code null}.
      */
-    Set<String> getTransitiveAreas();
+    default Set<String> getTransitiveAreas(){
+        final Set<String> transitiveAreas = new HashSet<>();
+        getAreas().forEach(s -> {
+            int index = s.lastIndexOf('.');
+            if (index < 0) {
+                transitiveAreas.add("<root>");
+            } else {
+                while (index > 0) {
+                    s = s.substring(0, index);
+                    transitiveAreas.add(s);
+                    index = s.lastIndexOf('.');
+                }
+            }
+        });
+        return transitiveAreas;
+    }
 
     /**
      * Return a set with all fully qualified area names, containing only the

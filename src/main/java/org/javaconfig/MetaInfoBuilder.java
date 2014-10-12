@@ -20,6 +20,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Builder class to create new instances of {@lin MetaInfo}.
+ */
 public final class MetaInfoBuilder{
 
     public static final String METAINFO = "_metainfo";

@@ -19,9 +19,7 @@ package org.javaconfig;
 import java.util.function.Consumer;
 
 /**
- * Interface implemented by code interested in configuration changes, especially for code running in
- * a standalone/non CDI context. When CDI is available, {@link ConfigChangeEvent} are distributed by
- * sending corresponding enterprise events.
+ * Interface implemented by code interested in configuration changes.
  * 
  * @author Anatole Tresch
  */

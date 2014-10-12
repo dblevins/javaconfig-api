@@ -16,9 +16,9 @@
 package org.javaconfig;
 
 /**
- * Models the current runtime environment. Instances of this class are used to
+ * Models a runtime environment. Instances of this class are used to
  * evaluate the correct configuration artifacts.<br/>
- * <h3>Implementation PropertyMapSpec</h3>
+ * <h3>Implementation Requirements</h3>
  * <p>
  * Implementations of this interface must be
  * <ul>

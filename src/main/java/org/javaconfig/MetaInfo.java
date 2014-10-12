@@ -18,7 +18,8 @@ package org.javaconfig;
 import java.util.*;
 
 /**
- * Created by Anatole on 28.09.2014.
+ * Simple class to represent configuration meta information. Metainformation can be related to the holw
+ * configuration or some if its entries.
  */
 public final class MetaInfo{
 

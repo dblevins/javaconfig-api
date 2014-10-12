@@ -18,7 +18,7 @@ package org.javaconfig;
 import java.util.*;
 
 /**
- * Event distributed when a {@link PropertyProvider} or {@link Configuration} has been changed, removed or added.
+ * Event distributed when a {@link Configuration} has been changed.
  *
  * @author Anatole Tresch
  */

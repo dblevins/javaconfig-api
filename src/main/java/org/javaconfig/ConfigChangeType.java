@@ -20,15 +20,15 @@ package org.javaconfig;
  */
 public enum ConfigChangeType{
     /**
-     * The new and old configuration show differences in some keys.
+     * The new and old configuration property value are not equal.
      */
     UPDATED,
     /**
-     * The configuration was removed.
+     * A configuration property has been removed.
      */
     REMOVED,
     /**
-     * The configuration has been added.
+     * A configuration property has been added.
      */
     ADDED
 }

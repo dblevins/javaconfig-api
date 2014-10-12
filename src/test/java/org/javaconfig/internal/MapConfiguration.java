@@ -36,6 +36,11 @@ class MapConfiguration implements Configuration, PropertyProvider{
     }
 
     @Override
+    public long getVersion() {
+        return 0;
+    }
+
+    @Override
     public <T> T getOrDefault(String key, Class<T> type, T defaultValue){
         String value = get(key);
         if(value==null){
@@ -55,12 +60,17 @@ class MapConfiguration implements Configuration, PropertyProvider{
 
     @Override
     public Set<String> getAreas(){
-        return Collections.emptySet();
-    }
-
-    @Override
-    public Set<String> getTransitiveAreas(){
-        return Collections.emptySet();
+        final Set<String> areas = new HashSet<>();
+        this.keySet().forEach(s -> {
+            int index = s.lastIndexOf('.');
+            if(index > 0){
+                areas.add(s.substring(0, index));
+            }
+            else{
+                areas.add("<root>");
+            }
+        });
+        return areas;
     }
 
     @Override

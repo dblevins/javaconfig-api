@@ -41,15 +41,36 @@ import java.util.Map;
  * @author Anatole Tresch
  */
 public interface MutablePropertyProvider extends PropertyProvider{
-
+    /**
+     * Add/replace an entry.
+     * @param key the key, not null.
+     * @param value the new value, not null.
+     * @return any previous assigned value, or null.
+     */
     String put(String key, String value);
 
+    /**
+     * Puts all values given. Any existing values will be overriden.
+     * @param m the map to be used, not null.
+     */
     void putAll(Map<? extends String,? extends String> m);
 
+    /**
+     * Removes a single key from the map.
+     * @param key the key, not null.
+     * @return any orevious value, or null.
+     */
     String remove(String key);
 
+    /**
+     * Clear all keys currently stored.
+     */
     void clear();
 
+    /**
+     * Default method to be implemented, since the implementor would be exact this type of instance.
+     * @return this, which is correct.
+     */
     @Override
     default MutablePropertyProvider toMutableProvider(){
         return this;

@@ -21,7 +21,7 @@ package org.javaconfig;
  * use cases would creating a complex configuration parameter type from a Configuration instance or
  * constraint views on configuration.
  */
-//@FunctionalInterface
+@FunctionalInterface
 public interface ConfigQuery<T>{
 
     /**
