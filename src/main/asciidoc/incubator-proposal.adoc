@@ -144,7 +144,7 @@ This process of renewal is vital to the long term health of Apache projects. Thi
 
 == Community
 The project initiative already is significantly supported by JUGs such as SouJava, LJC, iJUG, Berlin Brandenburg JUG,
-JUG Zurich, as well as companies such as Credit Suisse, RedHat, Six Group amd Walmart. It is expected that support will
+JUG Zurich, as well as companies such as Credit Suisse, RedHat and Walmart. It is expected that support will
 raise very quickly so the library will evolve quickly and be widely used as well.
 
 == Core Developers
@@ -157,8 +157,7 @@ The core team will be a set of well known experts from the Java SE and EE area:
   He is spec lead of the Units and Measurements JSR. Werner is already a membe of Apache.
 * _Ottavio_ is a member of SouJava and OpenJDK committer. He contibutes regularly to several JSRs and was awarded in 2014
   as most valuable JCP member.
-* _Jon Pullen_ is a known expert, especially for JPA and Batch and also former EC member og the regarding JSRs.
-* _Six Group_ ...
+* _Joe Pullen_ is a known expert, especially for JPA and Batch and also former EC member og the regarding JSRs.
 * _Walmart_ ...
 * _LJC (London Java Community)_ is one of the driving user groups ans also a known member in the JCP EC.
 * _SouJava_ is the Java User Group of Brazil, one of the biggest most engaged JUG as well.
