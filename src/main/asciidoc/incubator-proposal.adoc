@@ -1,7 +1,7 @@
-JSR 354 Money and Currency -- Specification
-===========================================
-:name: Configurator
-:title: Proposal {name}
+Apache Tamaya - Incubator Proposal
+==================================
+:name: Tamaya
+:title: Proposal Apache {name}
 :revnumber: 0.1-SNAPSHOT
 :revremark: Apache {name}
 :revdate: October 2014
@@ -10,7 +10,7 @@ JSR 354 Money and Currency -- Specification
 :author: Anatole Tresch, Credit Suisse
 :email: <atsticks@gmail.com>
 :source-highlighter: coderay
-:website: http://javaconfig.org/
+:website: http://tamaya.apache.org/
 :iconsdir: {imagesdir}/icons
 :toc:
 :toc-placement: manual
@@ -29,6 +29,11 @@ toc::[]
 == Abstract
 {name} is a enterprise ready highly flexible configuration solution based on an modular, extensible and
 injectable key, value based configuration design.
+
+_{name}_ hereby translates into 'in the middle', which is exactly, what configuration should be. It should be
+in the middle between your code and your runtime.
+
+NOTE: Alternative names could be _Mahkah=earth, Dakota=friend_ or _Orenda=magic force_.
 
 
 == Proposal
