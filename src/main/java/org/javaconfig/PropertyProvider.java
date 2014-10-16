@@ -15,6 +15,7 @@
  */
 package org.javaconfig;
 
+import java.beans.PropertyChangeListener;
 import java.util.Map;
 import java.util.Set;
 
@@ -131,6 +132,22 @@ public interface PropertyProvider {
      */
     default void load(){
         // by default do nothing
+    }
+
+    /**
+     * Add a ConfigChangeListener to this configuration instance.
+     * @param l the listener, not null.
+     */
+    default void addPropertyChangeListener(PropertyChangeListener l){
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Removes a ConfigChangeListener to this configuration instance.
+     * @param l the listener, not null.
+     */
+    default void removePropertyChangeListener(PropertyChangeListener l){
+        return;
     }
 
 }

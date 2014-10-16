@@ -410,16 +410,4 @@ public interface Configuration extends PropertyProvider{
         return query.query(this);
     }
 
-    /**
-     * Add a ConfigChangeListener to this configuration instance.
-     * @param l the listener, not null.
-     */
-    void addPropertyChangeListener(PropertyChangeListener l);
-
-    /**
-     * Removes a ConfigChangeListener to this configuration instance.
-     * @param l the listener, not null.
-     */
-    void removePropertyChangeListener(PropertyChangeListener l);
-
 }

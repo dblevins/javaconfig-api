@@ -100,6 +100,14 @@ public final class MetaInfoBuilder{
         return this;
     }
 
+    public MetaInfoBuilder setMetaInfo(MetaInfo metaInfo){
+        if(metaInfo!=null){
+            Objects.requireNonNull(metaInfo);
+            map.putAll(metaInfo.toMap());
+        }
+        return this;
+    }
+
     public MetaInfoBuilder setSourceExpressions(String... sourceExpressions){
         Objects.requireNonNull(sourceExpressions);
         map.put(SOURCE_EXPRESSION, Arrays.toString(sourceExpressions));

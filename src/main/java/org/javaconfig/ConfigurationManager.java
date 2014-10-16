@@ -140,7 +140,7 @@ public final class ConfigurationManager{
      * Adds a (global) {@link java.beans.PropertyChangeListener} instance that listens to all kind of config changes.
      * @param listener the {@link PropertyChangeListener} instance to be added, not null.
      */
-    public static void addConfigChangeListener(PropertyChangeListener listener){
+    public static void addPropertyChangeListener(PropertyChangeListener listener){
         Optional.of(configManagerSingletonSpi).get().addPropertyChangeListener(listener);
     }
 
@@ -149,7 +149,7 @@ public final class ConfigurationManager{
      * if one is currently registered.
      * @param listener the {@link java.beans.PropertyChangeListener} instance to be removed, not null.
      */
-    public static void removeConfigChangeListener(PropertyChangeListener listener){
+    public static void removePropertyChangeListener(PropertyChangeListener listener){
         Optional.of(configManagerSingletonSpi).get().removePropertyChangeListener(listener);
     }
 }
