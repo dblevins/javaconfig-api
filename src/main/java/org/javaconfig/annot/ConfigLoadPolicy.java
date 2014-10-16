@@ -15,10 +15,7 @@
  */
 package org.javaconfig.annot;
 
-import org.javaconfig.ConfigChangeListener;
-import org.javaconfig.PropertyAdapter;
-import org.javaconfig.PropertyFilter;
-
+import java.beans.PropertyChangeListener;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -31,7 +28,7 @@ import java.lang.annotation.Target;
 @Target(value = { ElementType.FIELD, ElementType.METHOD, ElementType.TYPE })
 public @interface ConfigLoadPolicy {
 
-    Class<? extends ConfigChangeListener> listener() default ConfigChangeListener.class;
+    Class<? extends PropertyChangeListener> listener() default PropertyChangeListener.class;
 
     LoadPolicy value() default LoadPolicy.MANAGED;
 

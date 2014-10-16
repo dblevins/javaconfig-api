@@ -161,9 +161,8 @@ The core team will be a set of well known experts from the Java SE and EE area:
 * _Walmart_ ...
 * _LJC (London Java Community)_ is one of the driving user groups ans also a known member in the JCP EC.
 * _SouJava_ is the Java User Group of Brazil, one of the biggest most engaged JUG as well.
-* _JUG Berlin Brandenburg_ is one of the bigger JUGs in Germany and also would contribute to any JSR as well. So the will
-  as well contribute to this project.
-* _JUG Zurich_ organizes regular (monthly) hackergardens and will contribute to this project as well.
+* _JUG Berlin Brandenburg_ is one of the bigger JUGs in Germany and also would contribute to this project.
+* _JUG Zurich_ organizes regular (monthly) Hackergarten and will contribute to this project as well.
 
 == Alignment
 Credit Suisse, which lead the initiative through Anatole Tresch during the last year, has a strong commitment to Open Source

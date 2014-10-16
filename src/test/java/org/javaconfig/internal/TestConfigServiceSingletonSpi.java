@@ -15,11 +15,12 @@
  */
 package org.javaconfig.internal;
 
-import org.javaconfig.ConfigChangeListener;
 import org.javaconfig.ConfigException;
 import org.javaconfig.Configuration;
 import org.javaconfig.MetaInfoBuilder;
 import org.javaconfig.spi.ConfigurationManagerSingletonSpi;
+
+import java.beans.PropertyChangeListener;
 import java.lang.annotation.Annotation;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -93,13 +94,13 @@ public class TestConfigServiceSingletonSpi implements ConfigurationManagerSingle
     }
 
     @Override
-    public void addConfigChangeListener(ConfigChangeListener listener) {
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
         // TODO
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
-    public void removeConfigChangeListener(ConfigChangeListener listener) {
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
         // TODO
         throw new UnsupportedOperationException("Not yet implemented");
     }

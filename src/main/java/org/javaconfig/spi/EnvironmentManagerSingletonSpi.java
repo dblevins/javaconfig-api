@@ -18,6 +18,9 @@ package org.javaconfig.spi;
 
 import org.javaconfig.Environment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Service for accessing {@link org.javaconfig.Environment}. Environments are used to
  * access/determine configurations.<br/>
@@ -45,4 +48,48 @@ public interface EnvironmentManagerSingletonSpi{
      * @return the initial environment, never null.
      */
     Environment getRootEnvironment();
+
+    /**
+     * Access the chain of environment types that may produce an environment. Hereby it is possible
+     * that chain elements can be ommitted in the final environment hierarchy, since the regarding
+     * environment level is not defined or accessible.
+     * @return the ordered list of environment type ids.
+     */
+    List<String> getEnvironmentHierarchy();
+
+    /**
+     * Evaluate the current type chain of environments.
+     * @return the current type chain of Environments.
+     */
+    default List<String> getCurrentEnvironmentHierarchy(){
+        List<String> result = new ArrayList<>();
+        for(Environment env:getEnvironment()){
+            result.add(env.getEnvironmentType());
+        }
+        return result;
+    }
+
+    /**
+     * Get the current environment of the given environment type.
+     * @param environmentType the target type.
+     * @return the corresponding environment
+     * @throws java.lang.IllegalArgumentException if not such type is present or active.
+     */
+    default Environment getEnvironment(String environmentType){
+        for(Environment env:getEnvironment()){
+            if(env.getEnvironmentType().equals(environmentType)){
+                return env;
+            }
+        }
+        throw new IllegalArgumentException("No such environment type present or active: " + environmentType);
+    }
+
+    /**
+     * Allows to check, if the czurrent environment type is one of the current active environment types.
+     * @param environmentType the environment type to be queried.
+     * @return true, if the czurrent environment type is one of the current active environment types.
+     */
+    default boolean isEnvironmentActive(String environmentType){
+        return getCurrentEnvironmentHierarchy().contains(environmentType);
+    }
 }

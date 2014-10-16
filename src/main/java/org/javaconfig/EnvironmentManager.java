@@ -18,6 +18,10 @@ package org.javaconfig;
 import org.javaconfig.spi.Bootstrap;
 import org.javaconfig.spi.EnvironmentManagerSingletonSpi;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 
 /**
  * Singleton accessor class for the current environment.
@@ -46,10 +50,9 @@ public final class EnvironmentManager{
      * @return the current Environment, never null.
      */
     public static Environment getEnvironment(){
-        if(environmentManagerSingletonSpi==null){
-            throw new IllegalStateException("No SPI loaded.");
-        }
-        return environmentManagerSingletonSpi.getEnvironment();
+        return Optional.ofNullable(environmentManagerSingletonSpi).orElseThrow(
+                () -> new IllegalStateException("No SPI loaded.")
+        ).getEnvironment();
     }
 
     /**
@@ -57,10 +60,52 @@ public final class EnvironmentManager{
      * @return the current root Environment, never null.
      */
     public static Environment getRootEnvironment(){
-        if(environmentManagerSingletonSpi==null){
-            throw new IllegalStateException("No SPI loaded.");
-        }
-        return environmentManagerSingletonSpi.getRootEnvironment();
+        return Optional.ofNullable(environmentManagerSingletonSpi).orElseThrow(
+                () -> new IllegalStateException("No SPI loaded.")
+        ).getRootEnvironment();
+    }
+
+    /**
+     * Evaluate the overall chain of possible environments.
+     * @return the hierarchy chain of possible Environments.
+     */
+    public static List<String> getEnvironmentHierarchy(){
+        return Optional.ofNullable(environmentManagerSingletonSpi).orElseThrow(
+                () -> new IllegalStateException("No SPI loaded.")
+        ).getEnvironmentHierarchy();
+    }
+
+    /**
+     * Evaluate the current type chain of environments.
+     * @return the current type chain of Environments.
+     */
+    public static List<String> getCurrentEnvironmentHierarchy(){
+        return Optional.ofNullable(environmentManagerSingletonSpi).orElseThrow(
+                () -> new IllegalStateException("No SPI loaded.")
+        ).getCurrentEnvironmentHierarchy();
+    }
+
+    /**
+     * Get the current environment of the given environment type.
+     * @param environmentType the target type.
+     * @return the corresponding environment
+     * @throws java.lang.IllegalArgumentException if not such type is present or active.
+     */
+    public static Environment getEnvironment(String environmentType){
+        return Optional.ofNullable(environmentManagerSingletonSpi).orElseThrow(
+                () -> new IllegalStateException("No SPI loaded.")
+        ).getEnvironment(environmentType);
+    }
+
+    /**
+     * Allows to check, if the czurrent environment type is one of the current active environment types.
+     * @param environmentType the environment type to be queried.
+     * @return true, if the czurrent environment type is one of the current active environment types.
+     */
+    public static boolean isEnvironmentActive(String environmentType){
+        return Optional.ofNullable(environmentManagerSingletonSpi).orElseThrow(
+                () -> new IllegalStateException("No SPI loaded.")
+        ).isEnvironmentActive(environmentType);
     }
 
 }

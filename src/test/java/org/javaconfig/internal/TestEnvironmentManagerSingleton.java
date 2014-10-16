@@ -18,6 +18,9 @@ package org.javaconfig.internal;
 import org.javaconfig.Environment;
 import org.javaconfig.spi.EnvironmentManagerSingletonSpi;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by Anatole on 12.09.2014.
  */
@@ -30,5 +33,10 @@ public class TestEnvironmentManagerSingleton implements EnvironmentManagerSingle
     @Override
     public Environment getRootEnvironment(){
         return null;
+    }
+
+    @Override
+    public List<String> getEnvironmentHierarchy() {
+        return Collections.emptyList();
     }
 }

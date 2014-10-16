@@ -15,6 +15,7 @@
  */
 package org.javaconfig;
 
+import java.beans.PropertyChangeListener;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
@@ -257,7 +258,7 @@ public interface Configuration extends PropertyProvider{
      *                                  type, or no such property exists.
      */
     default <T> T getAdapted(String key, PropertyAdapter<T> adapter){
-        return adapter.adapt(get(key));
+        return getAdaptedOrDefault(key, adapter, null);
     }
 
     /**
@@ -315,7 +316,19 @@ public interface Configuration extends PropertyProvider{
      *
      * @return s set with all areas, never {@code null}.
      */
-    Set<String> getAreas();
+    default Set<String> getAreas(){
+        final Set<String> areas = new HashSet<>();
+        this.keySet().forEach(s -> {
+            int index = s.lastIndexOf('.');
+            if(index > 0){
+                areas.add(s.substring(0, index));
+            }
+            else{
+                areas.add("<root>");
+            }
+        });
+        return areas;
+    }
 
     /**
      * Return a set with all fully qualified area names, containing the transitive closure also including all
@@ -401,12 +414,12 @@ public interface Configuration extends PropertyProvider{
      * Add a ConfigChangeListener to this configuration instance.
      * @param l the listener, not null.
      */
-    void addConfigChangeListener(ConfigChangeListener l);
+    void addPropertyChangeListener(PropertyChangeListener l);
 
     /**
      * Removes a ConfigChangeListener to this configuration instance.
      * @param l the listener, not null.
      */
-    void removeConfigChangeListener(ConfigChangeListener l);
+    void removePropertyChangeListener(PropertyChangeListener l);
 
 }

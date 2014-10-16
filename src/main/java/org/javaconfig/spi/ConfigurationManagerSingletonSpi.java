@@ -15,10 +15,10 @@
  */
 package org.javaconfig.spi;
 
-import org.javaconfig.ConfigChangeListener;
 import org.javaconfig.Configuration;
+
+import java.beans.PropertyChangeListener;
 import java.lang.annotation.Annotation;
-import java.util.Optional;
 
 /**
  * Manager for {@link org.javaconfig.Configuration} instances. Implementations must register an instance
@@ -91,16 +91,16 @@ public interface ConfigurationManagerSingletonSpi{
     String evaluateValue(Configuration config, String expression);
 
     /**
-     * Adds a (global) {@link org.javaconfig.ConfigChangeListener} instance that listens to all kind of config changes.
-     * @param listener the {@link org.javaconfig.ConfigChangeListener} instance to be added, not null.
+     * Adds a (global) {@link java.beans.PropertyChangeListener} instance that listens to all kind of config changes.
+     * @param listener the {@link java.beans.PropertyChangeListener} instance to be added, not null.
      */
-    void addConfigChangeListener(ConfigChangeListener listener);
+    void addPropertyChangeListener(PropertyChangeListener listener);
 
     /**
-     * Removes a (global) {@link org.javaconfig.ConfigChangeListener} instance that listens to all kind of config changes,
+     * Removes a (global) {@link java.beans.PropertyChangeListener} instance that listens to all kind of config changes,
      * if one is currently registered.
-     * @param listener the {@link org.javaconfig.ConfigChangeListener} instance to be removed, not null.
+     * @param listener the {@link java.beans.PropertyChangeListener} instance to be removed, not null.
      */
-    void removeConfigChangeListener(ConfigChangeListener listener);
+    void removePropertyChangeListener(PropertyChangeListener listener);
 
 }

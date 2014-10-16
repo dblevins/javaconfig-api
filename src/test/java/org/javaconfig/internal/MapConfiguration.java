@@ -17,6 +17,7 @@ package org.javaconfig.internal;
 
 import org.javaconfig.*;
 
+import java.beans.PropertyChangeListener;
 import java.util.*;
 
 /**
@@ -74,12 +75,12 @@ class MapConfiguration implements Configuration, PropertyProvider{
     }
 
     @Override
-    public void addConfigChangeListener(ConfigChangeListener l){
+    public void addPropertyChangeListener(PropertyChangeListener l){
         // TODO
     }
 
     @Override
-    public void removeConfigChangeListener(ConfigChangeListener l){
+    public void removePropertyChangeListener(PropertyChangeListener l){
         // TODO
     }
 
