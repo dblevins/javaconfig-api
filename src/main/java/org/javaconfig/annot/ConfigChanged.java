@@ -15,13 +15,10 @@
  */
 package org.javaconfig.annot;
 
-import org.javaconfig.ConfigChange;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.function.Predicate;
 
 /**
  * Annotation to annotate a method on a class to be informed on config changes.

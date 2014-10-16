@@ -15,9 +15,6 @@
  */
 package org.javaconfig.annot;
 
-import org.javaconfig.PropertyAdapter;
-import org.javaconfig.PropertyFilter;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

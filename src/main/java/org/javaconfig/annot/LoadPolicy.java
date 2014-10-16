@@ -30,13 +30,13 @@ public enum LoadPolicy {
     LAZY,
     /**
      * The configuration value is evaluated once, when the owning component is loaded/configured.
-     * Later changes on this configuration entry will be triggered as {@link org.javaconfig.ConfigChangeEvent}
+     * Later changes on this configuration entry will be triggered as {@link java.beans.PropertyChangeEvent}
      * instances.
      */
     MANAGED,
     /**
      * The configuration value is evaluated once, when the owning component is loaded/configured.
-     * Later changes on this configuration entry will be reinjected, but no {@link org.javaconfig.ConfigChangeEvent}
+     * Later changes on this configuration entry will be reinjected, but no {@link java.beans.PropertyChangeEvent}
      * will be triggered.
      */
     SILENT
