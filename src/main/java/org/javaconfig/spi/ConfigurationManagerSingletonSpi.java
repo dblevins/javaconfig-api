@@ -40,27 +40,23 @@ public interface ConfigurationManagerSingletonSpi{
     boolean isConfigurationDefined(String name);
 
     /**
-     * Allows to check if a configuration with a given name is defined.
-     * @param qualifiers the configuration's qualifiers, not null.
-     * @return true, if such a configuration is defined.
-     */
-    boolean isConfigurationDefined(Annotation... qualifiers);
-
-    /**
      * Access a configuration by name.
      * @param name the configuration's name, not null, not empty.
      * @return the corresponding Configuration instance, never null.
      * @throws org.javaconfig.ConfigException if no such configuration is defined.
      */
-    Configuration getConfiguration(String name);
+    default Configuration getConfiguration(String name){
+        return getConfiguration(name, Configuration.class);
+    }
 
     /**
-     * Access a configuration.
-     * @param qualifiers the configuration's qualifiers, not null.
+     * Access the default configuration.
      * @return the corresponding Configuration instance, never null.
      * @throws org.javaconfig.ConfigException if no such configuration is defined.
      */
-    Configuration getConfiguration(Annotation... qualifiers);
+    default Configuration getConfiguration(){
+        return getConfiguration("default", Configuration.class);
+    }
 
     /**
      * Configures an instance, by resolving and injecting the configuration
@@ -73,6 +69,17 @@ public interface ConfigurationManagerSingletonSpi{
     void configure(Object instance);
 
     /**
+     * Access a configuration by name.
+     *
+     * @param name the configuration's name, not null, not empty.
+     *             @param template the annotated configuration's
+     *                             template interface, not null.
+     * @return the corresponding Configuration instance, never null.
+     * @throws org.javaconfig.ConfigException if no such configuration is defined.
+     */
+    <T> T getConfiguration(String name, Class<T> template);
+
+    /**
      * Access a typed configuration.
      *
      * @param type the annotated configuration type (could be an interface or
@@ -80,7 +87,9 @@ public interface ConfigurationManagerSingletonSpi{
      * @return the corresponding typed Configuration instance, never null.
      * @throws org.javaconfig.ConfigException if the configuration could not be resolved.
      */
-    <T> T getConfiguration(Class<T> type);
+    default <T> T getConfiguration(Class<T> type){
+        return getConfiguration("default", type);
+    }
 
     /**
      * Evaluate the current expression based on the current configuration valid.

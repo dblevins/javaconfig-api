@@ -57,29 +57,22 @@ public class TestConfigServiceSingletonSpi implements ConfigurationManagerSingle
     }
 
     @Override
-    public boolean isConfigurationDefined(Annotation... qualifiers){
-        return false;
+    public <T> T getConfiguration(String name, Class<T> type){
+        if(type.equals(Configuration.class)) {
+            Configuration config = configs.get(name);
+            return (T)Optional.ofNullable(config).orElseThrow(() -> new ConfigException("No such config: " + name));
+        }
+        throw new ConfigException("Not such config name="+name+", type="+ type.getName());
     }
 
     @Override
-    public Configuration getConfiguration(String name){
-        Configuration config = configs.get(name);
-        return Optional.ofNullable(config).orElseThrow(() -> new ConfigException("No such config: " + name));
-    }
-
-    @Override
-    public Configuration getConfiguration(Annotation... qualifiers){
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    @Override
-    public void configure(Object instance) {
+    public <T> T getConfiguration(Class<T> type) {
         // TODO
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
-    public <T> T getConfiguration(Class<T> type) {
+    public void configure(Object instance) {
         // TODO
         throw new UnsupportedOperationException("Not yet implemented");
     }

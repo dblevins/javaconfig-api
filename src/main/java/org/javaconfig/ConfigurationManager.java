@@ -23,7 +23,8 @@ import java.lang.annotation.Annotation;
 import java.util.Optional;
 
 /**
- * Singleton accessor for accessing {@link Configuration} instances.
+ * Singleton accessor for accessing {@link Configuration} instances and
+ * proxied configuration templates.
  */
 public final class ConfigurationManager{
     /**
@@ -60,14 +61,18 @@ public final class ConfigurationManager{
     }
 
     /**
-     * Allows to check if a configuration with a given name is defined.
+     * Access a configuration by name.
      *
-     * @param qualifiers the configuration's qualifiers, not null.
-     * @return true, if such a configuration is defined.
+     * @param name the configuration's name, not null, not empty.
+     *             @param template the annotated configuration's
+     *                             template interface, not null.
+     * @return the corresponding Configuration instance, never null.
+     * @throws ConfigException if no such configuration is defined.
      */
-    public static boolean isConfigurationDefined(Annotation... qualifiers){
-        return Optional.of(configManagerSingletonSpi).get().isConfigurationDefined(qualifiers);
+    public static <T> T getConfiguration(String name, Class<T> template){
+        return Optional.of(configManagerSingletonSpi).get().getConfiguration(name, template);
     }
+
 
     /**
      * Access a configuration by name.
@@ -83,16 +88,15 @@ public final class ConfigurationManager{
     /**
      * Access a configuration.
      *
-     * @param qualifiers the configuration's qualifiers, not null.
      * @return the corresponding Configuration instance, never null.
      * @throws ConfigException if no such configuration is defined.
      */
-    public static Configuration getConfiguration(Annotation... qualifiers){
-        return Optional.of(configManagerSingletonSpi).get().getConfiguration(qualifiers);
+    public static Configuration getConfiguration(){
+        return Optional.of(configManagerSingletonSpi).get().getConfiguration();
     }
 
     /**
-     * Access a typed configuration.
+     * Access a typed configuration, based on the default configuration.
      *
      * @param type the annotated configuration type (could be an interface or
      *             a non abstract class), not null.
