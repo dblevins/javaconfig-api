@@ -15,14 +15,23 @@
  */
 package org.javaconfig.annot;
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Annotation to mark an annotation as qualifying configuration annotation.
+ * Annotation to reference an explicit {@link org.javaconfig.Configuration} to be used to
+ * resolve the required properties.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(value = { ElementType.ANNOTATION_TYPE })
-@java.lang.annotation.Documented
-public @interface ConfigType {
+@Target(value = { ElementType.TYPE, ElementType.FIELD, ElementType.METHOD })
+public @interface ConfigName {
+
+    /**
+     * The name of the {@link org.javaconfig.Configuration} to be used to
+     * resolve the required properties, not null or empty.
+     */
+    String value();
 
 }
