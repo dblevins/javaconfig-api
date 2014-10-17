@@ -18,7 +18,6 @@ package org.javaconfig;
 import org.javaconfig.spi.Bootstrap;
 import org.javaconfig.spi.EnvironmentManagerSingletonSpi;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,20 +68,20 @@ public final class EnvironmentManager{
      * Evaluate the overall chain of possible environments.
      * @return the hierarchy chain of possible Environments.
      */
-    public static List<String> getEnvironmentHierarchy(){
+    public static List<String> getEnvironmentTypeOrder(){
         return Optional.ofNullable(environmentManagerSingletonSpi).orElseThrow(
                 () -> new IllegalStateException("No SPI loaded.")
-        ).getEnvironmentHierarchy();
+        ).getEnvironmentTypeOrder();
     }
 
     /**
      * Evaluate the current type chain of environments.
      * @return the current type chain of Environments.
      */
-    public static List<String> getCurrentEnvironmentHierarchy(){
+    public static List<String> getEnvironmentHierarchy(){
         return Optional.ofNullable(environmentManagerSingletonSpi).orElseThrow(
                 () -> new IllegalStateException("No SPI loaded.")
-        ).getCurrentEnvironmentHierarchy();
+        ).getEnvironmentHierarchy();
     }
 
     /**

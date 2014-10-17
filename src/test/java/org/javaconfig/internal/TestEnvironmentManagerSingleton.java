@@ -36,7 +36,7 @@ public class TestEnvironmentManagerSingleton implements EnvironmentManagerSingle
     }
 
     @Override
-    public List<String> getEnvironmentHierarchy() {
+    public List<String> getEnvironmentTypeOrder() {
         return Collections.emptyList();
     }
 }

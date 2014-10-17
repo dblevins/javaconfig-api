@@ -55,16 +55,16 @@ public interface EnvironmentManagerSingletonSpi{
      * environment level is not defined or accessible.
      * @return the ordered list of environment type ids.
      */
-    List<String> getEnvironmentHierarchy();
+    List<String> getEnvironmentTypeOrder();
 
     /**
      * Evaluate the current type chain of environments.
      * @return the current type chain of Environments.
      */
-    default List<String> getCurrentEnvironmentHierarchy(){
+    default List<String> getEnvironmentHierarchy(){
         List<String> result = new ArrayList<>();
         for(Environment env:getEnvironment()){
-            result.add(env.getEnvironmentType());
+            result.add(env.getEnvironmentId()+'('+env.getEnvironmentType()+')');
         }
         return result;
     }
@@ -90,6 +90,6 @@ public interface EnvironmentManagerSingletonSpi{
      * @return true, if the czurrent environment type is one of the current active environment types.
      */
     default boolean isEnvironmentActive(String environmentType){
-        return getCurrentEnvironmentHierarchy().contains(environmentType);
+        return getEnvironmentHierarchy().contains(environmentType);
     }
 }

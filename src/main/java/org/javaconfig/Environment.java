@@ -15,6 +15,8 @@
  */
 package org.javaconfig;
 
+import java.util.Set;
+
 /**
  * Models a runtime environment. Instances of this class are used to
  * evaluate the correct configuration artifacts.<br/>
@@ -29,7 +31,7 @@ package org.javaconfig;
  * 
  * @author Anatole Tresch
  */
-public interface Environment extends PropertyProvider, StageSupplier, Iterable<Environment>{
+public interface Environment extends StageSupplier, Iterable<Environment>{
 
     /**
      * Get a unique type (within this VM) for this environment.
@@ -46,6 +48,58 @@ public interface Environment extends PropertyProvider, StageSupplier, Iterable<E
      * @return a unique id for this environment, when comined with the environment type.
      */
     String getEnvironmentId();
+
+    /**
+     * Get the current number of properties available. This information must be seens as optional.
+     * In the case a provider is not able to determine how many properties are served it should
+     * return -1.
+     * Composite implementations must depending on their composite assembling policies evaluate
+     * this value as useful. Of course, -1, as undefined value, have to be handled correspondingly.
+     * @return the number of available properties, or -1.
+     */
+    int size();
+
+    /**
+     * Access a property.
+     * @param key the property's key, not null.
+     * @return the property's value.
+     */
+    String get(String key);
+
+    /**
+     * Checks if a property is defined.
+     * @param key the property's key, not null.
+     * @return true, if the property is existing.
+     */
+    boolean containsKey(String key);
+
+    /**
+     * Check if no properties are currently available.
+     * @return true, if no properties are currently accessible.
+     */
+    default boolean isEmpty(){
+        return size()==0;
+    }
+
+
+    /**
+     * Access a property.
+     * @param key the property's key, not null.
+     * @return the property's value.
+     */
+    default String getOrDefault(String key, String defaultValue){
+        String value = get(key);
+        if(value==null){
+            return defaultValue;
+        }
+        return value;
+    }
+
+    /**
+     * Access the set of property keys, defined by this provider.
+     * @return the key set, never null.
+     */
+    Set<String> keySet();
 
     /**
      * Get an qualified path to this environment instance, by appending the
