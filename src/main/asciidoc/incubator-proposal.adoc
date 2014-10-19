@@ -237,22 +237,23 @@ References to further reading material.
   [2] Java Configuration Experimental Repo:
     https://github.com/java-config
 
-  [3] The Javaone Presentation Slideset:
-    https://slideshare.net/
+  [3] The JavaOne Presentation Slideset:
+    http://de.slideshare.net/AnatoleTresch/a-first-drat-to-java-configuration
 
-LInks to other existing solutions:
+Links to some other existing solutions:
 
-  [4] Apache Commons Configuration:
+  [4] Apache Commons Configuration: http://commons.apache.org/proper/commons-configuration/
 
-  [5] Apache Deltaspike Configuration:
+  [5] Apache Deltaspike Configuration: https://deltaspike.apache.org/documentation/configuration.html
 
-  [6] Spring Configuration:
+  [6] Spring Configuration: http://projects.spring.io/spring-framework/
+      http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/annotation/PropertySource.html
 
-  [7] Java Configuration Builder
+  [7] Java Configuration Builder: https://github.com/TNG/config-builder
 
-  [8] JFig
+  [8] JFig: http://jfig.sourceforge.net/
 
-  [9] Owner
+  [9] Owner: http://owner.aeonbits.org/
 
 == Initial Source
 Initial source will be from https://github.com/java-config . Most of the functionalities are already fully functional,
@@ -262,8 +263,9 @@ It is already licensed under Apache v2.
 
 
 == External Dependencies
-The API part of the current initial source is completely standalone (it does not have any firther dependencies than the JDK).
-The SE 8 based part does mainly depend on sl4j for logging and javax.inject v.1.2. It uses Weld SE for testing.
+The API part of the current initial source is completely standalone (it does not have any further dependencies than
+the JDK). The SE 8 based part does mainly depend on sl4j for logging and uses Weld SE for testing a possible
+CDI integration.
 
 
 == Cryptography
@@ -275,9 +277,9 @@ The project's build currently is based on Maven, it might be moved to gradle.
 == Mailing lists
 We initially would like to start with the minimum required lists:
 
-* +private@{name}.incubator.apache.org+ will be used for confidential PPMC discussions.
-* +dev@{name}.incubator.apache.org+ is used for public discussions and support.
-* Commits for {name} will be emailed to +commits@{name}.incubator.apache.org+.
+* +private@{smallname}.incubator.apache.org+ will be used for confidential PPMC discussions.
+* +dev@{smallname}.incubator.apache.org+ is used for public discussions and support.
+* Commits for {name} will be emailed to +commits@{smallname}.incubator.apache.org+.
 
 
 == Git Repository
