@@ -1,6 +1,7 @@
 Apache Tamaya - Incubator Proposal
 ==================================
 :name: Tamaya
+:smallname: tamaya
 :title: Proposal Apache {name}
 :revnumber: 0.1-SNAPSHOT
 :revremark: Apache {name}
@@ -10,7 +11,6 @@ Apache Tamaya - Incubator Proposal
 :author: Anatole Tresch, Credit Suisse
 :email: <atsticks@gmail.com>
 :source-highlighter: coderay
-:website: http://tamaya.apache.org/
 :iconsdir: {imagesdir}/icons
 :toc:
 :toc-placement: manual
@@ -28,7 +28,7 @@ toc::[]
 
 == Abstract
 {name} is a enterprise ready highly flexible configuration solution based on an modular, extensible and
-injectable key, value based configuration design.
+injectable key/value based design.
 
 _{name}_ hereby translates into 'in the middle', which is exactly, what configuration should be. It should be
 in the middle between your code and your runtime.
@@ -38,8 +38,8 @@ NOTE: Alternative names could be _Mahkah=earth, Dakota=friend_ or _Orenda=magic 
 
 == Proposal
 {name} is a enterprise ready configuration solution based on an modular, extensible and
-injectable key, value based configuration design. The basic building block hereby are
-key/value *property providers* implementing a small and easily implementable subset of a
+injectable key/value based design. The basic building block hereby are
+*property providers* implementing a small and easily implementable subset of a
 +Map<String,String>+. This simplicity comes with a long list of decent advantages
 such as
 
@@ -67,22 +67,22 @@ policies into new composite providers, e.g.
   xml-properties).
 
 Properties can be read from files, classpath resources, or any accessible URI in any format.
-Extensions can be provided by according SPIs easily.
+Extensions (custom formats and resource locations) can be provided by according SPIs easily.
 
 Additionally configuration providers can be implemented as _environment aware_, which allows
 to dynamically returns different configuration trees, based on the current runtime environment.
 Hereby the environment is as well based on a simple key/value model, which additionally supports
 child/parent relations between environments.
 
-Finally with +Configuration+ the user API for configuration data is providing higher level
-features, such as type safe access, by default supporting all common data types from the Java
-platform, including a representation for configured collection data. Well defined extensions
+Finally with +Configuration+ the API for configuration provides higher level
+features, such as type safe access and functional extension points, By default supporting all common data types
+from the Java platform, including a representation for configured collection data. Well defined extensions
 allow to adapt any target type required, as well as easily support more advanced features such
 as templates, secured views, multi-valued validation schemes, en-/decryption or other.
 
 By default configuration (and property providers) are designed and implemented as indirectly
 mutable types, providing thread-safe, unsynchronized and therefore fast access to configuration.
-Mutabilty is ensured (if supported), by creation of mutable _builder_ using a final +commit()+.
+Mutabilty is ensured (if supported), by creation of a mutable _builder_ using a final +commit()+.
 The API allows to listen to changes on a global as well as on a local, configuration based level.
 It is also planned to support remote configuration change propagation scenarios.
 
@@ -92,8 +92,7 @@ with the target of standardizing configuration in Java EE and SE. Due to several
 seems currently most sensible to start an OSS project on the topic to join forces that actively
 want to contribute to the project. It is highly probably that standardization will be restarted
 at a later point.
-FOr further information you may look at his blog at javaeeconfig.blogspot.com .
-
+For further information you may look at his blog at javaeeconfig.blogspot.com .
 
 == Rationale
 Configuration is one of the most cross-cutting concerns, which still lacks of any standard, especially
@@ -101,7 +100,7 @@ beside Java EE. Nevertheless Java EE is currently (EE7) in most areas strictly o
 build time of the deployed artifacts. Especially dynamic provisioning of resources or runtime configuration
 is not supported and in many cases impossible to add without tweaking the underlying application server.
 On the other hand running two separate configuration solutions for Java EE and Java SE as well make no or
-little sense. So it would be important we have a configuration model at hand, that is flexible enough, so
+little sense. So it would be important we have a unified configuration model at hand, that is flexible enough, so
 
 * it can be used in Java SE and EE
 * it can support contextual behaviour (like in Java EE and multi-tenancy/SaaS scenarios)
@@ -112,14 +111,13 @@ little sense. So it would be important we have a configuration model at hand, th
 * it support integration with existing configuration solutions currently in use, both OSS as well as customized
   in-house proprietary solutions
 
-Unfortunately
 
 == Initial Goals
-There is an existing running code base implementing a huge part of the features mentioned already at
+There is an existing code base implementing a significant part of the features mentioned already at
 https://github.com/java-config , which will be moved into the incubator.
 
 == Current Status
-There is an existing running code base implementing a huge part of the features mentioned already at
+There is an existing running code base implementing a significant part of the features mentioned already at
 https://github.com/java-config and licensed under Apache v2.0, which will be contributed into the incubator.
 The separation between API and implementation hereby should stay enforced, since
 
@@ -127,47 +125,39 @@ The separation between API and implementation hereby should stay enforced, since
 * it enables to provide different implementations, especially also a Java ME compatible solution.
 
 == Meritocracy
-Apache is a meritocracy.
-
-Once a developer has submitted enough good patches then it should be natural that they are elected to committer. It should be natural that active committers are elected to the project management committee (PMC).
-
-This process of renewal is vital to the long term health of Apache projects. This is the right place to demonstrate that this process is understood by the proposers.
-
-
-  We plan to do everything possible to encourage an environment that
-  supports a meritocracy. One of the lessons that the XMLBeans
-  committers have learned is that meritocracies don't just evolve
-  from good intentions; they require actively asking the community
-  for help, listing/specifying the work that needs to be done, and
-  keeping track of and encouraging members of the community who make
-  any contributions...
+We plan to do everything possible to encourage an environment that supports a meritocracy. We did the same as well with
+JSR 354, were people throughout the world helped us to get the RI/TCK at a very good level. Similarly, whenever
+possible, we encouraged people to join the expert group, so they also would be capable of contributing to the
+API directly. In all cases we discussed all questions amd feedback transparently regardless if it was an EG mebmer
+or just a member of Hackday, Hackergarten.
 
 == Community
 The project initiative already is significantly supported by JUGs such as SouJava, LJC, iJUG, Berlin Brandenburg JUG,
-JUG Zurich, as well as companies such as Credit Suisse, RedHat and Walmart. It is expected that support will
-raise very quickly so the library will evolve quickly and be widely used as well.
+JUG Zurich, as well as companies such as Credit Suisse and Walmart. It is expected that support will
+raise very quickly so the library will evolve and be widely used as well.
 
 == Core Developers
 The core team will be a set of well known experts from the Java SE and EE area:
 
-* _Anatole Tresch_ (Lead) is currently employed at Credit Suisse. He leads JSR 354 (Money & Currency) and also was planned as cospec lead
-  for Java EE configuration JSR together with Oracle. He also is a member of the CDI 2.0 expert group and is actively
-  driving the configuration topic during its talks at the conferences he joins each year.
+* _Anatole Tresch_ (Lead) is currently employed at Credit Suisse. He leads JSR 354 (Money & Currency) and also
+  was planned as cospec lead for Java EE configuration JSR together with Oracle. He also is a member of the
+  CDI 2.0 expert group and is actively driving the configuration topic during its talks at the conferences.
 * _Werner Keil_ aka "Java Godfather" is individual JCP EC member contributing to several JSR's in the SE and EE area.
-  He is spec lead of the Units and Measurements JSR. Werner is already a membe of Apache.
-* _Ottavio_ is a member of SouJava and OpenJDK committer. He contibutes regularly to several JSRs and was awarded in 2014
-  as most valuable JCP member.
-* _Joe Pullen_ is a known expert, especially for JPA and Batch and also former EC member og the regarding JSRs.
-* _Walmart_ ...
-* _LJC (London Java Community)_ is one of the driving user groups ans also a known member in the JCP EC.
-* _SouJava_ is the Java User Group of Brazil, one of the biggest most engaged JUG as well.
-* _JUG Berlin Brandenburg_ is one of the bigger JUGs in Germany and also would contribute to this project.
-* _JUG Zurich_ organizes regular (monthly) Hackergarten and will contribute to this project as well.
+  He is spec lead of the Units and Measurements JSR. Werner is already a member of ASF.
+* _Otávio Gonçalves de Santana_ is a member of _SouJava_ and OpenJDK committer. He contibutes regularly to several JSRs
+  and recently was awarded in 2014 as most valuable JCP member.
+* _Joe Pullen_ is a known expert, especially for JPA and Batch and also former EC member of the corresponding JSRs.
+* _Ryan Mcguinness_ works as Senior Platform Architect for Walmart.
+
+Other people will join for sure once the incubator is running.
+* _LJC (London Java Community), SouJava,JUG Chennai_ will do Hackdays and provide feedback.
+* _JUG Berlin Brandenburg_ is one of the bigger JUGs in Germany and would probably also actively contribute to this project.
+* _JUG Zurich_ organizes regular (monthly) Hackergarten and will as well contribute to this project.
 
 == Alignment
-Credit Suisse, which lead the initiative through Anatole Tresch during the last year, has a strong commitment to Open Source
-Software. As a consequence also their first JSR (354, Money & Currency) was released under Apache v2. The same is the case
-for all other core contributors and supporters.
+Credit Suisse, which lead the initiative through Anatole Tresch during the last year, has a strong commitment to
+Open Source Software. As a consequence also their first JSR (354, Money & Currency) was released under Apache v2.
+The same is the case for all other core contributors and supporters.
 
 == Known Risks
 Main Risk could be that main committers could cease the project before it is possible to build up a public community.
@@ -180,23 +170,20 @@ this initiative will evolve hopefully rather quickly to a key component in the J
 and EE. Additionally all stakeholders involved (companies, as well as individuals/JUGs) have direct benefits of the
 functionality provided.
 
-
 == Inexperience with Open Source
-Starting point will be the experimental repository at https://github.com/java-config . Additionally the talks given by
+Starting point will be the experimental repository at https://github.com/java-config. Additionally the talks given by
 Anatole (e.g. at Javaone 2014) and the blogs under http://javaeeconfig.blogspot.com help to give a good starting point
 on many of the concepts implemented/contributed. Nevertheless the idea is that the ideas are further evolved, basically
 similar to a JSR, to ensure all relevant views and aspects will be included.
 
-Many of the committers have experience working on open source projects or JSRs. Some of them have experience as
-committers on other Apache projects.
-
+All of the core committers have already experience working on open source projects or JSRs. Many of them even already
+are members of the ASF.
 
 == Homogenous Developers
 The current list of committers includes developers from several
 different companies plus many independent volunteers. The committers
 are geographically distributed across the U.S., Brazil, Europe, and Asia.
 They are experienced with working in a distributed environment.
-
 
 == Reliance on Salaried Developers
 Some of the developers are paid partially by their employer to contribute to
@@ -208,30 +195,30 @@ committer and driver of the initiative currently, is paid only partially
 and basically drives the initiative as part of his community engagement
 in general.
 
-
 == Relationships with Other Apache Products
 The project's core API will be independent of any other projects, since in the future it may
 be part of a specification initiative (JSR). Additionally implementations may also have further
 constraints (e.g. a ME implementation must consider memory consumption and a reduced set of
 APIs available in the platform).
-Extension module may depend on further elements. Where useful, adapter module can be adapted,
-so other existing configuration frameworks and solution can be hooked in, such as
+Extension modules, such as integrations with other technologies/projects, of course, will depend on further elements.
+Where useful, adapter module can be provided, so the solution can inter-operate with existing configuration frameworks
+and solutions such as
+such as
 * Apache Commons Configuration
 * Spring Property Sources
 * JFig
 * Configuration Builder
 * and more
 
-Similarly integration modules should enable the solution to be integrated as well as configuration sources
-into the other frameworks, e.g.
+This explicitly also includes the possibitliy to use {name} as a configuration/property source for other frameworks, e.g.
 * Spring Property Source
 * System Properties
 * ...
 
 Integration into Java EE has to be coordinated with Apache Deltaspike Configuration, to avoid having two
-configuration standards (we are already in contact with some of the key committers there).
+configuration standards.
 
-== A Excessive Fascination with the Apache Brand
+== An Excessive Fascination with the Apache Brand
 While we expect the Apache brand may help attract more contributors,
 our interests is in establishing a powerful and widely used standard
 for configuration. At a later stage, if successful, standardizing it
@@ -294,26 +281,29 @@ We initially would like to start with the minimum required lists:
 
 
 == Git Repository
-+https://git-wip-us.apache.org/repos/asf/incubator-{name}.git+
++https://git-wip-us.apache.org/repos/asf/incubator-{smallname}.git+
 
 == Issue Tracking
-JIRA {name} ({name})
+JIRA {name} ({smallname})
 
 == Other Resources
 None.
 
 == Initial Committers
 * Anatole Tresch (atsticks at gmail dot com)*
-* Joe Pullen (joe.pulle at gmail dot com)
-* Werner Keil (werner.keil at gmail dot com)
+* Ryan Mcguinness (RMcguinness at walmartlabs dot com)
 
 *Lead
 
 == Affiliations
 * Anatole Tresch - Credit Suisse
+* Ryan Mcguinness - Walmart
+* Joe Pullen - Espalier
 
 == Sponsors
-Champion: David Blevins
+David Blevins
+Mark Struberg
+Gerhard Petracek
 
 == Nominated Mentors
 tbd

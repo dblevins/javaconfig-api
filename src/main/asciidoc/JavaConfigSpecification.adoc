@@ -1,5 +1,5 @@
-JSR 354 Money and Currency -- Specification
-===========================================
+Apache Tamaya -- Documentation
+==============================
 :name: Tamaya
 :rootpackage: org.apache.tamaya
 :title: Apache Tamaya
