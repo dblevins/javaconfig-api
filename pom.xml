@@ -109,7 +109,7 @@
                             <baseDir>src/main/asciidoc/</baseDir>
                         </configuration>
                     </execution>
-                    <execution>
+                    <!-- execution>
                         <id>output-pdf</id>
                         <phase>generate-resources</phase>
                         <goals>
@@ -122,7 +122,7 @@
                             <backend>pdf</backend>
                             <doctype>book</doctype>
                         </configuration>
-                    </execution>
+                    </execution -->
                     <!--execution>
                         <id>output-docbook</id>
                         <phase>generate-resources</phase>

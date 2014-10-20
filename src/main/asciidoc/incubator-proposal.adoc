@@ -148,6 +148,9 @@ The core team will be a set of well known experts from the Java SE and EE area:
   and recently was awarded in 2014 as most valuable JCP member.
 * _Joe Pullen_ is a known expert, especially for JPA and Batch and also former EC member of the corresponding JSRs.
 * _Ryan Mcguinness_ works as Senior Platform Architect for Walmart.
+* _Gerhard Petracek_ is Apache MyFaces und DeltaSpike PMC chair.
+* _Mark Struberg_ acts as PMC and Committer for Apache OpenWebBeans, BatchEE, MyFaces, Maven, OpenJPA, BVal, DeltaSpike
+  and other projects
 
 Other people will join for sure once the incubator is running.
 * _LJC (London Java Community), SouJava,JUG Chennai_ will do Hackdays and provide feedback.
@@ -272,7 +275,12 @@ CDI integration.
 The framework will not bring along additional cryptographic algorithms.
 
 == Required Resources
-The project's build currently is based on Maven, it might be moved to gradle.
+* The project's build currently is based on Maven, it might be moved to gradle.
+* Continuous build and integration is important. Depending on the integration and third party solutions/versions
+  supported this may require several external solutions to be loaded. All of them must be available as OSS
+  projects or freely accessible.
+* Continuous quality control with SonarSource would be important as well to guarantee very high quality. This is
+  important to have a good adoption rate as well.
 
 == Mailing lists
 We initially would like to start with the minimum required lists:
@@ -280,7 +288,6 @@ We initially would like to start with the minimum required lists:
 * +private@{smallname}.incubator.apache.org+ will be used for confidential PPMC discussions.
 * +dev@{smallname}.incubator.apache.org+ is used for public discussions and support.
 * Commits for {name} will be emailed to +commits@{smallname}.incubator.apache.org+.
-
 
 == Git Repository
 +https://git-wip-us.apache.org/repos/asf/incubator-{smallname}.git+
@@ -303,9 +310,9 @@ None.
 * Joe Pullen - Espalier
 
 == Sponsors
-David Blevins
-Mark Struberg
-Gerhard Petracek
+* David Blevins
+* Mark Struberg
+* Gerhard Petracek
 
 == Nominated Mentors
 tbd
