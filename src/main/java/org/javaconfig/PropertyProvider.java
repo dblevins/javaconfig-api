@@ -114,4 +114,14 @@ public interface PropertyProvider {
         // by default do nothing
     }
 
+    /**
+     * Apply a config change to this item. Hereby the change must be related to the same instance.
+     * @param change the config change
+     * @throws ConfigException if an unrelated change was passed.
+     * @throws UnsupportedOperationException when the configuration is not writable.
+     */
+    default void apply(ConfigChange change){
+        throw new UnsupportedOperationException("Config/properties not mutable: "+ this);
+    }
+
 }

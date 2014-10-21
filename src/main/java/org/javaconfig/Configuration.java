@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * A configuration models a aggregated set of properties, identified by a unique key, but adds higher level access functions to
@@ -352,9 +353,7 @@ public interface Configuration extends PropertyProvider{
      * @return s set with all areas, never {@code null}.
      */
     default Set<String> getAreas(final Predicate<String> predicate){
-        Set<String> result = new HashSet<>();
-        getAreas().stream().filter(predicate).forEach((s) -> result.add(s));
-        return result;
+        return getAreas().stream().filter(predicate).collect(Collectors.toCollection(TreeSet::new));
     }
 
     /**
@@ -365,9 +364,7 @@ public interface Configuration extends PropertyProvider{
      * @return s set with all transitive areas, never {@code null}.
      */
     default Set<String> getTransitiveAreas(Predicate<String> predicate){
-        Set<String> result = new HashSet<>();
-        getTransitiveAreas().stream().filter(predicate).forEach((s) -> result.add(s));
-        return result;
+        return getTransitiveAreas().stream().filter(predicate).collect(Collectors.toCollection(TreeSet::new));
     }
 
     /**
@@ -399,26 +396,6 @@ public interface Configuration extends PropertyProvider{
      */
     default <T> T query(ConfigQuery<T> query){
         return query.query(this);
-    }
-
-    /**
-     * Allows to check if this provider is mutable, meaning #toMutableProvider
-     * must return a non null result.
-     * @return true if this provider is mutable.
-     * @see #toMutableProvider()
-     */
-    default boolean isMutable(){
-        return false;
-    }
-
-    /**
-     * Access a mutable instance of this Configuration.
-     * @return a mutable instance of this PropertyProvider, never null.
-     * @throws java.lang.IllegalStateException if this provider instance is not mutable.
-     * @see #isMutable()
-     */
-    default MutablePropertyProvider toMutableProvider(){
-        throw new IllegalStateException("Configuration is not mutable.");
     }
 
     /**
