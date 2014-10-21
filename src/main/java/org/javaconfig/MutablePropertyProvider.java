@@ -15,6 +15,7 @@
  */
 package org.javaconfig;
 
+import java.beans.PropertyChangeListener;
 import java.util.Map;
 
 /**
@@ -67,31 +68,22 @@ public interface MutablePropertyProvider extends PropertyProvider{
      */
     void clear();
 
-    /**
-     * Rollback all changes applied.
-     */
-    void rollback();
-
-    /**
-     * Access the state, where this configuration instance can never be committed successfully. This is possible since somebody has rolled back the
-     * mutability provider or because another provider already committed a change in parallel.
-     * @return
-     */
-    boolean isRollbackOnly();
-
-    /**
-     * Commit all changes done.
-     * @throws ConfigException if the commit failed.
-     */
-    void commit();
-
-    /**
-     * Default method to be implemented, since the implementor would be exact this type of instance.
-     * @return this, which is correct.
-     */
-    @Override
-    default MutablePropertyProvider toMutableProvider(){
-        return this;
-    }
+//    /**
+//     * Rollback all changes applied.
+//     */
+//    void rollback();
+//
+//    /**
+//     * Access the state, where this configuration instance can never be committed successfully. This is possible since somebody has rolled back the
+//     * mutability provider or because another provider already committed a change in parallel.
+//     * @return
+//     */
+//    boolean isRollbacked();
+//
+//    /**
+//     * Commit all changes done.
+//     * @throws ConfigException if the commit failed.
+//     */
+//    void commit();
 
 }

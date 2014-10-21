@@ -42,15 +42,6 @@ import java.util.function.Predicate;
  */
 public interface Configuration extends PropertyProvider{
 
-
-    /**
-     * Field that allows configurations to be versioned, meaning that each change on a configuration requires this value
-     * to be incremented by one. This can be easily used to implement versioning (and optimistic locking)
-     * in distributed (remote) usage scenarios.
-     * @return the version number of the current instance.
-     */
-    long getVersion();
-
     /**
      * Get the property value as {@link Boolean}.
      *
@@ -410,4 +401,45 @@ public interface Configuration extends PropertyProvider{
         return query.query(this);
     }
 
+    /**
+     * Allows to check if this provider is mutable, meaning #toMutableProvider
+     * must return a non null result.
+     * @return true if this provider is mutable.
+     * @see #toMutableProvider()
+     */
+    default boolean isMutable(){
+        return false;
+    }
+
+    /**
+     * Access a mutable instance of this Configuration.
+     * @return a mutable instance of this PropertyProvider, never null.
+     * @throws java.lang.IllegalStateException if this provider instance is not mutable.
+     * @see #isMutable()
+     */
+    default MutablePropertyProvider toMutableProvider(){
+        throw new IllegalStateException("Configuration is not mutable.");
+    }
+
+    /**
+     * Field that allows property providers to be versioned, meaning that each change on a provider requires this value
+     * to be incremented by one. This can be easily used to implement versioning (and optimistic locking)
+     * in distributed (remote) usage scenarios.
+     * @return the version number of the current instance.
+     */
+    default long getVersion(){
+        return 0;
+    }
+
+    /**
+     * Add a ConfigChangeListener to this configuration instance.
+     * @param l the listener, not null.
+     */
+    void addPropertyChangeListener(PropertyChangeListener l);
+
+    /**
+     * Removes a ConfigChangeListener to this configuration instance.
+     * @param l the listener, not null.
+     */
+    void removePropertyChangeListener(PropertyChangeListener l);
 }

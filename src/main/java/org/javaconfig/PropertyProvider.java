@@ -78,26 +78,6 @@ public interface PropertyProvider {
     MetaInfo getMetaInfo();
 
     /**
-     * Allows to check if this provider is mutable, meaning #toMutableProvider
-     * must return a non null result.
-     * @return true if this provider is mutable.
-     * @see #toMutableProvider()
-     */
-    default boolean isMutable(){
-        return false;
-    }
-
-    /**
-     * Access a mutable instance of this PropertyProvider.
-     * @return a mutable instance of this PropertyProvider, never null.
-     * @throws java.lang.IllegalStateException if this provider instance is not mutable.
-     * @see #isMutable()
-     */
-    default MutablePropertyProvider toMutableProvider(){
-        throw new IllegalStateException("PropertyProvider is not mutable.");
-    }
-
-    /**
      * Check if no properties are currently available.
      * @return true, if no properties are currently accessible.
      */
@@ -132,22 +112,6 @@ public interface PropertyProvider {
      */
     default void load(){
         // by default do nothing
-    }
-
-    /**
-     * Add a ConfigChangeListener to this configuration instance.
-     * @param l the listener, not null.
-     */
-    default void addPropertyChangeListener(PropertyChangeListener l){
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * Removes a ConfigChangeListener to this configuration instance.
-     * @param l the listener, not null.
-     */
-    default void removePropertyChangeListener(PropertyChangeListener l){
-        return;
     }
 
 }
