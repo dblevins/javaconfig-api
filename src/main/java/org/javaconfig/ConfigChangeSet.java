@@ -6,30 +6,50 @@ import java.util.*;
 /**
  * Event that contains a set of changes that were applied or could be applied.
  * This class is immutable and thread-safe. To create instances use
- * {@link org.javaconfig.ConfigChangeBuilder}.
+ * {@link ConfigChangeSetBuilder}.
  *
  * Created by Anatole on 22.10.2014.
  */
-public final class ConfigChange {
-
+public final class ConfigChangeSet {
+    /** The base property provider/configuration. */
     private PropertyProvider propertyProvider;
-    private long baseVersion;
+    /** The base version, usable for optimistic locking. */
+    private String baseVersion;
+    /** The recorded changes. */
     private Map<String,PropertyChangeEvent> changes = new HashMap<>();
 
-    ConfigChange(PropertyProvider propertyProvider, long baseVersion, Collection<PropertyChangeEvent> changes) {
+    /**
+     * Constructor used by {@link org.javaconfig.ConfigChangeSetBuilder}.
+     * @param propertyProvider The base property provider/configuration, not null.
+     * @param baseVersion The base version, usable for optimistic locking.
+     * @param changes The recorded changes, not null.
+     */
+    ConfigChangeSet(PropertyProvider propertyProvider, String baseVersion, Collection<PropertyChangeEvent> changes) {
         this.propertyProvider = Objects.requireNonNull(propertyProvider);
         this.baseVersion = baseVersion;
         changes.forEach((c) -> this.changes.put(c.getPropertyName(), c));
     }
 
+    /**
+     * Get the underlying property provider/configuration.
+     * @return the underlying property provider/configuration, never null.
+     */
     public PropertyProvider getPropertyProvider(){
         return this.propertyProvider;
     }
 
-    public long getBaseVersion(){
+    /**
+     * Get the base version, usable for optimistic locking.
+     * @return the base version.
+     */
+    public String getBaseVersion(){
         return baseVersion;
     }
 
+    /**
+     * Get the changes recorded.
+     * @return the recorded changes, never null.
+     */
     public Collection<PropertyChangeEvent> getEvents(){
         return Collections.unmodifiableCollection(this.changes.values());
     }
@@ -112,6 +132,14 @@ public final class ConfigChange {
     }
 
     /**
+     * CHecks if the current change set does not contain any changes.
+     * @return tru, if the change set is empty.
+     */
+    public boolean isEmpty(){
+        return this.changes.isEmpty();
+    }
+
+    /**
      * Applies all changes to the given map instance.
      * @param map the target map.never null.
      */
@@ -129,7 +157,7 @@ public final class ConfigChange {
 
     @Override
     public String toString() {
-        return "ConfigChange{" +
+        return "ConfigChangeSet{" +
                 "properties=" + propertyProvider +
                 ", baseVersion=" + baseVersion +
                 ", changes=" + changes +

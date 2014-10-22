@@ -19,6 +19,7 @@ import java.beans.PropertyChangeListener;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -402,11 +403,9 @@ public interface Configuration extends PropertyProvider{
      * Field that allows property providers to be versioned, meaning that each change on a provider requires this value
      * to be incremented by one. This can be easily used to implement versioning (and optimistic locking)
      * in distributed (remote) usage scenarios.
-     * @return the version number of the current instance.
+     * @return the version of the current instance, or 'N/A'.
      */
-    default long getVersion(){
-        return 0;
-    }
+    default String getVersion(){return "N/A";}
 
     /**
      * Add a ConfigChangeListener to this configuration instance.

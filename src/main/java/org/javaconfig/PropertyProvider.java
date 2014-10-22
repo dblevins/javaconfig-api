@@ -15,7 +15,6 @@
  */
 package org.javaconfig;
 
-import java.beans.PropertyChangeListener;
 import java.util.Map;
 import java.util.Set;
 
@@ -85,6 +84,16 @@ public interface PropertyProvider {
         return size()==0;
     }
 
+    /**
+     * Compares the given property provider for same
+     * contents, regardless of its current state or runtime implementation.
+     * @param provider the provider to be compared, not null.
+     * @return true, if both property sets equals.
+     */
+    default boolean hasSameProperties(PropertyProvider provider) {
+        if (this == provider) return true;
+        return ConfigChangeSetBuilder.compare(this, provider).isEmpty();
+    }
 
     /**
      * Access a property.
@@ -120,7 +129,7 @@ public interface PropertyProvider {
      * @throws ConfigException if an unrelated change was passed.
      * @throws UnsupportedOperationException when the configuration is not writable.
      */
-    default void apply(ConfigChange change){
+    default void apply(ConfigChangeSet change){
         throw new UnsupportedOperationException("Config/properties not mutable: "+ this);
     }
 

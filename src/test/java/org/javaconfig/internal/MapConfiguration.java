@@ -27,6 +27,7 @@ class MapConfiguration implements Configuration, PropertyProvider{
 
     private Map<String,String> data = new HashMap<>();
     private MetaInfo metaInfo;
+    private String version = UUID.randomUUID().toString();
 
     public MapConfiguration(MetaInfo metaInfo, Map<String,String> data){
         Objects.requireNonNull(metaInfo);
@@ -37,8 +38,8 @@ class MapConfiguration implements Configuration, PropertyProvider{
     }
 
     @Override
-    public long getVersion() {
-        return 0;
+    public String getVersion() {
+        return version;
     }
 
     @Override
