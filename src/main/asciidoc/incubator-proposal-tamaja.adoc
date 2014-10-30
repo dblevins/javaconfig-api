@@ -159,6 +159,7 @@ The core team will be a set of well known experts from the Java SE and EE area:
   and other projects
 
 It is expected that more people will join the incubator once it's running:
+
 * We are already in contact with several companies from Europe and US, that are heavily interested in contributing to this
   initiative.
 * _LJC (London Java Community), SouJava,JUG Chennai_ will do Hackdays and provide feedback.
@@ -222,6 +223,7 @@ and solutions such as
 * and more
 
 This explicitly also includes the possibility to use {name} as a configuration/property source for other frameworks, e.g.
+
 * Spring Property Source
 * System Properties
 * ...
