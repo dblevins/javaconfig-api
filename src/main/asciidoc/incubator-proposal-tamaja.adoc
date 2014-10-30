@@ -115,6 +115,10 @@ little sense. So it would be important we have a unified configuration model at 
 == Initial Goals
 There is an existing code base implementing a significant part of the features mentioned already at
 https://github.com/java-config , which will be moved into the incubator.
+After having etablished the project infrastructure, it would be important to
+release an initial version soon, so we can ensure adoption is pushed quickly forward
+and the project's member can also bring in ideas and enhancement proposals
+to the current running Java EE 8 JSRs.
 
 == Current Status
 There is an existing running code base implementing a significant part of the features mentioned already at
@@ -122,6 +126,9 @@ https://github.com/java-config and licensed under Apache v2.0, which will be con
 The separation between API and implementation hereby should stay enforced, since
 
 * it reflects the structure also required for later JSRs
+* it helps focusing discussions on the core API artifacts before dive
+  into implementation details.
+* it helps to ensure the core API is simple and overall comprehensive.
 * it enables to provide different implementations, especially also a Java ME compatible solution.
 
 == Meritocracy
@@ -139,20 +146,21 @@ raise very quickly so the library will evolve and be widely used as well.
 == Core Developers
 The core team will be a set of well known experts from the Java SE and EE area:
 
-* _Anatole Tresch_ (Lead) is currently employed at Credit Suisse. He leads JSR 354 (Money & Currency) and also
+* _Anatole Tresch_ (Lead) is employed at Credit Suisse. He leads JSR 354 (Money & Currency) and also
   was planned as cospec lead for Java EE configuration JSR together with Oracle. He also is a member of the
-  CDI 2.0 expert group and is actively driving the configuration topic during its talks at the conferences.
-* _Werner Keil_ aka "Java Godfather" is individual JCP EC member contributing to several JSR's in the SE and EE area.
-  He is spec lead of the Units and Measurements JSR. Werner is already a member of ASF.
+  CDI 2.0 expert group and is actively driving the configuration topic.
+* _Werner Keil_ aka "Java Godfather" is individual JCP EC member and Java champion contributing to several
+  JSR's in the SE and EE area. He is spec lead of the Units and Measurements JSR. Werner is already a member of ASF.
 * _Otávio Gonçalves de Santana_ is a member of _SouJava_ and OpenJDK committer. He contibutes regularly to several JSRs
   and recently was awarded in 2014 as most valuable JCP member.
 * _Joe Pullen_ is a known expert, especially for JPA and Batch and also former EC member of the corresponding JSRs.
-* _Ryan Mcguinness_ works as Senior Platform Architect for Walmart.
 * _Gerhard Petracek_ is Apache MyFaces und DeltaSpike PMC chair.
 * _Mark Struberg_ acts as PMC and Committer for Apache OpenWebBeans, BatchEE, MyFaces, Maven, OpenJPA, BVal, DeltaSpike
   and other projects
 
-Other people will join for sure once the incubator is running.
+It is expected that more people will join the incubator once it's running:
+* We are already in contact with several companies from Europe and US, that are heavily interested in contributing to this
+  initiative.
 * _LJC (London Java Community), SouJava,JUG Chennai_ will do Hackdays and provide feedback.
 * _JUG Berlin Brandenburg_ is one of the bigger JUGs in Germany and would probably also actively contribute to this project.
 * _JUG Zurich_ organizes regular (monthly) Hackergarten and will as well contribute to this project.
@@ -176,7 +184,7 @@ functionality provided.
 == Inexperience with Open Source
 Starting point will be the experimental repository at https://github.com/java-config. Additionally the talks given by
 Anatole (e.g. at Javaone 2014) and the blogs under http://javaeeconfig.blogspot.com help to give a good starting point
-on many of the concepts implemented/contributed. Nevertheless the idea is that the ideas are further evolved, basically
+on some of the concepts implemented/contributed. Nevertheless the idea is that the ideas are further evolved, basically
 similar to a JSR, to ensure all relevant views and aspects will be included.
 
 All of the core committers have already experience working on open source projects or JSRs. Many of them even already
@@ -196,7 +204,7 @@ ownership for the code, the project would continue without issue if no
 salaried developers contributed to the project. Anatole, as the main
 committer and driver of the initiative currently, is paid only partially
 and basically drives the initiative as part of his community engagement
-in general.
+in general already as of now.
 
 == Relationships with Other Apache Products
 The project's core API will be independent of any other projects, since in the future it may
@@ -204,16 +212,16 @@ be part of a specification initiative (JSR). Additionally implementations may al
 constraints (e.g. a ME implementation must consider memory consumption and a reduced set of
 APIs available in the platform).
 Extension modules, such as integrations with other technologies/projects, of course, will depend on further elements.
-Where useful, adapter module can be provided, so the solution can inter-operate with existing configuration frameworks
+Where useful, adapter modules can be provided, so the solution can inter-operate with existing configuration frameworks
 and solutions such as
-such as
+
 * Apache Commons Configuration
 * Spring Property Sources
 * JFig
 * Configuration Builder
 * and more
 
-This explicitly also includes the possibitliy to use {name} as a configuration/property source for other frameworks, e.g.
+This explicitly also includes the possibility to use {name} as a configuration/property source for other frameworks, e.g.
 * Spring Property Source
 * System Properties
 * ...
@@ -299,14 +307,12 @@ JIRA {name} ({smallname})
 None.
 
 == Initial Committers
-* Anatole Tresch (atsticks at gmail dot com)*
-* Ryan Mcguinness (RMcguinness at walmartlabs dot com)
-
-*Lead
+* Anatole Tresch (atsticks at gmail dot com, anatole dot tresch at credit dash suisse dot com)
+* Mark Struberg
+* Gerhard Petracek
 
 == Affiliations
 * Anatole Tresch - Credit Suisse
-* Ryan Mcguinness - Walmart
 * Joe Pullen - Espalier
 
 == Sponsors
