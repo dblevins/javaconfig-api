@@ -236,10 +236,10 @@ While we expect the Apache brand may help attract more contributors,
 our interests is in establishing a powerful and widely used standard
 for configuration. At a later stage, if successful, standardizing it
 within a JSR also may be an option.
-Especially we are interested in joining the ASF in order to increase
-our contacts and visibility. Furthermore, we have been enthusiastic users
-of Apache and feel honored at getting the opportunity to join.
-
+We believe this process starts with growing a strong and self-managed 
+community that can someday lead the charge in any future 
+standardization efforts. Furthermore, we have been enthusiastic users 
+of Apache and feel honored at getting the opportunity to join and learn.
 
 == Documentation
 References to further reading material.
